@@ -1,4 +1,3 @@
-/*
 function cookieValue(cookieName) {
     // console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
@@ -38,7 +37,7 @@ function queryParam(queryParamName) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userid !== null) {
-        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com");
+        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
     }
 
     return userId;
@@ -65,7 +64,6 @@ function main() {
 
     console.log("Auth: User ID = \"" + userId + "\"");
 }
-*/
 
 console.log("Auth: starting");
 main();
