@@ -16,7 +16,7 @@ function cookieValue(cookieName) {
 }
 
 
-
+/*
 function removeParamAndRedirect(paramToRemove, redirectTarget) {
     const url = new URL(window.location.href);
     url.searchParams.delete(paramToRemove);
@@ -27,6 +27,7 @@ function removeParamAndRedirect(paramToRemove, redirectTarget) {
     // Nuke the entry entirely by replacing it with the next page
     window.location.replace(redirectTarget);
 }
+*/
 
 
 
@@ -37,7 +38,7 @@ function queryParam(queryParamName) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userid !== null) {
-        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
+        // removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
     }
 
     return userId;
