@@ -34,10 +34,6 @@ function stripParamFromBrowserUrlAndState(paramToRemove) {
     }
 }
 
-// How to use it:
-stripParamFromURL('user_id');
-
-
 
 function queryParam(queryParamName) {
     console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
