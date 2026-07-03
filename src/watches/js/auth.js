@@ -35,7 +35,7 @@ function queryParam(queryParamName) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userId !== null) {
-        // removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
+        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
     }
 
     return userId;
@@ -56,8 +56,7 @@ function getUserId() {
 
 
 function main() {
-    // const userId = getUserId();
-    const userId = null;
+    const userId = getUserId();
 
     if (userId === null) {
         // Redirect to login
