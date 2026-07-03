@@ -1,5 +1,5 @@
 function cookieValue(cookieName) {
-    console.log("Retrieving value for cookie \"" + cookieName + "\"");
+    // console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
@@ -17,7 +17,7 @@ function cookieValue(cookieName) {
 
 
 function queryParam(queryParamName) {
-    console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
+    // console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
 
     // Extracts parameters directly from the current address bar
     const urlParams = new URLSearchParams(window.location.search);
@@ -47,7 +47,7 @@ function main() {
         return
     }
 
-    console.log("User is logged in with user ID \"" + userId + "\"");
+    console.log("Auth: User ID = \"" + userId + "\"");
 
 }
 
