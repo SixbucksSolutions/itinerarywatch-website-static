@@ -1,5 +1,10 @@
 console.log("Watches JS starting")
 
+const startTime = performance.now();
+
 const userInfo = apiUserInfo();
 
-console.log(`User email address: ${user_info.email_address}`);
+const endTime = performance.now();
+const duration = endTime - startTime;
+
+console.log(`User info for successfully-authenticated user ${user_info.email_address} retrieved from API in ${duration.toFixed(3)} ms`);

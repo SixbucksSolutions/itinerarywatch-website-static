@@ -27,7 +27,7 @@ async function apiUserInfo() {
         }
 
         const user_info = await response.json();
-        console.log('Successfully retrieved user info with email:', user_info.email_address);
+        // console.log('Successfully retrieved user info with email:', user_info.email_address);
         return user_info;
 
     } catch (error) {
