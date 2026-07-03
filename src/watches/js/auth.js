@@ -1,5 +1,5 @@
 function cookieValue(cookieName) {
-    // console.log("Retrieving value for cookie \"" + cookieName + "\"");
+    console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
@@ -16,6 +16,7 @@ function cookieValue(cookieName) {
 }
 
 
+/*
 function removeParamAndRedirect(paramToRemove, redirectTarget) {
     const url = new URL(window.location.href);
     url.searchParams.delete(paramToRemove);
@@ -26,16 +27,17 @@ function removeParamAndRedirect(paramToRemove, redirectTarget) {
     // Nuke the entry entirely by replacing it with the next page
     window.location.replace(redirectTarget);
 }
+*/
 
 
 function queryParam(queryParamName) {
-    // console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
+    console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
 
     // Extracts parameters directly from the current address bar
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userId !== null) {
-        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
+        // removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
     }
 
     return userId;
