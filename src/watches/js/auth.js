@@ -1,4 +1,6 @@
 function cookieValue(cookieName) {
+    console.log("Retrieving value for cookie \"" + cookieName + "\"");
+
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
     const searchString = cookieName + "=";
@@ -15,7 +17,7 @@ function cookieValue(cookieName) {
 
 
 function queryParam(queryParamName) {
-    console.log("Looking for query parameters \"" + queryParamName + "\"");
+    console.log("Retrieving value for query parameter \"" + queryParamName + "\"");
     return null;
 }
 
