@@ -59,9 +59,10 @@ function getUserId() {
 }
 */
 
-/*
 function main() {
-    const userId = getUserId();
+    // const userId = getUserId();
+    const userId = null;
+
     if (userId === null) }
         // Redirect to login
         console.log("TODO: redirect to login page, no user ID offered");
@@ -70,7 +71,6 @@ function main() {
 
     console.log("Auth: User ID = \"" + userId + "\"");
 }
-*/
 
 console.log("Auth: starting");
-// main();
+main();
