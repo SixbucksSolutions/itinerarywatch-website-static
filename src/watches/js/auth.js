@@ -16,16 +16,27 @@ function cookieValue(cookieName) {
 }
 
 
-function removeParamAndRedirect(paramToRemove, redirectTarget) {
+
+function stripParamFromBrowserUrlAndState(paramToRemove) {
     const url = new URL(window.location.href);
-    url.searchParams.delete(paramToRemove);
 
-    // Wipe the current history slot first
-    window.history.replaceState({}, document.title, url.pathname + url.search);
+    if (url.searchParams.has(paramToRemove)) {
+        // Remove the target parameter
+        url.searchParams.delete(paramToRemove);
 
-    // Nuke the entry entirely by replacing it with the next page
-    window.location.replace(redirectTarget);
+        // Build the exact clean path (retaining any other parameters)
+        const cleanUrl = url.pathname + url.search + url.hash;
+
+        // Silently update the address bar with ZERO reload or redirect
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        console.log(`URL updated. ${paramToRemove} stripped.`);
+    }
 }
+
+// How to use it:
+stripParamFromURL('user_id');
+
 
 
 function queryParam(queryParamName) {
@@ -35,7 +46,7 @@ function queryParam(queryParamName) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userId !== null) {
-        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
+        stripParamFromBrowserUrlAndState("user_id");
     }
 
     return userId;
