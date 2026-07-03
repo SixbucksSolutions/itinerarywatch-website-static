@@ -1,5 +1,5 @@
 function cookieValue(cookieName) {
-    console.log("Retrieving value for cookie \"" + cookieName + "\"");
+    // console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
@@ -30,13 +30,13 @@ function stripParamFromBrowserUrlAndState(paramToRemove) {
         // Silently update the address bar with ZERO reload or redirect
         window.history.replaceState({}, document.title, cleanUrl);
 
-        console.log(`URL updated. ${paramToRemove} stripped.`);
+        // console.log(`URL updated. ${paramToRemove} stripped.`);
     }
 }
 
 
 function queryParam(queryParamName) {
-    console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
+    // console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
 
     // Extracts parameters directly from the current address bar
     const urlParams = new URLSearchParams(window.location.search);
@@ -74,5 +74,5 @@ function main() {
     console.log("Auth: User ID = \"" + userId + "\"");
 }
 
-console.log("Auth: starting");
+// console.log("Auth: starting");
 main();
