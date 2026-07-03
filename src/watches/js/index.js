@@ -14,7 +14,8 @@ function cookieValue(cookieName) {
 }
 
 
-function queryParam() {
+function queryParam(queryParamName) {
+    console.log("Looking for query parameters \"" + queryParamName + "\"");
     return null;
 }
 
@@ -24,14 +25,7 @@ function getUserId() {
     let userId = cookieValue("__Secure-user-id")
 
     if (userId === null) {
-        console.log("UserID not found in cookie, checking query param")
         userId = queryParam("user_id")
-    }
-
-    // STILL didn't find user ID
-    if (userId === null) {
-        // Redirect to login 
-        console.log("Redirecting to login page; no user ID in cookies or query param")
     }
 
     return userId;
@@ -39,11 +33,15 @@ function getUserId() {
 
 
 function main() {
-    console.log("JS is loaded");
     const userId = getUserId();
-    if (userId !== null) {
-        console.log("User is logged in with user ID \"" + userId + "\"");
+    if (userId === null) {
+        // Redirect to login
+        console.log("TODO: redirect to login page, no user ID offered");
+        return
     }
+
+    console.log("User is logged in with user ID \"" + userId + "\"");
+
 }
 
 main();
