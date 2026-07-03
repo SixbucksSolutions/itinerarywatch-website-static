@@ -2,7 +2,7 @@ console.log("Watches JS starting")
 
 const startTime = performance.now();
 
-//const userInfo = await apiUserInfo();
+const userInfo = await apiUserInfo();
 
 const endTime = performance.now();
 const duration = endTime - startTime;
