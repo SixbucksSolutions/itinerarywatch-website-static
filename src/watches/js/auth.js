@@ -48,7 +48,6 @@ function main() {
     }
 
     console.log("Auth: User ID = \"" + userId + "\"");
-
 }
 
 main();
