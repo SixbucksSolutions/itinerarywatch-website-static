@@ -1,4 +1,3 @@
-/*
 function cookieValue(cookieName) {
     console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
@@ -15,10 +14,8 @@ function cookieValue(cookieName) {
 
     return null;
 }
-*/
 
 
-/*
 function removeParamAndRedirect(paramToRemove, redirectTarget) {
     const url = new URL(window.location.href);
     url.searchParams.delete(paramToRemove);
@@ -29,9 +26,8 @@ function removeParamAndRedirect(paramToRemove, redirectTarget) {
     // Nuke the entry entirely by replacing it with the next page
     window.location.replace(redirectTarget);
 }
-*/
 
-/*
+
 function queryParam(queryParamName) {
     console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
 
@@ -44,9 +40,9 @@ function queryParam(queryParamName) {
 
     return userId;
 }
-*/
 
-/*
+
+
 function getUserId() {
     // Check cookie
     let userId = cookieValue("__Secure-user-id")
@@ -57,13 +53,13 @@ function getUserId() {
 
     return userId;
 }
-*/
+
 
 function main() {
     // const userId = getUserId();
     const userId = null;
 
-    if (userId === null) }
+    if (userId === null) {
         // Redirect to login
         console.log("TODO: redirect to login page, no user ID offered");
         return
