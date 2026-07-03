@@ -1,5 +1,5 @@
 console.log("Watches JS starting")
 
-const userEmailAddress = apiUserEmailAddress();
+const userInfo = apiUserInfo();
 
-console.log(`User email address: ${userEmailAddress}`);
+console.log(`User email address: ${user_info.email_address}`);
