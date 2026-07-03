@@ -37,7 +37,7 @@ function queryParam(queryParamName) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userid !== null) {
-        removeParamAndRedirect('user_id', "https://www.itinerarywatch.com");
+        removeParamAndRedirect("user_id", "https://www.itinerarywatch.com");
     }
 
     return userId;
@@ -57,8 +57,6 @@ function getUserId() {
 
 
 function main() {
-    const userId = getUserId();
-    if (userId === null) {
         // Redirect to login
         console.log("TODO: redirect to login page, no user ID offered");
         return
@@ -67,4 +65,5 @@ function main() {
     console.log("Auth: User ID = \"" + userId + "\"");
 }
 
+console.log("Auth: starting");
 main();
