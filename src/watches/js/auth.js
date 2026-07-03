@@ -17,8 +17,13 @@ function cookieValue(cookieName) {
 
 
 function queryParam(queryParamName) {
-    console.log("Retrieving value for query parameter \"" + queryParamName + "\"");
-    return null;
+    console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
+
+    // Extracts parameters directly from the current address bar
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get(queryParamName);
+
+    return userId;
 }
 
 
