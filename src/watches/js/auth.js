@@ -16,12 +16,23 @@ function cookieValue(cookieName) {
 }
 
 
+function removeQueryParamFromBrowserUrl(paramToRemove) {
+    const url = new URL(window.location.href);
+    // Remove only the target parameter
+    url.searchParams.delete(paramToRemove);
+    window.history.replaceState({}, document.title, url.pathname + url.search);
+}
+
+
 function queryParam(queryParamName) {
     // console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
 
     // Extracts parameters directly from the current address bar
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
+    if (userid !== null) {
+        removeQueryParamFromBrowserUrl('user_id');
+    }
 
     return userId;
 }
