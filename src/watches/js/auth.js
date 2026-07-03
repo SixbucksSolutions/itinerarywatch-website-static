@@ -37,7 +37,7 @@ function queryParam(queryParamName) {
     // Extracts parameters directly from the current address bar
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
-    if (userid !== null) {
+    if (userId !== null) {
         // removeParamAndRedirect("user_id", "https://www.itinerarywatch.com/watches");
     }
 
