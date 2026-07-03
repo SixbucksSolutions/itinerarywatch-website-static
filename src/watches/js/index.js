@@ -19,7 +19,7 @@ function queryParam() {
 }
 
 
-function userId() {
+function getUserId() {
     // Check cookie
     let userId = cookieValue("__Secure-user-id")
 
@@ -40,7 +40,7 @@ function userId() {
 
 function main() {
     console.log("JS is loaded");
-    const userId = userId();
+    const userId = getUserId();
     if (userId !== null) {
         console.log("User is logged in with user ID \"" + userId + "\"");
     }
