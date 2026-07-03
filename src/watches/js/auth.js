@@ -1,3 +1,4 @@
+/*
 function cookieValue(cookieName) {
     // console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
@@ -64,6 +65,7 @@ function main() {
 
     console.log("Auth: User ID = \"" + userId + "\"");
 }
+*/
 
 console.log("Auth: starting");
 main();
