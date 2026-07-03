@@ -26,9 +26,9 @@ async function apiUserInfo() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const user_info = await response.json();
+        const userInfo = await response.json();
         // console.log('Successfully retrieved user info with email:', user_info.email_address);
-        return user_info;
+        return userInfo;
 
     } catch (error) {
         console.error('Failed to execute API call:', error);
