@@ -8,10 +8,10 @@
     const userInfo = await apiUserInfo(); 
     
     const endTime = performance.now(); 
-    const duration = endTime - startTime; 
+    const duration = Math.ceil(endTime - startTime); 
     
     if (userInfo) {
-        console.log(`User info for successfully-authenticated user ${userInfo.email_address} retrieved from API in ${duration.toFixed(3)} ms`);
+        console.log(`User info for successfully-authenticated user ${userInfo.email_address} retrieved from API in ${duration} ms`);
     } else {
         console.log("Auth validation returned null. Proceeding with fallback sequence.");
     }
