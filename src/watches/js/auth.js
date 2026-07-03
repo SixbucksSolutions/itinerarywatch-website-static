@@ -16,12 +16,18 @@ function cookieValue(cookieName) {
 }
 
 
-function removeQueryParamFromBrowserUrl(paramToRemove) {
+
+function removeParamAndRedirect(paramToRemove, redirectTarget) {
     const url = new URL(window.location.href);
-    // Remove only the target parameter
     url.searchParams.delete(paramToRemove);
+
+    // Wipe the current history slot first
     window.history.replaceState({}, document.title, url.pathname + url.search);
+
+    // Nuke the entry entirely by replacing it with the next page
+    window.location.replace(redirectTarget);
 }
+
 
 
 function queryParam(queryParamName) {
@@ -31,7 +37,7 @@ function queryParam(queryParamName) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get(queryParamName);
     if (userid !== null) {
-        removeQueryParamFromBrowserUrl('user_id');
+        removeParamAndRedirect('user_id', "https://www.itinerarywatch.com");
     }
 
     return userId;
