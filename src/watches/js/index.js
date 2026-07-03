@@ -6,7 +6,7 @@ function cookieValue(cookieName) {
     for (let i = 0; i < cookieArray.length; i++) {
         let cookie = cookieArray[i].trim();
         if (cookie.indexOf(searchString) === 0) {
-            return cookie.substring(SearchString.length, cookie.length);
+            return cookie.substring(searchString.length, cookie.length);
         }
     }
 
