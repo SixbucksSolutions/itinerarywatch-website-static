@@ -1,7 +1,5 @@
-// As we are calling an async function, we must wrap in an immediately-invoked async main
+// As we are using await to get the return value out of an async function, we must invoke it from an immediately-invoked async main
 (async function main() {
-    console.log("Watches JS starting"); 
-    
     const startTime = performance.now(); 
     
     // Now await is completely valid inside this local scope context
@@ -15,6 +13,4 @@
     } else {
         console.log("Auth validation returned null. Proceeding with fallback sequence.");
     }
-    
-    console.log("End of script");
 })();
