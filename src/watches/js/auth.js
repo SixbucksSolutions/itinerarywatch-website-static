@@ -1,3 +1,4 @@
+/*
 function cookieValue(cookieName) {
     console.log("Retrieving value for cookie \"" + cookieName + "\"");
 
@@ -14,6 +15,7 @@ function cookieValue(cookieName) {
 
     return null;
 }
+*/
 
 
 /*
@@ -29,7 +31,7 @@ function removeParamAndRedirect(paramToRemove, redirectTarget) {
 }
 */
 
-
+/*
 function queryParam(queryParamName) {
     console.log("Retrieving value for URL query parameter \"" + queryParamName + "\"");
 
@@ -42,8 +44,9 @@ function queryParam(queryParamName) {
 
     return userId;
 }
+*/
 
-
+/*
 function getUserId() {
     // Check cookie
     let userId = cookieValue("__Secure-user-id")
@@ -54,8 +57,9 @@ function getUserId() {
 
     return userId;
 }
+*/
 
-
+/*
 function main() {
     const userId = getUserId();
     if (userId === null) }
@@ -66,6 +70,7 @@ function main() {
 
     console.log("Auth: User ID = \"" + userId + "\"");
 }
+*/
 
 console.log("Auth: starting");
 main();
