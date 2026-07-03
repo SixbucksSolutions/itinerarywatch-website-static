@@ -1,22 +1,44 @@
+<!DOCTYPE html>
 <html>
-  <body>
-    <script src="https://accounts.google.com/gsi/client" async></script>
-    <div id="g_id_onload"
-        data-client_id="263659947191-jlh579rthbje67g5so84dhi8qijn4oto.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-login_uri="https://api.itinerarywatch.com/oauth/callback/google"
-        data-nonce=""
-        data-auto_prompt="false">
+<head>
+    <!-- Preload the script to kickstart the download early -->
+    <link rel="preload" href="https://accounts.google.com/gsi/client" as="script">
+  
+    <style>
+        /* Reserve space matching Google's "large" rectangular button to prevent layout shifts */
+        .google-btn-wrapper {
+            min-height: 40px; 
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Google configurations (invisible container, no height needed) -->
+    <div id="g_id_onload" 
+         data-client_id="263659947191-jlh579rthbje67g5so84dhi8qijn4oto.apps.googleusercontent.com" 
+         data-context="signin" 
+         data-ux_mode="popup" 
+         data-login_uri="https://api.itinerarywatch.com/oauth/callback/google"
+         data-nonce="" 
+         data-auto_prompt="false"> 
+    </div> 
+
+    <!-- Wrapped standard button with reserved dimensions -->
+    <div class="google-btn-wrapper">
+        <div class="g_id_signin" 
+             data-type="standard" 
+             data-shape="rectangular" 
+             data-theme="outline" 
+             data-text="signin_with" 
+             data-size="large" 
+             data-logo_alignment="left"> 
+        </div>
     </div>
 
-    <div class="g_id_signin"
-        data-type="standard"
-        data-shape="rectangular"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-        data-logo_alignment="left">
-    </div>
-  <body>
+    <!-- Load the script at the bottom of the document -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+</body>
 </html>
+
