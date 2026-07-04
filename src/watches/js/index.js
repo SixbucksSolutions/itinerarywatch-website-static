@@ -4,7 +4,7 @@ let userWatches = null;
 
 
 function displayFatalError(message) {
-    const mainApp = document.getElementById('div_user_watches');
+    const mainApp = document.getElementById('div_id_watched_itineraries');
     if (mainApp) {
         mainApp.style.display = 'none';
     }
@@ -31,12 +31,12 @@ function renderUserSpecificDataIfReady() {
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
     console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
 
-    const userWatchesDiv = document.getElementById('div_id_user_watches');
+    const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
 
     if (userWatchesDiv) {
         userWatchesDiv.style.display = 'block';
     } else {
-        displayFatalError("The hidden div element div_id_user_watches did not exist in the DOM.");
+        displayFatalError("The hidden div element did not exist in the DOM.");
         return;
     }
 }
