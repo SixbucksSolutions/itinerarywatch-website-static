@@ -78,7 +78,7 @@ async function getUserWatches() {
 
     console.log(`User's itinerary watches retrieved in ${duration} ms`);
 
-    JSON.stringify(userWatches, null, 4)
+    console.log(JSON.stringify(userWatches, null, 4));
 
     renderUserSpecificDataIfReady();
 }
