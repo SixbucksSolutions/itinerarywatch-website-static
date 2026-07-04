@@ -27,10 +27,18 @@ function renderUserSpecificDataIfReady() {
         return;
     }
 
-    hiddenDataRenderTime = performance.now();
-    hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
+    const hiddenDataRenderTime = performance.now();
+    const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
     console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
 
+    const userWatchesDiv = document.getElementById('div_id_user_watches');
+
+    if (userWatchesDiv) {
+        userWatchesDiv.style.display = 'block';
+    } else {
+        displayFatalError("The hidden div element div_id_user_watches did not exist in the DOM.");
+        return;
+    }
 }
 
 async function getUserInfo() {
