@@ -62,20 +62,20 @@ table thead th {
 /* --- Explicit Column Distribution Layer --- */
 
 table thead th:nth-child(1) {
-    width: 47%;
+    /* UPDATED: Increased from 47% to 50% to claim the extra space for search titles */
+    width: 50%;
 }
 
 table thead th:nth-child(2) {
-    width: 13%;
+    /* UPDATED: Decreased from 13% to 10% to lock in perfect horizontal header symmetry */
+    width: 10% ;
 }
 
 table thead th:nth-child(3) {
-    /* UPDATED: Decreased from 20% to 17% to fit the text string snugly */
     width: 17%;
 }
 
 table thead th:nth-child(4) {
-    /* UPDATED: Increased from 20% to 23% to create a matching balanced whitespace corridor */
     width: 23%;
 }
 
@@ -85,4 +85,3 @@ table thead th:nth-child(n+2),
 table tbody td:nth-child(n+2) {
     text-align: center;
 }
-
