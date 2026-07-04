@@ -1,59 +1,62 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    /* 13px base text layer sets the core metric for 1rem across the app */
+    font-size: 13px; 
     line-height: 1.5;
-    /* Optional: Adds space around the entire page edges */
-    padding: 20px; 
+    /* Clean relative padding clearance around your screen edges (26px) */
+    padding: 2rem; 
 }
 
 h1 {
-    font-size: 2rem;
-    margin-bottom: 16px;
+    font-size: 2rem; 
+    margin-bottom: 1.25rem; 
 }
 
 #div_id_user_watches {
     display: none;
-    /* Level 1 Indentation: Shifts user content right from the edge */
-    margin-left: 20px; 
+    /* Level 1 Indentation: Shifts content right by roughly 1.5 characters */
+    margin-left: 1.5rem; 
 }
 
 p {
-    font-size: 1rem;
-    margin-bottom: 6px;
+    font-size: 1rem; 
+    margin-bottom: 0.46rem; 
 }
 
 #div_id_watched_itineraries {
-    /* Level 2 Indentation: Shifts table content further right inside the parent div */
-    margin-left: 24px; 
+    /* Level 2 Indentation: Shifts table content another step further inward */
+    margin-left: 1.5rem; 
 }
 
 h2 {
-    font-size: 1.15rem;
-    margin-top: 20px;
+    font-size: 1.15rem; 
+    margin-top: 1.5rem; 
 }
 
 table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 3px;
+    /* 3px cell gap configured using explicit relative math */
+    border-spacing: 0.23rem; 
     background-color: transparent;
-    margin-top: 14px;
+    margin-top: 1rem; 
 }
 
 table td {
     background-color: #ffffff;
-    padding: 8px 10px;
+    /* Proportional cell spacing padding around your dynamic content strings */
+    padding: 0.6rem 0.75rem; 
     text-align: left;
-    font-size: 0.95rem;
+    font-size: 0.95rem; 
 }
 
 table thead th {
     background-color: #2d3748;
     color: #ffffff;
     font-weight: 700;
-    padding: 8px 10px;
+    padding: 0.6rem 0.75rem; 
     text-align: left;
-    font-size: 0.8rem;
+    font-size: 0.8rem; 
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
