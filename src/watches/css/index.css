@@ -29,30 +29,14 @@ h2 {
 }
 
 table {
-    /* Level 1 Indentation: Compensates for left margin to fit page edge layout */
-    width: calc(100% - 1.5rem);
-    margin-top: 1rem;
-    margin-left: 1.5rem;
+    /* 1. Instruct the native table to collapse tightly around its data strings */
+    width: max-content;
+    /* 2. Prevent a massive title from overflowing your physical 4K screen boundary */
+    max-width: calc(100% - 1.5rem);
     border-collapse: collapse;
     background-color: transparent;
-    
-    /* 1. Transform table element rows into high-performance CSS grid boxes */
-    display: inline-grid;
-    
-    /* 2. Configure column tracking tracks: Col 1 shrinks to data while Cols 2-4 use locked sizes */
-    grid-template-columns: 
-        minmax(max-content, 50vw) 
-        90px 
-        160px 
-        210px;
-}
-
-/* 3. Force table row selectors to act as unified, multi-column grid tracks */
-table thead,
-table tbody,
-table tr {
-    display: grid;
-    grid-template-columns: inherit;
+    margin-top: 1rem;
+    margin-left: 1.5rem;
 }
 
 table td {
@@ -77,6 +61,25 @@ table thead th {
     letter-spacing: 0.5px;
 }
 
+/* --- Explicit Fixed Column Distribution Layer --- */
+
+/* We leave Column 1 completely unassigned! It will naturally scale to fit your longest string */
+
+table thead th:nth-child(2) {
+    /* Perfectly sizes your compact cruise line text block */
+    width: 100px;
+}
+
+table thead th:nth-child(3) {
+    /* Locked footprint for your 16-character 'YYYY-MM-DD HH:MM UTC' timestamp */
+    width: 160px;
+}
+
+table thead th:nth-child(4) {
+    /* Balanced layout size matching your preferred visual column 4 whitespace */
+    width: 220px;
+}
+
 /* --- Text Alignment & Custom Margins Layer --- */
 
 table thead th:nth-child(n+2),
@@ -98,3 +101,4 @@ table tbody tr {
 table tbody tr:nth-child(even) {
     background-color: #e2e8f0;
 }
+
