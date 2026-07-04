@@ -2,27 +2,24 @@
     display: none;
 }
 
-
-/* Base table setup to collapse lines and ensure a modern grid layout */
 table {
     width: 100%;
-    border-collapse: collapse;
-    border: 1px solid #000000;
+    border-collapse: separate;
+    border-spacing: 1px;         /* Creates the 1-pixel gap layout */
+    background-color: transparent; /* Lets browser default background bleed through */
     margin-top: 16px;
 }
 
-/* Apply a clean 1-pixel border and padding to all standard data and header cells */
-table th,
 table td {
-    border: 1px solid #000000;
+    background-color: #ffffff;
     padding: 10px 12px;
     text-align: left;
 }
 
-/* Style header cells with a dark gray backdrop and bold white text */
 table thead th {
-    background-color: #2d3748; /* Very dark slate gray for high contrast */
-    color: #ffffff;            /* Pure white text */
-    font-weight: bold;         /* Explicit bold styling */
+    background-color: #2d3748;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 12px;
+    text-align: left;
 }
-
