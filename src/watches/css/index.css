@@ -31,7 +31,6 @@ h2 {
 table {
     width: max-content;
     max-width: calc(100% - 1.5rem);
-    /* FIXED: Ensures standard browser text cell engines paint zebra rows accurately */
     table-layout: auto;
     border-collapse: collapse;
     background-color: transparent;
@@ -59,6 +58,10 @@ table thead th {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    /* Forces long title headers to stay on a single horizontal row string */
+    white-space: nowrap;
+    /* Aligns all column text along the exact same bottom baseline */
+    vertical-align: bottom;
 }
 
 /* --- Explicit Fixed Column Distribution Layer --- */
@@ -85,7 +88,6 @@ table tbody td:nth-child(n+2) {
 table thead th:nth-child(1),
 table tbody td:nth-child(1) {
     padding-left: 20px;
-    /* FIXED: Appends a 40px visual padding buffer corridor pushing Column 2 rightward */
     padding-right: 40px;
 }
 
@@ -95,7 +97,6 @@ table tbody tr {
     background-color: #ffffff;
 }
 
-/* FIXED: Re-enforced cell targeting to force Chrome to draw the background striping */
 table tbody tr:nth-child(even) td {
     background-color: #e2e8f0;
 }
