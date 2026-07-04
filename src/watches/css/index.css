@@ -62,17 +62,23 @@ table thead th {
 /* --- Explicit Column Distribution Layer --- */
 
 table thead th:nth-child(1) {
-    /* UPDATED: Restored to 40% to allocate maximum room for long search names */
     width: 40%;
 }
 
 table thead th:nth-child(2) {
-    /* Restored to 20% to balance out the standard grid distributions comfortably */
     width: 20%;
 }
 
 table thead th:nth-child(3),
 table thead th:nth-child(4) {
-    /* UPDATED: Safely returned to 20% since the tighter 16-character string fits with room to spare */
     width: 20%;
 }
+
+/* --- Text Alignment Layer --- */
+
+/* Center align header cells and data cells for columns 2, 3, and 4 */
+table thead th:nth-child(n+2),
+table tbody td:nth-child(n+2) {
+    text-align: center;
+}
+
