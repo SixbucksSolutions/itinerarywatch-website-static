@@ -34,12 +34,13 @@ h2 {
 }
 
 table {
-    width: 100%;
+    width: calc(100% - 1.5rem);
     border-collapse: separate;
-    /* 3px cell gap configured using explicit relative math */
-    border-spacing: 0.23rem; 
+    border-spacing: 0.23rem;
     background-color: transparent;
-    margin-top: 1rem; 
+    margin-top: 1rem;
+    /* Indents the table block to line up underneath the h2 text string */
+    margin-left: 1.5rem; 
 }
 
 table td {
