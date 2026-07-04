@@ -1,25 +1,24 @@
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    /* Dropping the global base text size down from the browser default of 16px */
-    font-size: 14px; 
+    /* Reduced global base text size down one more notch for high data-density */
+    font-size: 13px; 
     line-height: 1.5;
 }
 
 h1 {
-    /* Keeping your h1 header prominent and untouched by the global reduction */
+    /* Main title remains untouched, isolated at its prominent size */
     font-size: 2rem; 
 }
 
 h2 {
-    /* Scaling the section headers down proportionally */
-    font-size: 1.25rem; 
-    margin-top: 24px;
+    /* Stepped down section headers slightly to fit the tighter layout */
+    font-size: 1.15rem; 
+    margin-top: 20px;
 }
 
 p {
-    /* Ensuring paragraphs match the tight base text standard */
     font-size: 1rem; 
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 #div_id_user_watches {
@@ -31,26 +30,24 @@ table {
     border-collapse: separate;
     border-spacing: 3px;
     background-color: transparent;
-    margin-top: 16px;
+    margin-top: 14px;
 }
 
 table td {
     background-color: #ffffff;
-    padding: 10px 12px;
+    padding: 8px 10px; /* Tightened padding for a cleaner compact grid row look */
     text-align: left;
-    /* Clean, highly scannable size for database rows */
-    font-size: 0.9rem; 
+    font-size: 0.95rem; 
 }
 
 table thead th {
     background-color: #2d3748;
     color: #ffffff;
     font-weight: 700;
-    padding: 10px 12px;
+    padding: 8px 10px; /* Matched row padding strings to preserve column alignments */
     text-align: left;
-    /* Making headers slightly smaller than standard text for a modern data grid look */
-    font-size: 0.85rem; 
+    /* Standard compact micro-header style sizing rules */
+    font-size: 0.8rem; 
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
