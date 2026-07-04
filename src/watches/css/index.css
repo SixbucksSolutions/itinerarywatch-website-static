@@ -5,7 +5,7 @@
 table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 1px;         /* Creates the 1-pixel gap layout */
+    border-spacing: 2px;         /* Creates the 1-pixel gap layout */
     background-color: transparent; /* Lets browser default background bleed through */
     margin-top: 16px;
 }
