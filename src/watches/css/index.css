@@ -1,51 +1,23 @@
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    line-height: 1.5;
-    padding: 0.5rem 2rem 2rem 2rem;
-}
-
-h1 {
-    font-size: 2rem;
-    margin-top: 0;
-    margin-bottom: 1.25rem;
-}
-
-#div_id_watched_itineraries {
-    display: none;
-    margin-left: 1.5rem;
-}
-
-p {
-    font-size: 1.05rem;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-}
-
-h2 {
-    font-size: 1.15rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
 table {
     width: calc(100% - 1.5rem);
     table-layout: fixed;
-    border-collapse: separate;
-    border-spacing: 0.23rem;
+    /* 1. Fuse the rows into a singular continuous ribbon block matrix */
+    border-collapse: collapse; 
     background-color: transparent;
     margin-top: 1rem;
     margin-left: 1.5rem;
 }
 
 table td {
-    background-color: #ffffff;
+    /* 2. Remove backgrounds from individual cells so they sit on the row tier */
     padding: 8px 10px;
     text-align: left;
     font-size: 0.95rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    /* 3. Add a thin baseline rule separating rows cleanly */
+    border-bottom: 1px solid #e2e8f0; 
 }
 
 table thead th {
@@ -91,7 +63,12 @@ table tbody td:nth-child(1) {
 
 /* --- Zebra Striping Readability Layer --- */
 
-/* UPDATED: Injected a deeper, crisp mid-light gray for strong track contrast */
-table tbody tr:nth-child(even) td {
+/* Apply background fills directly to the table row container path instead of individual cells */
+table tbody tr {
+    background-color: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
     background-color: #e2e8f0;
 }
+
