@@ -12,15 +12,21 @@ h1 {
 }
 
 #div_id_watched_itineraries {
-    /* Since this is now hidden on load, we manage display state here */
     display: none;
-    /* Level 1 Indentation: Pushes the main dashboard content right from the h1 boundary */
     margin-left: 1.5rem;
+}
+
+p {
+    /* Adjusted sizing to make the user email line stand out cleanly */
+    font-size: 1.05rem;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
 }
 
 h2 {
     font-size: 1.15rem;
     margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 table {
@@ -29,7 +35,6 @@ table {
     border-spacing: 0.23rem;
     background-color: transparent;
     margin-top: 1rem;
-    /* Level 2 Indentation: Keeps the table looking nested underneath the h2 string */
     margin-left: 1.5rem;
 }
 
