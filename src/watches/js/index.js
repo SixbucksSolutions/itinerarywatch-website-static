@@ -6,7 +6,7 @@ async function getUserInfo() {
     const endTime = performance.now();
     const duration = Math.ceil(endTime - startTime);
 
-    console.log(`Userinfo retrieved for ${userInfo.email_address} in ${endTime - startTime} ms`);
+    console.log(`Userinfo retrieved for ${userInfo.email_address} in ${duration} ms`);
 }
 
 
@@ -18,7 +18,7 @@ async function getUserWatches() {
     const endTime = performance.now();
     const duration = Math.ceil(endTime - startTime);
 
-    console.log(`User's itinerary watches retrieved in ${endTime - startTime} ms`);
+    console.log(`User's itinerary watches retrieved in ${duration} ms`);
 }
 
 
