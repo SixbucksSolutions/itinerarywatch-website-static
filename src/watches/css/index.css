@@ -17,7 +17,6 @@ h1 {
 }
 
 p {
-    /* Adjusted sizing to make the user email line stand out cleanly */
     font-size: 1.05rem;
     margin-top: 0;
     margin-bottom: 0.75rem;
@@ -31,6 +30,8 @@ h2 {
 
 table {
     width: calc(100% - 1.5rem);
+    /* Enforces explicit, mathematical column allocations regardless of text strings */
+    table-layout: fixed; 
     border-collapse: separate;
     border-spacing: 0.23rem;
     background-color: transparent;
@@ -43,6 +44,10 @@ table td {
     padding: 8px 10px;
     text-align: left;
     font-size: 0.95rem;
+    /* Safely handles unexpected user text overflows by adding clean ellipses (...) */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 table thead th {
@@ -54,5 +59,23 @@ table thead th {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* --- Explicit Column Distribution Layer --- */
+
+table thead th:nth-child(1) {
+    /* Gives the unlimited user-entered string column the lion's share of space */
+    width: 40%; 
+}
+
+table thead th:nth-child(2) {
+    /* Perfectly matches the width profile needed for 'Celebrity' or 'Norwegian' */
+    width: 20%; 
+}
+
+table thead th:nth-child(3),
+table thead th:nth-child(4) {
+    /* Distributes the remaining room evenly for uniform 10-character 'YYYY-MM-DD' text fields */
+    width: 20%; 
 }
 
