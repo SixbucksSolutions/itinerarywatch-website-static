@@ -58,9 +58,7 @@ table thead th {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    /* Forces long title headers to stay on a single horizontal row string */
     white-space: nowrap;
-    /* Aligns all column text along the exact same bottom baseline */
     vertical-align: bottom;
 }
 
@@ -89,6 +87,11 @@ table thead th:nth-child(1),
 table tbody td:nth-child(1) {
     padding-left: 20px;
     padding-right: 40px;
+}
+
+/* Pushes the fourth column header label text slightly rightward for a balanced breathing room corridor */
+table thead th:nth-child(4) {
+    padding-left: 20px;
 }
 
 /* --- Zebra Striping Readability Layer --- */
