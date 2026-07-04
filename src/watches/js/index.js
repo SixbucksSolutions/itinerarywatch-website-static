@@ -2,6 +2,24 @@ let userInfo = null;
 let userWatches = null;
 
 
+
+function displayFatalError(message) {
+    const mainApp = document.getElementById('div_user_watches');
+    if (mainApp) {
+        mainApp.style.display = 'none';
+    }
+
+    let errorBanner = document.getElementById('app_fatal_error');
+    if (!errorBanner) {
+        errorBanner = document.createElement('div');
+        errorBanner.id = 'app_fatal_error';
+        errorBanner.style.cssText = 'background: #fee2e2; color: #991b1b; padding: 20px; border-radius: 8px; text-align: center; margin: 20px;';
+        document.body.appendChild(errorBanner);
+    }
+
+    errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
+}
+
 function renderUserSpecificDataIfReady() {
 
     // Bail out if we're not, in fact, ready to render
@@ -9,7 +27,7 @@ function renderUserSpecificDataIfReady() {
         return;
     }
 
-    console.log("As all required data has been successfully data, now populating hidden part of pag ewit huser-specific data");
+    console.log("All required data has been successfully retreived from API, now revealing hidden part of page");
 
 }
 
@@ -23,7 +41,16 @@ async function getUserInfo() {
 
     console.log(`Userinfo retrieved for ${userInfo.email_address} in ${duration} ms`);
 
-    renderUserSpecificDataIfReady();
+    // Update fields of DOM in hidden portion of page now that we have their contents
+    const emailSpans = document.querySelectorAll('.span_class_user_email');
+    if (emailSpans.length > 0) {
+        emailSpans.forEach(span => {span.textContent = userInfo.email_address;});
+    } else {
+        displayFatalError("Couldn't find any spans to display email address");
+        return;
+    }
+
+    renderUserSpecificDataIfReady
 }
 
 
