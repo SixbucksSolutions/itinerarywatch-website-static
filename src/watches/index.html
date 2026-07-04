@@ -7,9 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ItineraryWatch - Watches</title>
 
-        <!-- Defer scripts are downloaded in parallel, executed *in listed order* *after* HTML document is fully parsed -->
-        <script src="js/api_user.js" defer></script>
-        <script src="js/index.js" defer></script>
+        <!-- Defer scripts are downloaded in parallel, but executed *in listed order* *after* HTML document is fully parsed -->
+        <script src="js/api_user.js"        defer></script>
+        <script src="js/api_watches.js"     defer></script>
+
+        <!-- Index script gets listed last in deferred scripts because it needs all the functions it calls to have been fully parsed -->
+        <script src="js/index.js"           defer></script>
     </head>
 
     <body>
