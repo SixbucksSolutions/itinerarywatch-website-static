@@ -43,7 +43,9 @@ async function getUserWatches() {
 
 
 function main() {
-    // These two calls are async, meaning they run concurrently
+    // These two fcuntions are both async, meaning they run *in parallel*; they are independent and
+    //      running them in serial would impact UX in an unhappy way. There's still only one thread
+    //      of execution in JS, so there's no chance of race conditions
     getUserInfo();
     getUserWatches();
 }
