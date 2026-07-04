@@ -30,8 +30,7 @@ h2 {
 
 table {
     width: calc(100% - 1.5rem);
-    /* Enforces explicit, mathematical column allocations regardless of text strings */
-    table-layout: fixed; 
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0.23rem;
     background-color: transparent;
@@ -44,7 +43,6 @@ table td {
     padding: 8px 10px;
     text-align: left;
     font-size: 0.95rem;
-    /* Safely handles unexpected user text overflows by adding clean ellipses (...) */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -64,18 +62,17 @@ table thead th {
 /* --- Explicit Column Distribution Layer --- */
 
 table thead th:nth-child(1) {
-    /* Gives the unlimited user-entered string column the lion's share of space */
-    width: 40%; 
+    /* UPDATED: Restored to 40% to allocate maximum room for long search names */
+    width: 40%;
 }
 
 table thead th:nth-child(2) {
-    /* Perfectly matches the width profile needed for 'Celebrity' or 'Norwegian' */
-    width: 20%; 
+    /* Restored to 20% to balance out the standard grid distributions comfortably */
+    width: 20%;
 }
 
 table thead th:nth-child(3),
 table thead th:nth-child(4) {
-    /* Distributes the remaining room evenly for uniform 10-character 'YYYY-MM-DD' text fields */
-    width: 20%; 
+    /* UPDATED: Safely returned to 20% since the tighter 16-character string fits with room to spare */
+    width: 20%;
 }
-
