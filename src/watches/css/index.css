@@ -1,3 +1,7 @@
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
 #div_id_user_watches {
     display: none;
 }
@@ -5,8 +9,8 @@
 table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 3px;         /* Creates the 1-pixel gap layout */
-    background-color: transparent; /* Lets browser default background bleed through */
+    border-spacing: 3px;
+    background-color: transparent;
     margin-top: 16px;
 }
 
@@ -19,7 +23,8 @@ table td {
 table thead th {
     background-color: #2d3748;
     color: #ffffff;
-    font-weight: bold;
+    font-weight: 700;
     padding: 10px 12px;
     text-align: left;
 }
+
