@@ -49,7 +49,6 @@ table td {
 }
 
 table thead th {
-    /* UPDATED: Stepped down to a crisp, darker slate charcoal gray */
     background-color: #334155;
     color: #ffffff;
     font-weight: 700;
@@ -92,7 +91,7 @@ table tbody td:nth-child(1) {
 
 /* --- Zebra Striping Readability Layer --- */
 
-/* UPDATED: Overrides even-numbered data row cells with a clean, soft light gray background */
+/* UPDATED: Injected a deeper, crisp mid-light gray for strong track contrast */
 table tbody tr:nth-child(even) td {
-    background-color: #f1f5f9;
+    background-color: #e2e8f0;
 }
