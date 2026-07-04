@@ -56,7 +56,7 @@ async function getUserInfo() {
         return;
     }
 
-    renderUserSpecificDataIfReady
+    renderUserSpecificDataIfReady();
 }
 
 
