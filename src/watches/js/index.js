@@ -1,6 +1,6 @@
+let pageStartTime = null;
 let userInfo = null;
 let userWatches = null;
-
 
 
 function displayFatalError(message) {
@@ -27,7 +27,9 @@ function renderUserSpecificDataIfReady() {
         return;
     }
 
-    console.log("All required data has been successfully retreived from API, now revealing hidden part of page");
+    hiddenDataRenderTime = performance.now();
+    hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
+    console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
 
 }
 
@@ -44,7 +46,11 @@ async function getUserInfo() {
     // Update fields of DOM in hidden portion of page now that we have their contents
     const emailSpans = document.querySelectorAll('.span_class_user_email');
     if (emailSpans.length > 0) {
-        emailSpans.forEach(span => {span.textContent = userInfo.email_address;});
+        emailSpans.forEach(
+            span => {
+                span.textContent = userInfo.email_address;
+            }
+        );
     } else {
         displayFatalError("Couldn't find any spans to display email address");
         return;
@@ -70,7 +76,9 @@ async function getUserWatches() {
 
 
 function main() {
-    // These two fcuntions are both async, meaning they run *in parallel*; they are independent and
+    pageStartTime = performance.now();
+
+    // These two functions are both async, meaning they run *in parallel*; they are independent and
     //      running them in serial would impact UX in an unhappy way. There's still only one thread
     //      of execution in JS, so there's no chance of race conditions
     getUserInfo();
