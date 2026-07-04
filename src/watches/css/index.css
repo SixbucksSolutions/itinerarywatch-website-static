@@ -29,24 +29,40 @@ h2 {
 }
 
 table {
+    /* Level 1 Indentation: Compensates for left margin to fit page edge layout */
     width: calc(100% - 1.5rem);
-    table-layout: fixed;
-    /* Fuses the rows into a singular continuous block ribbon matrix */
-    border-collapse: collapse;
-    background-color: transparent;
     margin-top: 1rem;
     margin-left: 1.5rem;
+    border-collapse: collapse;
+    background-color: transparent;
+    
+    /* 1. Transform table element rows into high-performance CSS grid boxes */
+    display: inline-grid;
+    
+    /* 2. Configure column tracking tracks: Col 1 shrinks to data while Cols 2-4 use locked sizes */
+    grid-template-columns: 
+        minmax(max-content, 50vw) 
+        90px 
+        160px 
+        210px;
+}
+
+/* 3. Force table row selectors to act as unified, multi-column grid tracks */
+table thead,
+table tbody,
+table tr {
+    display: grid;
+    grid-template-columns: inherit;
 }
 
 table td {
-    /* Removed backgrounds from individual cells so they sit on the row tier */
+    background-color: #ffffff;
     padding: 8px 10px;
     text-align: left;
     font-size: 0.95rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    /* Thin baseline rule separating rows cleanly */
     border-bottom: 1px solid #e2e8f0;
 }
 
@@ -59,24 +75,6 @@ table thead th {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-}
-
-/* --- Explicit Column Distribution Layer --- */
-
-table thead th:nth-child(1) {
-    width: 50%;
-}
-
-table thead th:nth-child(2) {
-    width: 10%;
-}
-
-table thead th:nth-child(3) {
-    width: 17%;
-}
-
-table thead th:nth-child(4) {
-    width: 23%;
 }
 
 /* --- Text Alignment & Custom Margins Layer --- */
@@ -93,12 +91,10 @@ table tbody td:nth-child(1) {
 
 /* --- Zebra Striping Readability Layer --- */
 
-/* Standard rows get a solid, clean white background */
 table tbody tr {
     background-color: #ffffff;
 }
 
-/* Even-numbered rows get the deeper crisp mid-light gray background track */
 table tbody tr:nth-child(even) {
     background-color: #e2e8f0;
 }
