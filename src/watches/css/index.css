@@ -71,7 +71,7 @@ table thead th:nth-child(2) {
 }
 
 table thead th:nth-child(3) {
-    width: 160px;
+    width: 50px;
 }
 
 table thead th:nth-child(4) {
@@ -83,7 +83,7 @@ table thead th:nth-child(5) {
 }
 
 table thead th:nth-child(6) {
-    width: 80px;
+    width: 160px;
 }
 
 /* --- Text Alignment & Custom Margins Layer --- */
@@ -103,10 +103,10 @@ table thead th:nth-child(2), table tbody td:nth-child(2) {
     padding-right: 40px;
 }
 
-/* Match the perfect horizontal whitespace trailing edge for Column 3 */
+/* Compact padding boundary distribution layer optimized for short integers */
 table thead th:nth-child(3), table tbody td:nth-child(3) {
     padding-left: 20px;
-    padding-right: 40px;
+    padding-right: 20px;
 }
 
 /* Match the perfect horizontal whitespace trailing edge for Column 4 */
@@ -162,4 +162,3 @@ table tbody tr:nth-child(even) td {
     position: absolute;
     right: 8px;
 }
-
