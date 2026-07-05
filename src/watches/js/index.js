@@ -119,6 +119,9 @@ async function getUserWatches() {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watches API data retrieved in ${duration} ms`);
 
+
+        console.log(JSON.stringify(userWatches, null, 4));
+
         const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
         if (!tbody) {
             displayFatalError("Could not find table structure in the DOM.");
