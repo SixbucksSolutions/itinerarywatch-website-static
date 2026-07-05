@@ -9,13 +9,17 @@ function displayFatalError(message) {
     if (mainApp) {
         mainApp.style.display = 'none';
     }
-
-    const errorBanner = document.getElementById('div_id_error_banner');
-    if (errorBanner) {
-        errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
-        errorBanner.style.display = 'block';
+    
+    // Check if the banner was already created or exists in the HTML
+    let errorBanner = document.getElementById('div_id_error_banner');
+    
+    if (!errorBanner) {
+        // Safely declare and create it if it's missing on early page loads
+        errorBanner = document.createElement('div');
+        errorBanner.id = 'div_id_error_banner';
+        document.body.appendChild(errorBanner);
     } else {
-        console.log(`Tried to display error banner but no beuno, error message: ${message}`);
+        console.log("Can't display an error when banner is already up!");
     }
 }
 
