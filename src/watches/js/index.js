@@ -132,7 +132,7 @@ async function getUserWatches() {
             const tr = document.createElement('tr');
             
             // Fixed using a proper template literal and the correct www frontend domain
-            const targetUrl = `https://itinerarywatch.com{watchId}`;
+            const targetUrl = `https://www.itinerarywatch.com/watches/${watchId}`;
 
             // Handle modern row-level click navigation while honoring text selection & meta keys
             tr.addEventListener('click', (event) => {
