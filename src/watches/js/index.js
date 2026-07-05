@@ -258,15 +258,16 @@ async function getUserWatches() {
 function main() {
     console.log("Entering main");
 
+    pageStartTime = performance.now();
+
+    // Always need user info for email
+    getUserInfo();
+
     initializeTableSorter();
     // Intercept browser back/forward buttons natively
     window.addEventListener('popstate', (event) => {
+        console.log("Inside popstate event listener");
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
-
-        pageStartTime = performance.now();
-
-        // Always need user info for email
-        getUserInfo();
 
         if (segments.length === 2 && segments[0] === 'watches') {
             getUserWatchDetails(segments[1]);
@@ -275,6 +276,8 @@ function main() {
             getUserWatches();
         }
     });
+
+    console.log("Exiting main");
 }
 
 main();
