@@ -77,6 +77,9 @@ async function getUserWatches() {
         const startTime = performance.now();
         userWatches = await apiUserWatches();
         const endTime = performance.now();
+
+        console.log(JSON.stringify(userWatches, null, 2));
+
         const duration = Math.ceil(endTime - startTime);
         console.log(`Watches endpoint data returned in ${duration} ms`);
 
