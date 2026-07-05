@@ -43,7 +43,7 @@ function renderUserSpecificDataIfReady() {
 }
 
 async function getUserInfo() {
-    const apiEndpoint = 'https://itinerarywatch.com';
+    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/user';
     const startTime = performance.now();
     try {
         const response = await fetch(
@@ -91,7 +91,7 @@ async function getUserInfo() {
 }
 
 async function getUserWatches() {
-    const apiEndpoint = 'https://itinerarywatch.com';
+    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
     const startTime = performance.now();
     try {
         const response = await fetch(
