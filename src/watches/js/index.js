@@ -43,9 +43,8 @@ function renderUserSpecificDataIfReady() {
 }
 
 async function getUserInfo() {
-    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
+    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/user';
     const startTime = performance.now();
-    
     try {
         const response = await fetch(
             apiEndpoint,
@@ -86,7 +85,6 @@ async function getUserInfo() {
         }
 
         renderUserSpecificDataIfReady();
-
     } catch (error) {
         displayFatalError(`Failed to retrieve profile: ${error.message}`);
     }
@@ -95,7 +93,6 @@ async function getUserInfo() {
 async function getUserWatches() {
     const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
     const startTime = performance.now();
-
     try {
         const response = await fetch(
             apiEndpoint,
@@ -120,7 +117,6 @@ async function getUserWatches() {
         userWatches = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-
         console.log(`User watches API data retrieved in ${duration} ms`);
 
         const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
@@ -128,13 +124,15 @@ async function getUserWatches() {
             displayFatalError("Could not find table structure in the DOM.");
             return;
         }
-
         tbody.textContent = '';
+
         const fragment = document.createDocumentFragment();
 
         Object.entries(userWatches).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
-            const targetUrl = `https://itinerarywatch.com{watchId}`;
+            
+            // Fixed navigation routing using template literals and the correct url_id property
+            const targetUrl = `https://itinerarywatch.com{watchData.url_id}`;
 
             // Handle row click navigation while honoring selection modifications (Cmd/Ctrl clicks)
             tr.addEventListener('click', (event) => {
@@ -160,10 +158,8 @@ async function getUserWatches() {
             // Extract values and isolate date (YYYY-MM-DD) vs time (HH:MM) segments safely
             const updatedDate = watchData.watch_last_updated_timestamp.substring(0, 10);
             const updatedTime = watchData.watch_last_updated_timestamp.substring(11, 16);
-            
             const resultsDate = watchData.search_contents_changed_timestamp.substring(0, 10);
             const resultsTime = watchData.search_contents_changed_timestamp.substring(11, 16);
-
             const checkedDate = watchData.search_last_checked_timestamp.substring(0, 10);
             const checkedTime = watchData.search_last_checked_timestamp.substring(11, 16);
 
@@ -212,7 +208,6 @@ async function getUserWatches() {
 
         tbody.appendChild(fragment);
         renderUserSpecificDataIfReady();
-
     } catch (error) {
         displayFatalError(`Failed to render dashboard rows: ${error.message}`);
     }
@@ -226,3 +221,4 @@ function main() {
 }
 
 main();
+
