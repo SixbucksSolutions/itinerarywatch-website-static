@@ -25,7 +25,7 @@ function renderUserSpecificDataIfReady() {
 
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
+    console.log(`Displaying dynamic page content ${hiddenDataRenderDuration} ms after dispatching API queries in parallel`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
     if (userWatchesDiv) {
