@@ -93,7 +93,7 @@ async function getUserInfo() {
 }
 
 async function getUserWatches() {
-    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches'
+    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
     const startTime = performance.now();
 
     try {
@@ -146,16 +146,16 @@ async function getUserWatches() {
             const updatedDate = watchData.watch_last_updated_timestamp.substring(0, 10);
             const updatedTime = watchData.watch_last_updated_timestamp.substring(11, 16);
             
-            const checkedDate = watchData.search_last_checked_timestamp.substring(0, 10);
-            const checkedTime = watchData.search_last_checked_timestamp.substring(11, 16);
-
             const resultsDate = watchData.search_contents_changed_timestamp.substring(0, 10);
             const resultsTime = watchData.search_contents_changed_timestamp.substring(11, 16);
 
+            const checkedDate = watchData.search_last_checked_timestamp.substring(0, 10);
+            const checkedTime = watchData.search_last_checked_timestamp.substring(11, 16);
+
             // Assemble optimized compact display strings
             const watchLastUpdatedFormatted = `${updatedDate} ${updatedTime} UTC`;
-            const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
             const resultsLastUpdatedFormatted = `${resultsDate} ${resultsTime} UTC`;
+            const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
 
             // --- DOM Element Construction Layer ---
             // Column 1: Search Name
@@ -173,15 +173,15 @@ async function getUserWatches() {
             tdUpdated.textContent = watchLastUpdatedFormatted;
             tr.appendChild(tdUpdated);
 
-            // Column 4: Search Last Checked Date + Time
-            const tdChecked = document.createElement('td');
-            tdChecked.textContent = searchLastCheckedFormatted;
-            tr.appendChild(tdChecked);
-
-            // Column 5: Search Results Last Updated Date + Time
+            // Column 4: Search Results Last Updated Date + Time
             const tdResults = document.createElement('td');
             tdResults.textContent = resultsLastUpdatedFormatted;
             tr.appendChild(tdResults);
+
+            // Column 5: Search Last Checked Date + Time
+            const tdChecked = document.createElement('td');
+            tdChecked.textContent = searchLastCheckedFormatted;
+            tr.appendChild(tdChecked);
 
             // Column 6: Sailings Count Numeric Integer
             const tdSailings = document.createElement('td');
@@ -207,3 +207,4 @@ function main() {
 }
 
 main();
+
