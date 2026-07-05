@@ -4,18 +4,19 @@ let userWatchesData = null;
 let userSingleWatchData = null;
 
 function displayFatalError(message) {
-    const mainApp = document.getElementById('div_id_watched_itineraries');
+    const mainApp = document.getElementById('div_id_dynamic_data');
+    // Hide anything but page title
     if (mainApp) {
         mainApp.style.display = 'none';
     }
-    let errorBanner = document.getElementById('app_fatal_error');
-    if (!errorBanner) {
-        errorBanner = document.createElement('div');
-        errorBanner.id = 'app_fatal_error';
-        errorBanner.style.cssText = 'background: #fee2e2; color: #991b1b; padding: 20px; border-radius: 8px; text-align: center; margin: 20px;';
-        document.body.appendChild(errorBanner);
+
+    const errorBanner = document.getElementById('div_id_error_banner');
+    if (errorBanner) {
+        errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
+        errorBanner.style.display = 'block';
+    } else {
+        console.log(`Tried to display error banner but no beuno, error message: ${message}`);
     }
-    errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
 }
 
 function renderUserSpecificDataIfReady() {
@@ -40,13 +41,15 @@ function renderAllUserWatches() {
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
     console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
 
-    const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
+    const userWatchesDiv = document.getElementById('div_id_dynamic_data_all_searches');
     const dynamicDataDiv = document.getElementById('div_id_dynamic_data'); 
+
+    // display email and list of all user searches
     if (userWatchesDiv && dynamicDataDiv) {
         userWatchesDiv.style.display = 'block';
         dynamicDataDiv.style.display = 'block';
     } else {
-        displayFatalError("The hidden div element did not exist in the DOM.");
+        displayFatalError("One or both divs we needed to show when rendering all user watches were missing");
         return;
     }
 
@@ -142,7 +145,7 @@ async function getUserWatches() {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watches API data retrieved in ${duration} ms`);
 
-        const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
+        const tbody = document.querySelector('#div_id_dynamic_data_all_searches table tbody');
         if (!tbody) {
             displayFatalError("Could not find table structure in the DOM.");
             return;
@@ -169,10 +172,14 @@ async function getUserWatches() {
                 } else {
                     history.pushState(null, '', `/watches/${watchId}`);
 
-                    // Hide list of ALL watches
-                    document.getElementById("div_id_watched_itineraries").style.display = "none";
+                    // Hide all dynamic data besides email to be safe
+                    document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
+                    document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+                    console.log("Hid dynamic watch/watches data")
 
-                    console.log("Hid list of all watches")
+                    // Nuke state, force an API pull for anything besides their email address
+                    userWatchesData = null;
+                    userSingleWatchData = null;
 
                     console.log("TODO: send API request for full details on one watch")
                 }

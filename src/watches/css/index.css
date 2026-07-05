@@ -15,7 +15,17 @@ h1 {
     margin-bottom: 1.25rem;
 }
 
-#div_id_watched_itineraries {
+#div_id_error_banner {
+    display: none;
+    background: #fee2e2; 
+    color: #991b1b; 
+    padding: 20px; 
+    border-radius: 8px; 
+    text-align: center; 
+    margin: 20px;
+}
+
+#div_id_dynamic_data, #div_id_dynamic_data_all_searches, #div_id_dynamic_data_single_search {
     display: none;
     margin-left: 2.5rem;
 }
