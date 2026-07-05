@@ -15,6 +15,10 @@ h1 {
   margin-bottom: 1.25rem;
 }
 
+#div_id_dynamic_data {
+  display: none;
+}
+
 #div_id_watched_itineraries {
   display: none;
   margin-left: 2.5rem;

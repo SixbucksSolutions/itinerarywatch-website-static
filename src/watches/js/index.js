@@ -28,8 +28,10 @@ function renderUserSpecificDataIfReady() {
     console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
-    if (userWatchesDiv) {
+    const dynamicDataDiv = document.getElementById('div_id_dynamic_data'); 
+    if (userWatchesDiv && dynamicDataDiv) {
         userWatchesDiv.style.display = 'block';
+        dynamicDataDiv.style.display = 'block';
     } else {
         displayFatalError("The hidden div element did not exist in the DOM.");
         return;
