@@ -17,7 +17,7 @@ h1 {
 
 #div_id_watched_itineraries {
     display: none;
-    margin-left: 1.5rem;
+    margin-left: 2.5rem;
 }
 
 p {
@@ -34,12 +34,12 @@ h2 {
 
 table {
     width: max-content;
-    max-width: calc(100% - 1.5rem);
+    max-width: calc(100% - 2.5rem);
     table-layout: auto;
     border-collapse: collapse;
     background-color: transparent;
     margin-top: 1rem;
-    margin-left: 1.5rem;
+    margin-left: 2.5rem;
 }
 
 table td {
