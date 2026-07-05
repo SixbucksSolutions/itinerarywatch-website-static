@@ -254,6 +254,8 @@ async function getUserWatches() {
 }
 
 function main() {
+    console.log("Entering main");
+
     initializeTableSorter();
     // Intercept browser back/forward buttons natively
     window.addEventListener('popstate', (event) => {
