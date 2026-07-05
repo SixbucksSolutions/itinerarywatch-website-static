@@ -1,3 +1,4 @@
+/*
 let pageStartTime = null;
 let userInfo = null;
 let userWatchesData = null;
@@ -252,6 +253,7 @@ async function getUserWatches() {
         displayFatalError(`Failed to render dashboard rows: ${error.message}`);
     }
 }
+*/
 
 function main() {
     console.log("Entering main");
