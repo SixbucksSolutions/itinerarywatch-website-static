@@ -4,58 +4,38 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ItineraryWatch - Watches</title>
-        
         <!-- Google Fonts CDN integration to fetch the Inter typeface files early -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
         <!-- Added crossorigin="anonymous" to pass Chrome ORB checks cleanly -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" crossorigin="anonymous">
-
-        <!-- style sheets listed in head are render blocking, they are fully parsed upon hitting this line -- 
-                which in this case is what we want -->
-
+        <!-- style sheets listed in head are render blocking, they are fully parsed upon hitting this line -- which in this case is what we want -->
         <link rel="stylesheet" href="css/index.css">
-
-        <!-- Scripts with "defer" tag are downloaded in parallel, but execution is not started until *after* DOM is fully created. 
-                Note: all deferred scripts are executed in strict order of listing, which lets sanity reign supreme -->
-
+        <!-- Scripts with "defer" tag are downloaded in parallel, but execution is not started until *after* DOM is fully created. Note: all deferred scripts are executed in strict order of listing, which lets sanity reign supreme -->
         <!-- Deferred scripts with zero dependencies -->
         <script src="js/api_user.js" defer></script>
         <script src="js/api_watches.js" defer></script>
-        
         <!-- Deferred scripts with dependencies; all deps called must be in scripts listed ABOVE script where dependency is called -->
         <script src="js/index.js" defer></script>
     </head>
-
     <body>
-
         <h1>ItineraryWatch</h1>
-
         <div id="div_id_watched_itineraries">
-
             <p><strong>User</strong>: <span class="span_class_user_email"></span></p>
-
-            <h2>Cruise line itinerary searches being watched:</h2> 
-
+            <h2>Cruise line itinerary searches being watched:</h2>
             <table>
-
                 <thead>
                     <tr>
-                        <th scope="col">Search Name</th>
-                        <th scope="col">Cruise Line</th>
-                        <th scope="col">Search Last Updated</th>
-                        <th scope="col">Search Results Last Updated</th>
+                        <th scope="col" class="sortable-header">Search Name</th>
+                        <th scope="col" class="sortable-header">Cruise Line</th>
+                        <th scope="col" class="sortable-header">Search Last Updated</th>
+                        <th scope="col" class="sortable-header">Search Results Last Updated</th>
                     </tr>
                 </thead>
-
                 <tbody>
                 </tbody>
-
             </table>
-
         </div>
-
     </body>
-
 </html>
+
