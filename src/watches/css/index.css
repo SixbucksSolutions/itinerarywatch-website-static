@@ -1,165 +1,178 @@
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    line-height: 1.5;
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-content: start;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
 }
 
 h1 {
-    font-size: 2rem;
-    line-height: 1;
-    margin-top: 0;
-    margin-bottom: 1.25rem;
+  font-size: 2rem;
+  line-height: 1;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
 }
 
 #div_id_watched_itineraries {
-    display: none;
-    margin-left: 2.5rem;
+  display: none;
+  margin-left: 2.5rem;
 }
 
 p {
-    font-size: 1.05rem;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
 }
 
 h2 {
-    font-size: 1.15rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 table {
-    width: max-content;
-    max-width: calc(100% - 2.5rem);
-    table-layout: auto;
-    border-collapse: collapse;
-    background-color: transparent;
-    margin-top: 1rem;
-    margin-left: 2.5rem;
+  width: max-content;
+  max-width: calc(100% - 2.5rem);
+  table-layout: auto;
+  border-collapse: collapse;
+  background-color: transparent;
+  margin-top: 1rem;
+  margin-left: 2.5rem;
 }
 
 table td {
-    padding: 8px 10px;
-    text-align: left;
-    font-size: 0.95rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    border-bottom: 1px solid #e2e8f0;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 table thead th {
-    background-color: #334155;
-    color: #ffffff;
-    font-weight: 700;
-    padding: 8px 10px;
-    text-align: left;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-    vertical-align: bottom;
+  background-color: #334155;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  vertical-align: bottom;
 }
 
 /* --- Explicit Fixed Column Distribution Layer --- */
-table thead th:nth-child(2) {
-    width: 100px;
-}
-
-table thead th:nth-child(3) {
-    width: 40px;
-}
-
-table thead th:nth-child(4) {
-    width: 160px;
-}
-
-table thead th:nth-child(5) {
-    width: 220px;
-}
-
-table thead th:nth-child(6) {
-    width: 160px;
-}
+table thead th:nth-child(2) { width: 100px; }
+table thead th:nth-child(3) { width: 40px; }
+table thead th:nth-child(4) { width: 160px; }
+table thead th:nth-child(5) { width: 220px; }
+table thead th:nth-child(6) { width: 160px; }
 
 /* --- Text Alignment & Custom Margins Layer --- */
 table thead th:nth-child(n+2), table tbody td:nth-child(n+2) {
-    text-align: center;
+  text-align: center;
 }
 
 /* Doubled left outer edge inset framing (40px) + perfect horizontal whitespace trailing (40px) */
 table thead th:nth-child(1), table tbody td:nth-child(1) {
-    padding-left: 40px;
-    padding-right: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 /* Match the perfect horizontal whitespace trailing edge for Column 2 */
 table thead th:nth-child(2), table tbody td:nth-child(2) {
-    padding-left: 20px;
-    padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 40px;
 }
 
 /* Match the perfect horizontal whitespace trailing edge for Column 3 */
 table thead th:nth-child(3), table tbody td:nth-child(3) {
-    padding-left: 20px;
-    padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 40px;
 }
 
 /* Match the perfect horizontal whitespace trailing edge for Column 4 */
 table thead th:nth-child(4), table tbody td:nth-child(4) {
-    padding-left: 20px;
-    padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 40px;
 }
 
 /* Match the perfect horizontal whitespace trailing edge for Column 5 */
 table thead th:nth-child(5), table tbody td:nth-child(5) {
-    padding-left: 20px;
-    padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 40px;
 }
 
 /* Doubled right outer edge inset framing (40px) to match Column 1 left side padding symmetry */
 table thead th:nth-child(6), table tbody td:nth-child(6) {
-    padding-left: 20px;
-    padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 40px;
 }
 
 /* --- Zebra Striping Readability Layer --- */
 table tbody tr:nth-child(odd) td {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 table tbody tr:nth-child(even) td {
-    background-color: #e2e8f0;
+  background-color: #e2e8f0;
 }
 
 /* --- Interactive Sorting UI Layer --- */
 .sortable-header {
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-    transition: background-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background-color 0.15s ease;
 }
 
 .sortable-header:hover {
-    background-color: #475569;
+  background-color: #475569;
 }
 
 /* Suffix character slots for active sort status indicators */
 .sortable-header.asc::after {
-    content: " ▲";
-    font-size: 0.7rem;
-    position: absolute;
-    right: 8px;
+  content: " ▲";
+  font-size: 0.7rem;
+  position: absolute;
+  right: 8px;
 }
 
 .sortable-header.desc::after {
-    content: " ▼";
-    font-size: 0.7rem;
-    position: absolute;
-    right: 8px;
+  content: " ▼";
+  font-size: 0.7rem;
+  position: absolute;
+  right: 8px;
+}
+
+/* --- Modern Interactive Rows Layer --- */
+table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-left-color 0.15s ease;
+  border-left: 4px solid transparent;
+}
+
+/* Hover state overrides alternating zebra striping smoothly and introduces a brand highlight line */
+table tbody tr:hover {
+  background-color: #f1f5f9 !important;
+  border-left-color: #3b82f6;
+}
+
+/* Strip default legacy blue link styling from the column cell */
+table tbody tr td a.table-row-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+}
+
+/* Maintain crisp focus states for keyboard accessibility layout checks */
+table tbody tr td a.table-row-link:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 

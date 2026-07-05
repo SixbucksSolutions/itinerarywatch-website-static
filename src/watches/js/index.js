@@ -43,7 +43,7 @@ function renderUserSpecificDataIfReady() {
 }
 
 async function getUserInfo() {
-    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/user';
+    const apiEndpoint = 'https://itinerarywatch.com';
     const startTime = performance.now();
     try {
         const response = await fetch(
@@ -91,7 +91,7 @@ async function getUserInfo() {
 }
 
 async function getUserWatches() {
-    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
+    const apiEndpoint = 'https://itinerarywatch.com';
     const startTime = performance.now();
     try {
         const response = await fetch(
@@ -134,12 +134,13 @@ async function getUserWatches() {
             // Fixed navigation routing using template literals and the correct url_id property
             const targetUrl = `https://itinerarywatch.com{watchData.url_id}`;
 
-            // Handle row click navigation while honoring selection modifications (Cmd/Ctrl clicks)
+            // Handle modern row-level click navigation while honoring text selection & meta keys
             tr.addEventListener('click', (event) => {
-                // Ignore click if the user is targeting text selection or clicking an inner link directly
-                if (window.getSelection().toString() || event.target.tagName === 'A') {
+                // Gracefully ignore navigation if the user is highlighting text inside the row
+                if (window.getSelection().toString()) {
                     return;
                 }
+                
                 if (event.metaKey || event.ctrlKey) {
                     window.open(targetUrl, '_blank');
                 } else {
@@ -175,6 +176,15 @@ async function getUserWatches() {
             rowAnchor.className = 'table-row-link';
             rowAnchor.href = targetUrl;
             rowAnchor.textContent = watchData.watch_name;
+
+            // Prevent the inner anchor click from re-triggering parent row execution loops
+            rowAnchor.addEventListener('click', (event) => {
+                if (!event.metaKey && !event.ctrlKey) {
+                    event.preventDefault();
+                }
+                event.stopPropagation();
+            });
+
             tdName.appendChild(rowAnchor);
             tr.appendChild(tdName);
 
@@ -221,4 +231,3 @@ function main() {
 }
 
 main();
-
