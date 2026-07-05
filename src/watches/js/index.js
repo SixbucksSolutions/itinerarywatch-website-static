@@ -119,9 +119,6 @@ async function getUserWatches() {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watches API data retrieved in ${duration} ms`);
 
-
-        console.log(JSON.stringify(userWatches, null, 4));
-
         const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
         if (!tbody) {
             displayFatalError("Could not find table structure in the DOM.");
@@ -134,8 +131,8 @@ async function getUserWatches() {
         Object.entries(userWatches).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
             
-            // Fixed navigation routing using template literals and the correct url_id property
-            const targetUrl = `https://www.itinerarywatch.com/watches/${watchData.url_id}`;
+            // Fixed navigation routing using template literals and the correct UUID key variable
+            const targetUrl = `https://itinerarywatch.com{watchId}`;
 
             // Handle modern row-level click navigation while honoring text selection & meta keys
             tr.addEventListener('click', (event) => {
@@ -159,15 +156,21 @@ async function getUserWatches() {
                 cruiseLine = "Norwegian";
             }
 
-            // Extract values and isolate date (YYYY-MM-DD) vs time (HH:MM) segments safely
-            const updatedDate = watchData.watch_last_updated_timestamp.substring(0, 10);
-            const updatedTime = watchData.watch_last_updated_timestamp.substring(11, 16);
-            const resultsDate = watchData.search_contents_changed_timestamp.substring(0, 10);
-            const resultsTime = watchData.search_contents_changed_timestamp.substring(11, 16);
-            const checkedDate = watchData.search_last_checked_timestamp.substring(0, 10);
-            const checkedTime = watchData.search_last_checked_timestamp.substring(11, 16);
+            // Safe fallback timestamp check layers to guarantee substrings don't break on corrupted responses
+            const updatedTimestamp = watchData.watch_last_updated_timestamp || "";
+            const changedTimestamp = watchData.search_contents_changed_timestamp || "";
+            const checkedTimestamp = watchData.search_last_checked_timestamp || "";
 
-            // Assemble optimized compact display strings
+            const updatedDate = updatedTimestamp.length >= 10 ? updatedTimestamp.substring(0, 10) : "0000-00-00";
+            const updatedTime = updatedTimestamp.length >= 16 ? updatedTimestamp.substring(11, 16) : "00:00";
+            
+            const resultsDate = changedTimestamp.length >= 10 ? changedTimestamp.substring(0, 10) : "0000-00-00";
+            const resultsTime = changedTimestamp.length >= 16 ? changedTimestamp.substring(11, 16) : "00:00";
+            
+            const checkedDate = checkedTimestamp.length >= 10 ? checkedTimestamp.substring(0, 10) : "0000-00-00";
+            const checkedTime = checkedTimestamp.length >= 16 ? checkedTimestamp.substring(11, 16) : "00:00";
+
+            // Assemble optimized compact display strings matching your minute-resolution pattern
             const watchLastUpdatedFormatted = `${updatedDate} ${updatedTime} UTC`;
             const resultsLastUpdatedFormatted = `${resultsDate} ${resultsTime} UTC`;
             const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
@@ -234,3 +237,4 @@ function main() {
 }
 
 main();
+
