@@ -25,7 +25,7 @@ function renderUserSpecificDataIfReady() {
 
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
+    console.log(`Making dynamic page content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
     if (userWatchesDiv) {
@@ -70,7 +70,7 @@ async function getUserInfo() {
         userInfo = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-        console.log(`Userinfo retrieved for ${userInfo.email_address} in ${duration} ms`);
+        console.log(`Userinfo API data retrieved for ${userInfo.email_address} in ${duration} ms`);
 
         // Update fields of DOM in hidden portion of page now that we have their contents
         const emailSpans = document.querySelectorAll('.span_class_user_email');
@@ -120,7 +120,7 @@ async function getUserWatches() {
         userWatches = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-        console.log(`User's itinerary watches retrieved in ${duration} ms`);
+        console.log(`User's itinerary watches API datat retrieved in ${duration} ms`);
 
         const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
         if (!tbody) {
