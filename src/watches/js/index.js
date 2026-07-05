@@ -1,6 +1,7 @@
 let pageStartTime = null;
 let userInfo = null;
-let userWatches = null;
+let userWatchesData = null;
+let userSingleWatchData = null;
 
 function displayFatalError(message) {
     const mainApp = document.getElementById('div_id_watched_itineraries');
@@ -19,10 +20,22 @@ function displayFatalError(message) {
 
 function renderUserSpecificDataIfReady() {
     // Bail out if we're not, in fact, ready to render
-    if ((userInfo === null) || (userWatches === null)) {
+    
+    // User email is mandatory in either case, if we don't have it, wait for it
+    if ( userInfo === null ) 
         return;
     }
 
+    // If we have user info AND all the user's watches, show the full list
+    if ( userWatchesData !== null ) {
+        renderAllUserWatches();
+    } 
+    else if ( singleUserWatchData !== null ) {
+        renderSingleUserWatchDetails();
+    }
+}
+
+function renderAllUserWatches() {
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
     console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
@@ -42,6 +55,14 @@ function renderUserSpecificDataIfReady() {
     if (firstHeader) {
         firstHeader.click();
     }
+}
+
+
+function renderSingleUserWatchDetails() {
+    const hiddenDataRenderTime = performance.now();
+    const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
+    console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
+    displayFatalError("Not Implemented Error");
 }
 
 async function getUserInfo() {
@@ -116,7 +137,7 @@ async function getUserWatches() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        userWatches = await response.json();
+        userWatchesData = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watches API data retrieved in ${duration} ms`);
@@ -130,7 +151,7 @@ async function getUserWatches() {
 
         const fragment = document.createDocumentFragment();
 
-        Object.entries(userWatches).forEach(([watchId, watchData]) => {
+        Object.entries(userWatchesData).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
             
             // Fixed using a proper template literal and the correct www frontend domain
@@ -227,9 +248,22 @@ async function getUserWatches() {
 
 function main() {
     initializeTableSorter();
-    pageStartTime = performance.now();
-    getUserInfo();
-    getUserWatches();
+    // Intercept browser back/forward buttons natively
+    window.addEventListener('popstate', (event) => {
+        const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
+
+        pageStartTime = performance.now();
+
+        // Always need user info for email
+        getUserInfo();
+
+        if (segments.length === 2 && segments[0] === 'watches') {
+            getUserWatchDetails(segments[1]);
+        } else {
+            // Loaded on /watches and we have no state, get all watches for this user
+            getUserWatches();
+        }
+    });
 }
 
 main();
