@@ -79,9 +79,9 @@ table thead th:nth-child(n+2), table tbody td:nth-child(n+2) {
     text-align: center;
 }
 
-/* Left outer edge inset framing + perfect horizontal whitespace trailing */
+/* Doubled left outer edge inset framing (40px) + perfect horizontal whitespace trailing (40px) */
 table thead th:nth-child(1), table tbody td:nth-child(1) {
-    padding-left: 20px;
+    padding-left: 40px;
     padding-right: 40px;
 }
 
@@ -97,10 +97,10 @@ table thead th:nth-child(3), table tbody td:nth-child(3) {
     padding-right: 40px;
 }
 
-/* Right outer edge inset framing (Matches column 1 left side padding symmetry) */
+/* Doubled right outer edge inset framing (40px) to match Column 1 left side padding symmetry */
 table thead th:nth-child(4), table tbody td:nth-child(4) {
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 40px;
 }
 
 /* --- Zebra Striping Readability Layer --- */
