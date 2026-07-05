@@ -25,7 +25,7 @@ function renderUserSpecificDataIfReady() {
 
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Making dynamic page content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
+    console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
     if (userWatchesDiv) {
@@ -43,7 +43,7 @@ function renderUserSpecificDataIfReady() {
 }
 
 async function getUserInfo() {
-    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/user';
+    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
     const startTime = performance.now();
     
     try {
@@ -120,7 +120,8 @@ async function getUserWatches() {
         userWatches = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-        console.log(`User's itinerary watches API datat retrieved in ${duration} ms`);
+
+        console.log(`User watches API data retrieved in ${duration} ms`);
 
         const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
         if (!tbody) {
@@ -133,6 +134,20 @@ async function getUserWatches() {
 
         Object.entries(userWatches).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
+            const targetUrl = `https://itinerarywatch.com{watchId}`;
+
+            // Handle row click navigation while honoring selection modifications (Cmd/Ctrl clicks)
+            tr.addEventListener('click', (event) => {
+                // Ignore click if the user is targeting text selection or clicking an inner link directly
+                if (window.getSelection().toString() || event.target.tagName === 'A') {
+                    return;
+                }
+                if (event.metaKey || event.ctrlKey) {
+                    window.open(targetUrl, '_blank');
+                } else {
+                    window.location.href = targetUrl;
+                }
+            });
 
             // --- Data Parsing Layer ---
             let cruiseLine = "Unknown";
@@ -158,9 +173,13 @@ async function getUserWatches() {
             const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
 
             // --- DOM Element Construction Layer ---
-            // Column 1: Search Name
+            // Column 1: Search Name containing semantic accessible anchor link tag
             const tdName = document.createElement('td');
-            tdName.textContent = watchData.watch_name;
+            const rowAnchor = document.createElement('a');
+            rowAnchor.className = 'table-row-link';
+            rowAnchor.href = targetUrl;
+            rowAnchor.textContent = watchData.watch_name;
+            tdName.appendChild(rowAnchor);
             tr.appendChild(tdName);
 
             // Column 2: Cruise Line Mapped String
@@ -207,4 +226,3 @@ function main() {
 }
 
 main();
-
