@@ -2,13 +2,11 @@ let pageStartTime = null;
 let userInfo = null;
 let userWatches = null;
 
-
 function displayFatalError(message) {
     const mainApp = document.getElementById('div_id_watched_itineraries');
     if (mainApp) {
         mainApp.style.display = 'none';
     }
-
     let errorBanner = document.getElementById('app_fatal_error');
     if (!errorBanner) {
         errorBanner = document.createElement('div');
@@ -16,7 +14,6 @@ function displayFatalError(message) {
         errorBanner.style.cssText = 'background: #fee2e2; color: #991b1b; padding: 20px; border-radius: 8px; text-align: center; margin: 20px;';
         document.body.appendChild(errorBanner);
     }
-
     errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
 }
 
@@ -28,7 +25,7 @@ function renderUserSpecificDataIfReady() {
 
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Revealing dynamic data ${hiddenDataRenderDuration} ms after initiating parallel API queries`);
+    console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
     if (userWatchesDiv) {
@@ -46,42 +43,84 @@ function renderUserSpecificDataIfReady() {
 }
 
 async function getUserInfo() {
+    const apiEndpoint = 'https://itinerarywatch.com';
     const startTime = performance.now();
-
-    userInfo = await apiUserInfo();
-
-    const endTime = performance.now();
-    const duration = Math.ceil(endTime - startTime);
-
-    console.log(`Userinfo endpoint data for ${userInfo.email_address} returned in ${duration} ms`);
-
-    // Update fields of DOM in hidden portion of page now that we have their contents
-    const emailSpans = document.querySelectorAll('.span_class_user_email');
-    if (emailSpans.length > 0) {
-        emailSpans.forEach(
-            span => {
-                span.textContent = userInfo.email_address;
+    
+    try {
+        const response = await fetch(
+            apiEndpoint,
+            {
+                method : 'GET',
+                credentials : 'include',
+                headers : {
+                    'Accept' : 'application/json'
+                }
             }
         );
-    } else {
-        displayFatalError("Couldn't find any spans to display email address");
-        return;
-    }
 
-    renderUserSpecificDataIfReady();
+        if (response.status === 401) {
+            console.warn('Authentication failed: session credentials missing or expired');
+            return null;
+        }
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        userInfo = await response.json();
+        const endTime = performance.now();
+        const duration = Math.ceil(endTime - startTime);
+        console.log(`Userinfo retrieved for ${userInfo.email_address} in ${duration} ms`);
+
+        // Update fields of DOM in hidden portion of page now that we have their contents
+        const emailSpans = document.querySelectorAll('.span_class_user_email');
+        if (emailSpans.length > 0) {
+            emailSpans.forEach(
+                span => {
+                    span.textContent = userInfo.email_address;
+                }
+            );
+        } else {
+            displayFatalError("Couldn't find any spans to display email address");
+            return;
+        }
+
+        renderUserSpecificDataIfReady();
+
+    } catch (error) {
+        displayFatalError(`Failed to retrieve profile: ${error.message}`);
+    }
 }
 
-
 async function getUserWatches() {
+    const apiEndpoint = 'https://itinerarywatch.com';
+    const startTime = performance.now();
+
     try {
-        const startTime = performance.now();
-        userWatches = await apiUserWatches();
+        const response = await fetch(
+            apiEndpoint,
+            {
+                method : 'GET',
+                credentials : 'include',
+                headers : {
+                    'Accept' : 'application/json'
+                }
+            }
+        );
+
+        if (response.status === 401) {
+            console.warn('Authentication failed: user ID cookie missing or expired');
+            return null;
+        }
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        userWatches = await response.json();
         const endTime = performance.now();
-
-        console.log(JSON.stringify(userWatches, null, 2));
-
         const duration = Math.ceil(endTime - startTime);
-        console.log(`Watches endpoint data returned in ${duration} ms`);
+        console.log(`User's itinerary watches retrieved in ${duration} ms`);
 
         const tbody = document.querySelector('#div_id_watched_itineraries table tbody');
         if (!tbody) {
@@ -96,7 +135,6 @@ async function getUserWatches() {
             const tr = document.createElement('tr');
 
             // --- Data Parsing Layer ---
-
             let cruiseLine = "Unknown";
             if (watchData.url.includes("celebritycruises.com")) {
                 cruiseLine = "Celebrity";
@@ -104,20 +142,22 @@ async function getUserWatches() {
                 cruiseLine = "Norwegian";
             }
 
-            // Extract the date (YYYY-MM-DD) from indices 0 to 10
-            const searchDate = watchData.watch_last_updated_timestamp.substring(0, 10);
-            const resultsDate = watchData.search_contents_changed_timestamp.substring(0, 10);
+            // Extract values and isolate date (YYYY-MM-DD) vs time (HH:MM) segments safely
+            const updatedDate = watchData.watch_last_updated_timestamp.substring(0, 10);
+            const updatedTime = watchData.watch_last_updated_timestamp.substring(11, 16);
+            
+            const checkedDate = watchData.search_last_checked_timestamp.substring(0, 10);
+            const checkedTime = watchData.search_last_checked_timestamp.substring(11, 16);
 
-            // Extracted only hours and minutes (HH:MM) from indices 11 to 16
-            const searchTime = watchData.watch_last_updated_timestamp.substring(11, 16);
+            const resultsDate = watchData.search_contents_changed_timestamp.substring(0, 10);
             const resultsTime = watchData.search_contents_changed_timestamp.substring(11, 16);
 
-            // Assemble the optimized compact display string components
-            const searchLastUpdatedFormatted = `${searchDate} ${searchTime} UTC`;
+            // Assemble optimized compact display strings
+            const watchLastUpdatedFormatted = `${updatedDate} ${updatedTime} UTC`;
+            const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
             const resultsLastUpdatedFormatted = `${resultsDate} ${resultsTime} UTC`;
 
             // --- DOM Element Construction Layer ---
-
             // Column 1: Search Name
             const tdName = document.createElement('td');
             tdName.textContent = watchData.watch_name;
@@ -128,15 +168,25 @@ async function getUserWatches() {
             tdLine.textContent = cruiseLine;
             tr.appendChild(tdLine);
 
-            // Column 3: Search Last Updated Date + Time ('YYYY-MM-DD HH:MM UTC')
+            // Column 3: Search Last Updated Date + Time
             const tdUpdated = document.createElement('td');
-            tdUpdated.textContent = searchLastUpdatedFormatted;
+            tdUpdated.textContent = watchLastUpdatedFormatted;
             tr.appendChild(tdUpdated);
 
-            // Column 4: Search Results Last Updated Date + Time ('YYYY-MM-DD HH:MM UTC')
+            // Column 4: Search Last Checked Date + Time
+            const tdChecked = document.createElement('td');
+            tdChecked.textContent = searchLastCheckedFormatted;
+            tr.appendChild(tdChecked);
+
+            // Column 5: Search Results Last Updated Date + Time
             const tdResults = document.createElement('td');
             tdResults.textContent = resultsLastUpdatedFormatted;
             tr.appendChild(tdResults);
+
+            // Column 6: Sailings Count Numeric Integer
+            const tdSailings = document.createElement('td');
+            tdSailings.textContent = watchData.matching_sailings_found;
+            tr.appendChild(tdSailings);
 
             fragment.appendChild(tr);
         });
@@ -149,20 +199,11 @@ async function getUserWatches() {
     }
 }
 
-
-
 function main() {
-    // Initialize table sorter; only needs to be done once
     initializeTableSorter();
-
     pageStartTime = performance.now();
-
-    // These two functions are both async, meaning they run *in parallel*; they are independent and
-    //      running them in serial would impact UX in an unhappy way. There's still only one thread
-    //      of execution in JS, so there's no chance of race conditions
     getUserInfo();
     getUserWatches();
 }
-
 
 main();

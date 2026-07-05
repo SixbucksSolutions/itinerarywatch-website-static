@@ -75,7 +75,15 @@ table thead th:nth-child(3) {
 }
 
 table thead th:nth-child(4) {
+    width: 160px;
+}
+
+table thead th:nth-child(5) {
     width: 220px;
+}
+
+table thead th:nth-child(6) {
+    width: 80px;
 }
 
 /* --- Text Alignment & Custom Margins Layer --- */
@@ -101,8 +109,20 @@ table thead th:nth-child(3), table tbody td:nth-child(3) {
     padding-right: 40px;
 }
 
-/* Doubled right outer edge inset framing (40px) to match Column 1 left side padding symmetry */
+/* Match the perfect horizontal whitespace trailing edge for Column 4 */
 table thead th:nth-child(4), table tbody td:nth-child(4) {
+    padding-left: 20px;
+    padding-right: 40px;
+}
+
+/* Match the perfect horizontal whitespace trailing edge for Column 5 */
+table thead th:nth-child(5), table tbody td:nth-child(5) {
+    padding-left: 20px;
+    padding-right: 40px;
+}
+
+/* Doubled right outer edge inset framing (40px) to match Column 1 left side padding symmetry */
+table thead th:nth-child(6), table tbody td:nth-child(6) {
     padding-left: 20px;
     padding-right: 40px;
 }
