@@ -15,7 +15,10 @@ function displayFatalError(message) {
     
     if (!errorBanner) {
         errorBanner = document.createElement('div');
+
+        // There's CSS declared for this in index.css
         errorBanner.id = 'div_id_error_banner';
+
         errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
         document.body.appendChild(errorBanner);
     } else {
@@ -263,6 +266,11 @@ function getUserWatchDetails(searchId) {
 }
 
 function main() {
+    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready -- avoids 
+    //      "Flicker Of Unstylized Text" (FOUT) problem that was visible when watching the h1 closely on
+    //      reloads
+    document.body.style.visibility = 'visible';
+
     pageStartTime = performance.now();
     
     // 1. Always fetch user profile data for the header email display right away

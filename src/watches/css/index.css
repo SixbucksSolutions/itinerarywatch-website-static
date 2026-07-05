@@ -1,4 +1,7 @@
 body {
+    /* Hide content on initial paint to completely eliminate font and layout flickering */
+    visibility: hidden;
+
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
     line-height: 1.5;
