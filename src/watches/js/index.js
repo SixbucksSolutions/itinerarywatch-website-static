@@ -132,7 +132,7 @@ async function getUserWatches() {
             const tr = document.createElement('tr');
             
             // Fixed navigation routing using template literals and the correct url_id property
-            const targetUrl = `https://www.itinerarywatch.com/watch/{watchData.url_id}`;
+            const targetUrl = `https://www.itinerarywatch.com/watches/{watchData.url_id}`;
 
             // Handle modern row-level click navigation while honoring text selection & meta keys
             tr.addEventListener('click', (event) => {
