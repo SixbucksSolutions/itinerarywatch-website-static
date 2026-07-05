@@ -185,22 +185,9 @@ async function getUserWatches() {
             const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
 
             // --- DOM Element Construction Layer ---
-            // Column 1: Search Name containing semantic accessible anchor link tag
+            // Column 1: Search Name 
             const tdName = document.createElement('td');
-            const rowAnchor = document.createElement('a');
-            rowAnchor.className = 'table-row-link';
-            rowAnchor.href = targetUrl;
-            rowAnchor.textContent = watchData.watch_name;
-
-            // Prevent the inner anchor click from re-triggering parent row execution loops
-            rowAnchor.addEventListener('click', (event) => {
-                if (!event.metaKey && !event.ctrlKey) {
-                    event.preventDefault();
-                }
-                event.stopPropagation();
-            });
-
-            tdName.appendChild(rowAnchor);
+            tdName.textContent = watchData.watch_name;
             tr.appendChild(tdName);
 
             // Column 2: Cruise Line Mapped String
