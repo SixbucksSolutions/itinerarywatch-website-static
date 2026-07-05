@@ -21,7 +21,6 @@ function displayFatalError(message) {
 }
 
 function renderUserSpecificDataIfReady() {
-
     // Bail out if we're not, in fact, ready to render
     if ((userInfo === null) || (userWatches === null)) {
         return;
@@ -32,12 +31,17 @@ function renderUserSpecificDataIfReady() {
     console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
-
     if (userWatchesDiv) {
         userWatchesDiv.style.display = 'block';
     } else {
         displayFatalError("The hidden div element did not exist in the DOM.");
         return;
+    }
+
+    // Trigger initial default sort by "Search Name" column in ascending order
+    const firstHeader = document.querySelector('th.sortable-header');
+    if (firstHeader) {
+        firstHeader.click();
     }
 }
 
