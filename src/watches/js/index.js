@@ -144,7 +144,7 @@ async function getUserWatches() {
                 if (event.metaKey || event.ctrlKey) {
                     window.open(targetUrl, '_blank');
                 } else {
-                    window.location.href = targetUrl;
+                    history.pushState(null, '', `/watches/${watchId}`);
                 }
             });
 
