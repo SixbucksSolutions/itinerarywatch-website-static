@@ -1,4 +1,3 @@
-/*
 let pageStartTime = null;
 let userInfo = null;
 let userWatchesData = null;
@@ -253,7 +252,10 @@ async function getUserWatches() {
         displayFatalError(`Failed to render dashboard rows: ${error.message}`);
     }
 }
-*/
+
+function getUserWatchDetails() {
+    displayFatalError("getUserWwatchDetails is not yet implemented");
+}
 
 function main() {
     console.log("Entering main");
@@ -270,7 +272,7 @@ function main() {
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
 
         if (segments.length === 2 && segments[0] === 'watches') {
-            getUserWatchDetails(segments[1]);
+            // getUserWatchDetails(segments[1]);
         } else {
             // Loaded on /watches and we have no state, get all watches for this user
             getUserWatches();
