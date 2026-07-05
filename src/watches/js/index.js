@@ -25,7 +25,7 @@ function renderUserSpecificDataIfReady() {
 
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Displaying dynamic page content ${hiddenDataRenderDuration} ms after dispatching API queries in parallel`);
+    console.log(`Revealing hidden part of page ${hiddenDataRenderDuration} ms after kicking off parallel API queries`);
 
     const userWatchesDiv = document.getElementById('div_id_watched_itineraries');
     if (userWatchesDiv) {
@@ -168,25 +168,25 @@ async function getUserWatches() {
             tdLine.textContent = cruiseLine;
             tr.appendChild(tdLine);
 
-            // Column 3: Search Last Updated Date + Time
+            // Column 3: Sailings Count Numeric Integer
+            const tdSailings = document.createElement('td');
+            tdSailings.textContent = watchData.matching_sailings_found;
+            tr.appendChild(tdSailings);
+
+            // Column 4: Search Last Updated Date + Time
             const tdUpdated = document.createElement('td');
             tdUpdated.textContent = watchLastUpdatedFormatted;
             tr.appendChild(tdUpdated);
 
-            // Column 4: Search Results Last Updated Date + Time
+            // Column 5: Search Results Last Updated Date + Time
             const tdResults = document.createElement('td');
             tdResults.textContent = resultsLastUpdatedFormatted;
             tr.appendChild(tdResults);
 
-            // Column 5: Search Last Checked Date + Time
+            // Column 6: Search Last Checked Date + Time
             const tdChecked = document.createElement('td');
             tdChecked.textContent = searchLastCheckedFormatted;
             tr.appendChild(tdChecked);
-
-            // Column 6: Sailings Count Numeric Integer
-            const tdSailings = document.createElement('td');
-            tdSailings.textContent = watchData.matching_sailings_found;
-            tr.appendChild(tdSailings);
 
             fragment.appendChild(tr);
         });
