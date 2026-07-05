@@ -31,7 +31,7 @@ function renderUserSpecificDataIfReady() {
     if ( userWatchesData !== null ) {
         renderAllUserWatches();
     } 
-    else if ( singleUserWatchData !== null ) {
+    else if ( userSingleWatchData !== null ) {
         renderSingleUserWatchDetails();
     }
 }
