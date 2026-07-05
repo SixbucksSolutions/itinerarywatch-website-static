@@ -23,7 +23,7 @@ function renderUserSpecificDataIfReady() {
     // Bail out if we're not, in fact, ready to render
     
     // User email is mandatory in either case, if we don't have it, wait for it
-    if ( userInfo === null ) 
+    if ( userInfo === null ) {
         return;
     }
 
