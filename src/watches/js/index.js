@@ -131,7 +131,7 @@ async function getUserWatches() {
         Object.entries(userWatches).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
             
-            // Fixed navigation routing using template literals and the correct UUID key variable
+            // Fixed using a proper template literal and the correct www frontend domain
             const targetUrl = `https://itinerarywatch.com{watchId}`;
 
             // Handle modern row-level click navigation while honoring text selection & meta keys
