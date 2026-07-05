@@ -145,6 +145,9 @@ async function getUserWatches() {
 
 
 function main() {
+    // Initialize table sorter; only needs to be done once
+    initializeTableSorter();
+
     pageStartTime = performance.now();
 
     // These two functions are both async, meaning they run *in parallel*; they are independent and
