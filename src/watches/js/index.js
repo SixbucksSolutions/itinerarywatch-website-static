@@ -147,6 +147,13 @@ async function getUserWatches() {
                     window.open(targetUrl, '_blank');
                 } else {
                     history.pushState(null, '', `/watches/${watchId}`);
+
+                    // Hide list of ALL watches
+                    document.getElementById("div_id_watched_itineraries").style.display = "none";
+
+                    console.log("Hid list of all watches")
+
+                    console.log("TODO: send API request for full details on one watch")
                 }
             });
 
