@@ -253,33 +253,44 @@ async function getUserWatches() {
     }
 }
 
-function getUserWatchDetails() {
+function getUserWatchDetails(searchId) {
+    console.log(`Making API request for details of user search ID ${searchid}`);
     displayFatalError("getUserWwatchDetails is not yet implemented");
 }
 
 function main() {
-    console.log("Entering main");
-
     pageStartTime = performance.now();
-
-    // Always need user info for email
+    
+    // 1. Always fetch user profile data for the header email display right away
     getUserInfo();
-
     initializeTableSorter();
-    // Intercept browser back/forward buttons natively
+    
+    // IMMEDIATE ON-LOAD ROUTING CHANNELS: Check the URL bar immediately on page initialization
+    const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
+    
+    if (initialSegments.length === 2 && initialSegments[0] === 'watches') {
+        const targetWatchId = initialSegments[1];
+        console.log(`Initial page load: deep-link detected for watch ID ${targetWatchId}`);
+        getUserWatchDetails(targetWatchId);
+    } else {
+        console.log("Initial page load: default main dashboard view detected");
+        // Loaded directly on baseline folder path, fetch all watches for this user immediately
+        getUserWatches();
+    }
+    
+    // 3. NAVIGATION NAVIGATION INTERCEPTORS: Handle future browser Back/Forward clicks smoothly
     window.addEventListener('popstate', (event) => {
         console.log("Inside popstate event listener");
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
-
+        
         if (segments.length === 2 && segments[0] === 'watches') {
-            // getUserWatchDetails(segments[1]);
+            // User clicked forward/back straight into a specific watch profile view target
+            getUserWatchDetails(segments[1]);
         } else {
-            // Loaded on /watches and we have no state, get all watches for this user
+            // User clicked browser back button to return to the baseline watch listing directory
             getUserWatches();
         }
     });
-
-    console.log("Exiting main");
 }
 
 main();
