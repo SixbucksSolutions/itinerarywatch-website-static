@@ -177,11 +177,11 @@ async function getUserWatches() {
                     document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
                     console.log("Hid dynamic watch/watches data")
 
-                    // Nuke state, force an API pull for anything besides their email address
+                    // Nuke dynamic state, force an API pull for anything besides their email address
                     userWatchesData = null;
                     userSingleWatchData = null;
 
-                    console.log("TODO: send API request for full details on one watch")
+                    getUserWatchDetails(watchId);
                 }
             });
 
