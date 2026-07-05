@@ -8,7 +8,6 @@ async function apiUserInfo() {
                 method          : 'GET',
                 credentials     : 'include',      // 💡 CRUCIAL: Instructs the browser to attach cookies for api.itinerarywatch.com
                 headers         : {
-                    'Content-Type'      : 'application/json',
                     'Accept'            : 'application/json'
                 }
             }
