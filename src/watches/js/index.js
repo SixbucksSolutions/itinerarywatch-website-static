@@ -256,16 +256,15 @@ function main() {
     getUserInfo();
     initializeTableSorter();
     
-    // IMMEDIATE ON-LOAD ROUTING CHANNELS: Check the URL bar immediately on page initialization
+    // Clean, split, and array-filter the current path
     const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
-    
+
     if (initialSegments.length === 2 && initialSegments[0] === 'watches') {
         const targetWatchId = initialSegments[1];
         console.log(`Initial page load: deep-link detected for watch ID ${targetWatchId}`);
-        getUserWatchDetails(targetWatchId);
+        getUserWatchDetails(targetWatchId); // Will now fire and trigger displayFatalError()
     } else {
         console.log("Initial page load: default main dashboard view detected");
-        // Loaded directly on baseline folder path, fetch all watches for this user immediately
         getUserWatches();
     }
     
