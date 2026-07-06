@@ -304,6 +304,9 @@ async function getUserWatchDetails(searchId) {
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watch ${searchId} API data retrieved in ${duration} ms`);
+
+
+        renderUserSpecificDataIfReady();
     } catch (error) {
         displayFatalError(`Error when trying to fetch and update DOM with detailed user watch data: ${error.message}`);
     }
