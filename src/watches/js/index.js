@@ -91,6 +91,7 @@ function renderSingleUserWatchDetails() {
         console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
     }
 
+    /*
     const searchDivName = 'div_id_dynamic_data_single_search';
     const searchDiv = document.getElementById(searchDivName);
 
@@ -100,6 +101,7 @@ function renderSingleUserWatchDetails() {
     // searchDiv.style.display = "block";
 
     console.log("Set single watch search dynamic data to visible");
+    */
 }
 
 async function getUserInfo() {
@@ -341,6 +343,13 @@ function main() {
     pageStartTime = performance.now();
     console.log("pageStartTime set in main")
 
+    // See if the element exists here
+    const searchDivName = 'div_id_dynamic_data_single_search';
+    const searchDiv = document.getElementById(searchDivName);
+
+    if (!searchDiv) {
+        console.log(`Inside main, div for single search \"${searchDivName}\" not found in DOM`);
+    }
     
     // 1. Always fetch user profile data for the header email display right away
     getUserInfo();
