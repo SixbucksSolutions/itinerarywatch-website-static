@@ -1,4 +1,5 @@
 function displayFatalError(message) {
+    console.log("Inside displayFatalError");
     const mainApp = document.getElementById('div_id_dynamic_data');
     // Hide anything but page title
     if (mainApp) {
@@ -9,6 +10,7 @@ function displayFatalError(message) {
     let errorBanner = document.getElementById('div_id_error_banner');
 
     if (!errorBanner) {
+        console.log("Did not find div for error banner, creating a new one");
         errorBanner = document.createElement('div');
 
         // There's CSS declared for this in index.css
@@ -16,6 +18,7 @@ function displayFatalError(message) {
 
         errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
         document.body.appendChild(errorBanner);
+        console.log("Fatal error is now attached as the last child of the body");
     } else {
         console.log("Can't display an error when banner is already up!");
     }
