@@ -88,7 +88,14 @@ function renderSingleUserWatchDetails() {
         const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
         console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
     }
-    document.getElementById("div_id_dynamic_data_single_search").style.display = "block";
+
+    const searchDivName = "div_id_dynamic_data_single_search";
+    const searchDiv = document.getElementById(searchDivName);
+
+    if (!searchDiv) {
+        throw new Error(`Div for single search \"${serachDivName}\" not found in DOM`);
+    }
+    // searchDiv.style.display = "block";
 
     console.log("Set single watch search dynamic data to visible");
 }
@@ -318,7 +325,7 @@ async function getUserWatchDetails(searchId) {
 
         renderUserSpecificDataIfReady();
     } catch (error) {
-        displayFatalError(`Error when trying to fetch and update DOM with detailed user watch data: ${error.message}`);
+        displayFatalError(`Error when fetching and processing detailed user watch data: ${error.message}`);
     }
 
 }
