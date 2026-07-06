@@ -56,9 +56,11 @@ function renderUserSpecificDataIfReady() {
 }
 
 function renderAllUserWatches() {
-    const hiddenDataRenderTime = performance.now();
-    const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
+    if (pageStartTime !== null) {
+        const hiddenDataRenderTime = performance.now();
+        const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
+        console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
+    }
 
     const userWatchesDiv = document.getElementById('div_id_dynamic_data_all_searches');
     const dynamicDataDiv = document.getElementById('div_id_dynamic_data'); 
@@ -201,6 +203,9 @@ async function getUserWatches() {
                     // Nuke dynamic state, force an API pull for anything besides their email address
                     userWatchesData = null;
                     userSingleWatchData = null;
+
+                    // Remove page start time, not a fresh load
+                    pageStartTime = null;
 
                     getUserWatchDetails(watchId);
                 }
