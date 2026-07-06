@@ -1,3 +1,4 @@
 /watches/css/:css_file  /watches/css/:css_file  200
 /watches/js/:js_file    /watches/js/:js_file    200
+/watches/:watch_id/     /watches/               200
 /watches/:watch_id      /watches/               200
