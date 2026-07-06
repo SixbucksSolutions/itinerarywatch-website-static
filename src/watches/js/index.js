@@ -242,6 +242,7 @@ async function getUserWatches() {
 function getUserWatchDetails(searchId) {
     console.log(`Making API request for details of user search ID ${searchId}`);
     displayFatalError("getUserWatchDetails is not yet implemented");
+    console.log("After calling display fatal error");
 }
 
 function main() {
