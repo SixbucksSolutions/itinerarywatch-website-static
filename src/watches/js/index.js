@@ -206,6 +206,7 @@ async function getUserWatches() {
 
                     // Remove page start time, not a fresh load
                     pageStartTime = null;
+                    console.log("pageStartTime set to null, not longer relevant");
 
                     getUserWatchDetails(watchId);
                 }
@@ -325,6 +326,8 @@ function main() {
     document.body.style.visibility = 'visible';
 
     pageStartTime = performance.now();
+    console.log("pageStartTime set in main")
+
     
     // 1. Always fetch user profile data for the header email display right away
     getUserInfo();
