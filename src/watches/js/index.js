@@ -312,6 +312,7 @@ async function getUserWatchDetails(searchId) {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watch ${searchId} API data retrieved in ${duration} ms`);
 
+        console.log(JSON.stringify(userSingleWatchData, null, 4)); 
 
         renderUserSpecificDataIfReady();
     } catch (error) {
