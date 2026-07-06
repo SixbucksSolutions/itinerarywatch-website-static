@@ -1,1 +1,3 @@
+/watches/css/* /watches/css/:splat
+/watches/js/* /watches/js/:splat
 /watches/* /watches/ 200
