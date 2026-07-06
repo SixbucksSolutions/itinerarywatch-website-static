@@ -91,17 +91,15 @@ function renderSingleUserWatchDetails() {
         console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
     }
 
-    /*
     const searchDivName = 'div_id_dynamic_data_single_search';
     const searchDiv = document.getElementById(searchDivName);
 
     if (!searchDiv) {
         throw new Error(`Div for single search \"${searchDivName}\" not found in DOM`);
     }
-    // searchDiv.style.display = "block";
 
-    console.log("Set single watch search dynamic data to visible");
-    */
+    searchDiv.style.display = "block";
+    console.log("single watch search dynamic data was set to visible");
 }
 
 async function getUserInfo() {
