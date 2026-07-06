@@ -84,7 +84,7 @@ function renderSingleUserWatchDetails() {
     const hiddenDataRenderTime = performance.now();
     const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
     console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
-    displayFatalError("Not Implemented Error");
+    displayFatalError("Render single user watch details not implemented yet!");
 }
 
 async function getUserInfo() {
@@ -348,6 +348,9 @@ function main() {
         userSingleWatchData = null;
 
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
+
+        // Correct data fetch time when initiated by back/forward buttons
+        pageStartTime = performance.now();
         
         if (segments.length === 2 && segments[0] === 'watches') {
             // User clicked forward/back straight into a specific watch profile view target
