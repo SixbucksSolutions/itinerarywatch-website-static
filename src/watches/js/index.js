@@ -83,9 +83,11 @@ function renderAllUserWatches() {
 
 
 function renderSingleUserWatchDetails() {
-    const hiddenDataRenderTime = performance.now();
-    const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-    console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
+    if (pageStartTime !== null) {
+        const hiddenDataRenderTime = performance.now();
+        const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
+        console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
+    }
     displayFatalError("Render single user watch details not implemented yet!");
 }
 
