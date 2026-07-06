@@ -357,9 +357,6 @@ function main() {
 
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
 
-        // Correct data fetch time when initiated by back/forward buttons
-        pageStartTime = performance.now();
-        
         if (segments.length === 2 && segments[0] === 'watches') {
             // User clicked forward/back straight into a specific watch profile view target
             getUserWatchDetails(segments[1]);
