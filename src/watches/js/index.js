@@ -93,7 +93,7 @@ function renderSingleUserWatchDetails() {
     const searchDiv = document.getElementById(searchDivName);
 
     if (!searchDiv) {
-        throw new Error(`Div for single search \"${serachDivName}\" not found in DOM`);
+        throw new Error(`Div for single search \"${searchDivName}\" not found in DOM`);
     }
     // searchDiv.style.display = "block";
 
