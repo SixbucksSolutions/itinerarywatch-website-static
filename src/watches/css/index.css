@@ -25,11 +25,22 @@ h1 {
 
 #div_id_error_banner {
     font-weight: 700;
-    background: #fee2e2; 
-    color: #991b1b; 
-    padding: 20px; 
-    border-radius: 8px; 
-    text-align: center; 
+
+    /* Typography Overhaul for Visual Loudness */
+    font-size: 1.5rem;          /* Drastically increases size (~24px) */
+    line-height: 1.4;           /* Prevents multi-line error messages from overlapping */
+    letter-spacing: -0.02em;    /* Tightens Inter tracking for a punchier headline look */
+
+    /* Enhanced Border & Background Contrast */
+    background: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #ef4444;  /* Adds a bright red border anchor */
+
+    /* Layout & Sizing */
+    padding: 24px 32px;         /* Expands breathing room around the giant text */
+    border-radius: 8px;
+    text-align: center;
+
     margin: 20px;
 }
 
