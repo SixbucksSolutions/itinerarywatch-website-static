@@ -1,3 +1,3 @@
-/watches/css/* /watches/css/:splat  200
-/watches/js/*  /watches/js/:splat   200
-/watches/*     /watches/            200
+/watches/css/:css_file  /watches/css/:css_file  200
+/watches/js/:js_file    /watches/js/:js_file    200
+/watches/:watch_id      /watches/               200
