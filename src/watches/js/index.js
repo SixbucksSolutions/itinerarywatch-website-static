@@ -208,7 +208,6 @@ async function getUserWatches() {
 
                     // Remove page start time, not a fresh load
                     pageStartTime = null;
-                    console.log("pageStartTime set to null, not longer relevant");
 
                     getUserWatchDetails(watchId);
                 }
