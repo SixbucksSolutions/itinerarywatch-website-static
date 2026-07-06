@@ -284,7 +284,7 @@ async function getUserWatches() {
 async function getUserWatchDetails(searchId) {
     console.log(`Making API request for details of user search ID ${searchId}`);
 
-    const apiEndpoint = `https://api.itinerarywatch.com/api/v001/watch/${searchId}`
+    const apiEndpoint = `https://api.itinerarywatch.com/api/v001/watch/${searchId}?search_result_timestamp=latest`
     const startTime = performance.now();
     try {
         const response = await fetch(
