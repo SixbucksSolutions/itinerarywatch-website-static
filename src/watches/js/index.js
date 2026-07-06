@@ -274,10 +274,36 @@ async function getUserWatches() {
     }
 }
 
-function getUserWatchDetails(searchId) {
+async function getUserWatchDetails(searchId) {
     console.log(`Making API request for details of user search ID ${searchId}`);
-    displayFatalError("getUserWatchDetails is not yet implemented");
-    console.log("After calling display fatal error");
+
+    const apiEndpoint = `https://api.itinerarywatch.com/api/v001/watch/${searchId}`
+    const startTime = performance.now();
+    try {
+        const response = await fetch(
+            apiEndpoint,
+            {
+                method : 'GET',
+                credentials : 'include',
+                headers : {
+                    'Accept' : 'application/json'
+                }
+            }
+        );
+
+        if (response.status === 401) {
+            console.warn('Authentication failed: user ID cookie missing or expired');
+            return null;
+        }
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        userSingleWatchData = await response.json();
+        const endTime = performance.now();
+        const duration = Math.ceil(endTime - startTime);
+        console.log(`User watch ${searchId} API data retrieved in ${duration} ms`);
 }
 
 function main() {
