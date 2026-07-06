@@ -1,2 +1,0 @@
-# 2. Dynamic UUID catch-all (Only needed for paths that don't match real files)
-/watches/*      /watches/index.html  200
