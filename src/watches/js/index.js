@@ -48,9 +48,11 @@ function renderUserSpecificDataIfReady() {
 
     // If we have user info AND all the user's watches, show the full list
     if ( userWatchesData !== null ) {
+        console.log('renderUserSpecificDataIfReady calling renderAllUserWatches');
         renderAllUserWatches();
     } 
     else if ( userSingleWatchData !== null ) {
+        console.log('renderUserSpecificDataIfReady calling renderSingleUserWatchDetails');
         renderSingleUserWatchDetails();
     }
 }
@@ -89,7 +91,7 @@ function renderSingleUserWatchDetails() {
         console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
     }
 
-    const searchDivName = "div_id_dynamic_data_single_search";
+    const searchDivName = 'div_id_dynamic_data_single_search';
     const searchDiv = document.getElementById(searchDivName);
 
     if (!searchDiv) {
@@ -321,7 +323,7 @@ async function getUserWatchDetails(searchId) {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watch ${searchId} API data retrieved in ${duration} ms`);
 
-        console.log(JSON.stringify(userSingleWatchData, null, 4)); 
+        // console.log(JSON.stringify(userSingleWatchData, null, 4)); 
 
         renderUserSpecificDataIfReady();
     } catch (error) {
