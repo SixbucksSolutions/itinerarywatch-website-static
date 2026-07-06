@@ -100,6 +100,18 @@ function renderSingleUserWatchDetails() {
 
     searchDiv.style.display = "block";
     console.log("single watch search dynamic data was set to visible");
+
+    // display all dynamic data if it's still hidden (first page load)
+    const allDynamicDataDiv = document.getElementById('div_id_dynamic_data');
+    if (!allDynamicDataDiv) {
+        throw new Error("Div for dynamic data \"div_id_dynamic_data\" not found in DOM");
+    }
+
+    // Have we not already displayed email yet because the user came straight to this URL?
+    if (allDynamicDataDiv.style.display !== 'block') {
+        allDynamicDataDiv.style.display = 'block'
+        console.log('Flipped all dynamic data block to visible as it was hidden');
+    }
 }
 
 async function getUserInfo() {
