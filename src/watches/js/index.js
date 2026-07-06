@@ -3,29 +3,6 @@ let userInfo = null;
 let userWatchesData = null;
 let userSingleWatchData = null;
 
-function displayFatalError(message) {
-    const mainApp = document.getElementById('div_id_dynamic_data');
-    // Hide anything but page title
-    if (mainApp) {
-        mainApp.style.display = 'none';
-    }
-    
-    // Check if the banner was already created 
-    let errorBanner = document.getElementById('div_id_error_banner');
-    
-    if (!errorBanner) {
-        errorBanner = document.createElement('div');
-
-        // There's CSS declared for this in index.css
-        errorBanner.id = 'div_id_error_banner';
-
-        errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
-        document.body.appendChild(errorBanner);
-    } else {
-        console.log("Can't display an error when banner is already up!");
-    }
-}
-
 function renderUserSpecificDataIfReady() {
     // Bail out if we're not, in fact, ready to render
     
@@ -294,7 +271,17 @@ function main() {
     
     // 3. NAVIGATION NAVIGATION INTERCEPTORS: Handle future browser Back/Forward clicks smoothly
     window.addEventListener('popstate', (event) => {
-        console.log("Inside popstate event listener");
+        console.log("User clicked back or forward; popstate event listener invoked");
+
+        // Remove error banner in case it showed on the last page
+        clearFatalErrorMessageIfShown();
+
+        // Hide and wipe state on dynamic data that may have changed
+        document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
+        document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+        userWatchesData = null;
+        userSingleWatchData = null;
+
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
         
         if (segments.length === 2 && segments[0] === 'watches') {
