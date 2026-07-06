@@ -179,6 +179,8 @@ async function getUserWatches() {
                 } else {
                     history.pushState(null, '', `/watches/${watchId}`);
 
+                    console.log(`User clicked row for detailed data on watch ID ${watchId}`);
+
                     // Hide all dynamic data besides email to be safe
                     document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
                     document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
