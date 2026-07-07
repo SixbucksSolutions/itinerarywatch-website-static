@@ -53,6 +53,15 @@ h1 {
     margin-left: 2.5rem;
 }
 
+
+#div_id_dynamic_data_single_search table {
+    margin-left: 5rem;
+}
+
+#div_id_itineraries_container {
+    margin-left: 5rem;
+}
+
 p {
     font-weight: 400;
     font-size: 1.05rem;
