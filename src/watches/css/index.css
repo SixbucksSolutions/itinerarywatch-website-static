@@ -154,7 +154,7 @@ table tbody tr:hover {
     font-weight: 700;
     margin-top: 1.5rem; 
     margin-bottom: 0.25rem;
-    margin-left: 0; /* Aligns perfectly with the summary table above it */
+    margin-left: 2.5rem; 
 }
 
 /* Fix for the 5rem global table indent breaking the internal tables */
@@ -164,13 +164,13 @@ table tbody tr:hover {
 }
 
 #div_id_itineraries_container table.itinerary-details-table {
-    margin-left: 2.5rem !important; /* Forces the detail table inward to create a child-like stair step */
+    margin-left: 2.5rem !important; 
 }
 
 #div_id_itineraries_container table.sailing-summary-table thead th {
     background-color: #334155 !important;
     color: #ffffff !important;
-    padding: 8px 24px; /* Reduced to realistic natural spacing */
+    padding: 8px 24px; 
     text-align: center;
 }
 
@@ -178,7 +178,7 @@ table tbody tr:hover {
     text-align: center;
     background-color: #ffffff !important;
     color: #000000;
-    padding: 8px 24px; /* Reduced to realistic natural spacing */
+    padding: 8px 24px; 
     border-bottom: none;
 }
 
@@ -219,21 +219,29 @@ table tbody tr:hover {
     background-color: #e2e8f0;
 }
 
-/* 3. Strip away the global single-row hover borders */
+/* 3. Strip away the global single-row hover borders, but KEEP the row background transition */
 #div_id_itineraries_container table.itinerary-details-table tbody tr {
     border-left: none; 
-}
-#div_id_itineraries_container table.itinerary-details-table tbody tr:hover {
-    background-color: transparent !important;
-    border-left-color: transparent;
+    transition: background-color 0.15s ease;
 }
 
-/* 4. Apply hover effect & borders dynamically to the entire DAY (TBODY) group */
+/* 4. Apply the gray background ONLY to the specifically hovered row (TR), overriding the global blue border */
+#div_id_itineraries_container table.itinerary-details-table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+    border-left-color: transparent; 
+}
+
+/* 5. Apply the blue border dynamically to the entire DAY (TBODY) group */
 #div_id_itineraries_container table.itinerary-details-table tbody {
     border-left: 4px solid transparent;
-    transition: background-color 0.15s ease, border-left-color 0.15s ease;
+    transition: border-left-color 0.15s ease;
 }
 #div_id_itineraries_container table.itinerary-details-table tbody:hover {
-    background-color: #f1f5f9 !important;
     border-left-color: #3b82f6;
+}
+
+/* 6. Magic UI touch: force the spanned Day/Date cells to always highlight when ANY row in their day is hovered, completing the visual horizontal line */
+#div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
+    background-color: #f1f5f9 !important;
+    transition: background-color 0.15s ease;
 }
