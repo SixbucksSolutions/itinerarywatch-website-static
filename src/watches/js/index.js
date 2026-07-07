@@ -124,7 +124,7 @@ async function getUserWatches() {
     // and it will never see it again.
     //
     // Note: the backend ignores the amusing query string parameter, it's simply to
-    //      well and truly fucl with any CDN or coffee shop proxy that tries to do something
+    //      well and truly fuck with any CDN or brain-dead coffee shop web proxy that tries to do something
     //      that would piss me off
     const apiEndpoint = `https://api.itinerarywatch.com/api/v001/watches?_eat_a_d__k_cdn_and_web_proxies=${cacheBuster}`;
 
