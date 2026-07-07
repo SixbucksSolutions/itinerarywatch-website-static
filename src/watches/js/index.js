@@ -133,6 +133,19 @@ async function getUserWatches() {
         tbody.textContent = '';
         const fragment = document.createDocumentFragment();
 
+        // Reusable 12-hour formatter for dashboard timestamps
+        const formatTime = (ts) => {
+            if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC"; // Safe fallback
+            const datePart = ts.substring(0, 10);
+            const timePart = ts.substring(11, 16);
+            if (!timePart.includes(':')) return `${datePart} ${timePart} UTC`;
+            let [hourStr, minStr] = timePart.split(':');
+            let hour = parseInt(hourStr, 10);
+            const ampm = hour >= 12 ? 'pm' : 'am';
+            hour = (hour % 12) || 12;
+            return `${datePart} ${hour}:${minStr}${ampm} UTC`;
+        };
+
         Object.entries(userWatchesData).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
             tr.addEventListener('click', (event) => {
@@ -154,23 +167,14 @@ async function getUserWatches() {
             if (watchData.url.includes("celebritycruises.com")) cruiseLine = "Celebrity";
             else if (watchData.url.includes("ncl.com")) cruiseLine = "Norwegian";
 
-            const updatedTimestamp = watchData.watch_last_updated_timestamp || "";
-            const changedTimestamp = watchData.search_contents_changed_timestamp || "";
-            const checkedTimestamp = watchData.search_last_checked_timestamp || "";
-
-            const updatedDate = updatedTimestamp.length >= 10 ? updatedTimestamp.substring(0, 10) : "0000-00-00";
-            const updatedTime = updatedTimestamp.length >= 16 ? updatedTimestamp.substring(11, 16) : "00:00";
-            const resultsDate = changedTimestamp.length >= 10 ? changedTimestamp.substring(0, 10) : "00-00-00";
-            const resultsTime = changedTimestamp.length >= 16 ? changedTimestamp.substring(11, 16) : "00:00";
-            const checkedDate = checkedTimestamp.length >= 10 ? checkedTimestamp.substring(0, 10) : "0000-00-00";
-            const checkedTime = checkedTimestamp.length >= 16 ? checkedTimestamp.substring(11, 16) : "00:00";
-
             const tdName = document.createElement('td'); tdName.textContent = watchData.watch_name; tr.appendChild(tdName);
             const tdLine = document.createElement('td'); tdLine.textContent = cruiseLine; tr.appendChild(tdLine);
             const tdSailings = document.createElement('td'); tdSailings.textContent = watchData.matching_sailings_found; tr.appendChild(tdSailings);
-            const tdUpdated = document.createElement('td'); tdUpdated.textContent = `${updatedDate} ${updatedTime} UTC`; tr.appendChild(tdUpdated);
-            const tdResults = document.createElement('td'); tdResults.textContent = `${resultsDate} ${resultsTime} UTC`; tr.appendChild(tdResults);
-            const tdChecked = document.createElement('td'); tdChecked.textContent = `${checkedDate} ${checkedTime} UTC`; tr.appendChild(tdChecked);
+            
+            // Format API timestamps utilizing our 12-hour formatTime helper
+            const tdUpdated = document.createElement('td'); tdUpdated.textContent = formatTime(watchData.watch_last_updated_timestamp); tr.appendChild(tdUpdated);
+            const tdResults = document.createElement('td'); tdResults.textContent = formatTime(watchData.search_contents_changed_timestamp); tr.appendChild(tdResults);
+            const tdChecked = document.createElement('td'); tdChecked.textContent = formatTime(watchData.search_last_checked_timestamp); tr.appendChild(tdChecked);
 
             fragment.appendChild(tr);
         });
@@ -283,7 +287,6 @@ async function getUserWatchDetails(searchId) {
                 const table = document.createElement('table');
                 table.className = 'itinerary-details-table';
                 
-                // Added the 7th Day of Week header column
                 table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Day of Week</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
                 
                 (sailing.day_details || []).forEach((day, dayIndex) => {
@@ -291,7 +294,6 @@ async function getUserWatchDetails(searchId) {
                     const dayNum = dayIndex + 1;
                     const numActivities = day.activities ? day.activities.length : 0;
                     
-                    // Safely parse the YYYY-MM-DD string to avoid timezone shifting issues
                     let dayOfWeekStr = "N/A";
                     if (day.date) {
                         const parts = day.date.split('-');
