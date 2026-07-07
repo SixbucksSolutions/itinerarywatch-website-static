@@ -1,11 +1,6 @@
 body {
-    /* Hide content on initial paint to completely eliminate font and layout flickering.
-     * NOTE: we don't set it to none, we set it to *hidden*. By keeping it hidden, the browser can
-     * compute spacing and sizing for it, whereas none means it's invisible to the render engine
-     */
     visibility: hidden;
-
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-size: 13px;
     line-height: 1.5;
@@ -25,26 +20,21 @@ h1 {
 
 #div_id_error_banner {
     font-weight: 700;
-
-    /* Typography Overhaul for Visual Loudness */
-    font-size: 1.5rem;          /* Drastically increases size (~24px) */
-    line-height: 1.4;           /* Prevents multi-line error messages from overlapping */
-    letter-spacing: -0.02em;    /* Tightens Inter tracking for a punchier headline look */
-
-    /* Enhanced Border & Background Contrast */
+    font-size: 1.5rem;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
     background: #fee2e2;
     color: #991b1b;
-    border: 2px solid #ef4444;  /* Adds a bright red border anchor */
-
-    /* Layout & Sizing */
-    padding: 24px 32px;         /* Expands breathing room around the giant text */
+    border: 2px solid #ef4444;
+    padding: 24px 32px;
     border-radius: 8px;
     text-align: center;
-
     margin: 20px;
 }
 
-#div_id_dynamic_data, #div_id_dynamic_data_all_searches, #div_id_dynamic_data_single_search {
+#div_id_dynamic_data,
+#div_id_dynamic_data_all_searches,
+#div_id_dynamic_data_single_search {
     display: none;
     margin-left: 2.5rem;
 }
@@ -65,16 +55,15 @@ h2 {
 
 h3 {
     font-weight: 700;
-    font-size: 1.05rem; 
+    font-size: 1.05rem;
     margin-top: 1.25rem;
     margin-bottom: 0.75rem;
-    margin-left: 2.5rem; /* Matches the indent jump from the <p> to the <h2> */
+    margin-left: 2.5rem;
 }
 
 table {
     width: max-content;
     max-width: calc(100% - 2.5rem);
-    table-layout: auto;
     border-collapse: collapse;
     background-color: transparent;
     margin-top: 1rem;
@@ -83,12 +72,8 @@ table {
 
 table td {
     padding: 8px 10px;
-    text-align: left;
     font-weight: 400;
     font-size: 0.95rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     border-bottom: 1px solid #e2e8f0;
 }
 
@@ -97,217 +82,107 @@ table thead th {
     color: #ffffff;
     font-weight: 700;
     padding: 8px 10px;
-    text-align: left;
     font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     white-space: nowrap;
-    vertical-align: bottom;
 }
 
-/* --- Explicit Fixed Column Distribution Layer (Dashboard Table) --- */
-table thead th:nth-child(2) { width: 100px; }
-table thead th:nth-child(3) { width: 40px; }
-table thead th:nth-child(4) { width: 160px; }
-table thead th:nth-child(5) { width: 220px; }
-table thead th:nth-child(6) { width: 160px; }
-
-/* --- Text Alignment & Custom Margins Layer (Dashboard Table) --- */
-table thead th:nth-child(n+2), table tbody td:nth-child(n+2) {
+/* Dashboard Specifics */
+table thead th:nth-child(n+2),
+table tbody td:nth-child(n+2) {
     text-align: center;
 }
 
-/* Doubled left outer edge inset framing (40px) + perfect horizontal whitespace trailing (40px) */
-table thead th:nth-child(1), table tbody td:nth-child(1) {
+table thead th:nth-child(1),
+table tbody td:nth-child(1) {
     padding-left: 40px;
     padding-right: 40px;
 }
 
-/* Match the perfect horizontal whitespace trailing edge for Column 2 */
-table thead th:nth-child(2), table tbody td:nth-child(2) {
-    padding-left: 20px;
-    padding-right: 40px;
-}
-
-/* Match the perfect horizontal whitespace trailing edge for Column 3 */
-table thead th:nth-child(3), table tbody td:nth-child(3) {
-    padding-left: 20px;
-    padding-right: 40px;
-}
-
-/* Match the perfect horizontal whitespace trailing edge for Column 4 */
-table thead th:nth-child(4), table tbody td:nth-child(4) {
-    padding-left: 20px;
-    padding-right: 40px;
-}
-
-/* Match the perfect horizontal whitespace trailing edge for Column 5 */
-table thead th:nth-child(5), table tbody td:nth-child(5) {
-    padding-left: 20px;
-    padding-right: 40px;
-}
-
-/* Doubled right outer edge inset framing (40px) to match Column 1 left side padding symmetry */
-table thead th:nth-child(6), table tbody td:nth-child(6) {
-    padding-left: 20px;
-    padding-right: 40px;
-}
-
-/* --- Zebra Striping Readability Layer --- */
-table tbody tr:nth-child(odd) td {
-    background-color: #ffffff;
-}
-
-table tbody tr:nth-child(even) td {
-    background-color: #e2e8f0;
-}
-
-/* --- Interactive Sorting UI Layer --- */
-.sortable-header {
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-    transition: background-color 0.15s ease;
-}
-
-.sortable-header:hover {
-    background-color: #475569;
-}
-
-/* Suffix character slots for active sort status indicators */
-.sortable-header.asc::after {
-    content: " ▲";
-    font-size: 0.7rem;
-    position: absolute;
-    right: 8px;
-}
-
-.sortable-header.desc::after {
-    content: " ▼";
-    font-size: 0.7rem;
-    position: absolute;
-    right: 8px;
-}
-
-/* --- Modern Interactive Rows Layer --- */
 table tbody tr {
     cursor: pointer;
-    transition: background-color 0.15s ease, border-left-color 0.15s ease;
     border-left: 4px solid transparent;
 }
 
-/* Hover state overrides alternating zebra striping smoothly and introduces a brand highlight line */
 table tbody tr:hover {
     background-color: #f1f5f9 !important;
     border-left-color: #3b82f6;
 }
 
-/* ==========================================================================
-   SINGLE SEARCH SUMMARY TABLE OVERRIDES
-   ========================================================================== */
-
+/* Summary Table Overrides */
 #div_id_dynamic_data_single_search table {
-    margin-left: 5rem; 
+    margin-left: 5rem;
 }
 
-/* 1, 2, 3: Style the row headers (th) to match the main table's column headers, but right-aligned */
 #div_id_dynamic_data_single_search table tbody th {
     background-color: #334155;
     color: #ffffff;
     font-weight: 700;
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 8px 12px; 
-    text-align: right; 
-    border-bottom: none; 
-    width: max-content; 
-    white-space: nowrap; /* Wraps the header tightly with symmetrical horizontal padding */
+    padding: 8px 12px;
+    text-align: right;
+    border-bottom: none;
 }
 
-/* 1, 4: Left-align data columns and override the global nth-child center alignment */
-#div_id_dynamic_data_single_search table tbody td,
-#div_id_dynamic_data_single_search table tbody td:nth-child(n+2) {
+#div_id_dynamic_data_single_search table tbody td {
     text-align: left;
-    font-size: 0.95rem; 
-    padding: 8px 12px; 
-    border-bottom: none; 
+    font-size: 0.95rem;
+    padding: 8px 12px;
+    border-bottom: none;
 }
 
-/* 5: Eliminate zebra striping for this specific table */
-#div_id_dynamic_data_single_search table tbody tr:nth-child(odd) td,
-#div_id_dynamic_data_single_search table tbody tr:nth-child(even) td {
-    background-color: #ffffff; 
-}
-
-/* 5: Remove the pointer cursor and the blue left-border hover effect from the global rules */
 #div_id_dynamic_data_single_search table tbody tr {
     cursor: auto;
-    border-left: none;
+    background-color: #ffffff !important;
 }
 
-/* 5: Disable the row highlighting when hovering over the summary table */
-#div_id_dynamic_data_single_search table tbody tr:hover {
-    background-color: #ffffff !important; 
-    border-left-color: transparent;
-}
-
-/* 6: Make the dynamically generated link look clickable and distinct */
-#td_id_summary_url a {
-    color: #2563eb; 
-    text-decoration: none;
-    transition: color 0.15s ease;
-}
-
-#td_id_summary_url a:hover {
-    text-decoration: underline;
-    color: #1d4ed8; 
-}
-
-/* ==========================================================================
-   SAILING SUMMARY (DECODER) TABLE OVERRIDES
-   ========================================================================== */
-
+/* Sailing Summary Decoder Table */
 table.sailing-summary-table {
-    margin-bottom: 0.75rem; /* Breathing room before the itinerary table */
+    margin-left: 0;
+    margin-bottom: 0;
 }
 
-table.sailing-summary-table thead th {
+table.sailing-summary-table th {
+    padding: 8px 40px;
+}
+
+table.sailing-summary-table td {
     text-align: center;
+    background-color: #ffffff !important;
+    border-bottom: none;
 }
 
-table.sailing-summary-table tbody td {
-    text-align: center;
-    background-color: #ffffff !important; 
-    color: #000000;
-    border-bottom: none; /* Keeps it a clean box */
-}
-
-/* ==========================================================================
-   ITINERARY DETAIL TABLE OVERRIDES
-   ========================================================================== */
-
+/* Itinerary Details */
 #div_id_itineraries_container {
-    margin-left: 5rem; 
+    margin-left: 5rem;
 }
 
-/* Match the "Results from..." <h4> text size to the "Sailing ID" <p> */
 #div_id_itineraries_container h4 {
-    font-size: 1.05rem; 
+    font-size: 1.05rem;
     font-weight: 700;
     margin-top: 1.5rem;
-    margin-bottom: 1.5rem; /* Increased to match margin-top for breathing room */
+    margin-bottom: 1.5rem;
 }
 
-/* Base Itinerary Table Reset: Wipe out the heavy fixed widths and 
-   40px edge paddings inherited from the main dashboard table */
+#div_id_itineraries_container h5 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    color: #475569;
+}
+
+table.itinerary-details-table {
+    margin-left: 0;
+}
+
 table.itinerary-details-table th,
 table.itinerary-details-table td {
-    width: auto; 
-    padding: 8px 16px; 
+    padding: 8px 16px;
 }
 
-/* Center align Columns 1, 2, 4, and 5 for the Itinerary Details Table */
 table.itinerary-details-table thead th:nth-child(1),
 table.itinerary-details-table tbody td:nth-child(1),
 table.itinerary-details-table thead th:nth-child(2),
@@ -319,19 +194,7 @@ table.itinerary-details-table tbody td:nth-child(5) {
     text-align: center;
 }
 
-/* Left align "LOCATION" (Column 3) header and data */
 table.itinerary-details-table thead th:nth-child(3),
 table.itinerary-details-table tbody td:nth-child(3) {
     text-align: left;
-}
-
-/* Collapse horizontal whitespace tightly around the two time columns (4 & 5) */
-table.itinerary-details-table thead th:nth-child(4),
-table.itinerary-details-table tbody td:nth-child(4),
-table.itinerary-details-table thead th:nth-child(5),
-table.itinerary-details-table tbody td:nth-child(5) {
-    width: max-content;
-    white-space: nowrap; 
-    padding-left: 8px;   
-    padding-right: 8px;
 }
