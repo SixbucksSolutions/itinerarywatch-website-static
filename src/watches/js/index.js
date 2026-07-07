@@ -3,7 +3,6 @@ let userInfo = null;
 let userWatchesData = null;
 let userSingleWatchData = null;
 
-
 function displayFatalError(message) {
     // console.log("Inside displayFatalError");
     const mainApp = document.getElementById('div_id_dynamic_data');
@@ -40,7 +39,7 @@ function clearFatalErrorMessageIfShown() {
 
 function renderUserSpecificDataIfReady() {
     // Bail out if we're not, in fact, ready to render
-    
+
     // User email is mandatory in either case, if we don't have it, wait for it
     if ( userInfo === null ) {
         return;
@@ -50,7 +49,7 @@ function renderUserSpecificDataIfReady() {
     if ( userWatchesData !== null ) {
         // console.log('renderUserSpecificDataIfReady calling renderAllUserWatches');
         renderAllUserWatches();
-    } 
+    }
     else if ( userSingleWatchData !== null ) {
         // console.log('renderUserSpecificDataIfReady calling renderSingleUserWatchDetails');
         renderSingleUserWatchDetails();
@@ -65,7 +64,7 @@ function renderAllUserWatches() {
     }
 
     const userWatchesDiv = document.getElementById('div_id_dynamic_data_all_searches');
-    const dynamicDataDiv = document.getElementById('div_id_dynamic_data'); 
+    const dynamicDataDiv = document.getElementById('div_id_dynamic_data');
 
     // display email and list of all user searches
     if (userWatchesDiv && dynamicDataDiv) {
@@ -82,7 +81,6 @@ function renderAllUserWatches() {
         firstHeader.click();
     }
 }
-
 
 function renderSingleUserWatchDetails() {
     if (pageStartTime !== null) {
@@ -202,7 +200,7 @@ async function getUserWatches() {
 
         Object.entries(userWatchesData).forEach(([watchId, watchData]) => {
             const tr = document.createElement('tr');
-            
+
             // Fixed using a proper template literal and the correct www frontend domain
             const targetUrl = `/watches/${watchId}`;
 
@@ -212,7 +210,7 @@ async function getUserWatches() {
                 if (window.getSelection().toString()) {
                     return;
                 }
-                
+
                 if (event.metaKey || event.ctrlKey) {
                     window.open(targetUrl, '_blank');
                 } else {
@@ -251,10 +249,10 @@ async function getUserWatches() {
 
             const updatedDate = updatedTimestamp.length >= 10 ? updatedTimestamp.substring(0, 10) : "0000-00-00";
             const updatedTime = updatedTimestamp.length >= 16 ? updatedTimestamp.substring(11, 16) : "00:00";
-            
+
             const resultsDate = changedTimestamp.length >= 10 ? changedTimestamp.substring(0, 10) : "0000-00-00";
             const resultsTime = changedTimestamp.length >= 16 ? changedTimestamp.substring(11, 16) : "00:00";
-            
+
             const checkedDate = checkedTimestamp.length >= 10 ? checkedTimestamp.substring(0, 10) : "0000-00-00";
             const checkedTime = checkedTimestamp.length >= 16 ? checkedTimestamp.substring(11, 16) : "00:00";
 
@@ -264,7 +262,7 @@ async function getUserWatches() {
             const searchLastCheckedFormatted = `${checkedDate} ${checkedTime} UTC`;
 
             // --- DOM Element Construction Layer ---
-            // Column 1: Search Name 
+            // Column 1: Search Name
             const tdName = document.createElement('td');
             tdName.textContent = watchData.watch_name;
             tr.appendChild(tdName);
@@ -338,7 +336,7 @@ async function getUserWatchDetails(searchId) {
         // --- 1. Populate Summary Data ---
         const summary = userSingleWatchData.summary;
 
-        // Reusable formatter for "YYYY-MM-DD HH:MM UTC" to handle the incoming "+00:00" string
+        // Reusable formatter for "YYYY-MM-DD HH:MM UTC" to handle the incoming "+00:00" string 
         const formatTime = (ts) => {
             if (!ts) return "N/A";
             return ts.substring(0, 16).replace('T', ' ') + " UTC";
@@ -424,16 +422,16 @@ async function getUserWatchDetails(searchId) {
                 (sailing.day_details || []).forEach(day => {
                     (day.activities || []).forEach(activity => {
                         const tr = document.createElement('tr');
-
+                        
                         const tdDate = document.createElement('td');
                         tdDate.textContent = day.date;
-
+                        
                         const tdType = document.createElement('td');
                         // Replace underscores with spaces for cleaner reading (e.g., PORT_EMBARK -> PORT EMBARK)
-                        tdType.textContent = (activity.type || '-').replace(/_/g, ' ');
+                        tdType.textContent = (activity.type || '').replace(/_/g, ' ');
 
                         const tdLocation = document.createElement('td');
-                        let locString = '-';
+                        let locString = '';
                         if (activity.location && activity.location.name) {
                             locString = activity.location.name;
                             if (activity.location.region) {
@@ -443,10 +441,10 @@ async function getUserWatchDetails(searchId) {
                         tdLocation.textContent = locString;
 
                         const tdStart = document.createElement('td');
-                        tdStart.textContent = activity.time_start || '-';
+                        tdStart.textContent = activity.time_start || '';
 
                         const tdEnd = document.createElement('td');
-                        tdEnd.textContent = activity.time_end || '-';
+                        tdEnd.textContent = activity.time_end || '';
 
                         tr.appendChild(tdDate);
                         tr.appendChild(tdType);
@@ -475,7 +473,7 @@ async function getUserWatchDetails(searchId) {
 }
 
 function main() {
-    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready -- avoids 
+    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready -- avoids
     //      "Flicker Of Unstylized Text" (FOUT) problem that was visible when watching the h1 closely on
     //      reloads
     document.body.style.visibility = 'visible';
@@ -490,11 +488,11 @@ function main() {
     if (!searchDiv) {
         console.log(`Inside main, div for single search \"${searchDivName}\" not found in DOM`);
     }
-    
+
     // 1. Always fetch user profile data for the header email display right away
     getUserInfo();
     initializeTableSorter();
-    
+
     // Clean, split, and array-filter the current path
     const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
 
@@ -506,7 +504,7 @@ function main() {
         console.log("Initial page load: default main dashboard view detected");
         getUserWatches();
     }
-    
+
     // 3. NAVIGATION NAVIGATION INTERCEPTORS: Handle future browser Back/Forward clicks smoothly
     window.addEventListener('popstate', (event) => {
         console.log("User clicked back or forward; popstate event listener invoked");
@@ -533,4 +531,3 @@ function main() {
 }
 
 main();
-
