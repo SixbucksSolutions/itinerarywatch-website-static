@@ -110,6 +110,32 @@ table tbody tr:hover {
     border-left-color: #3b82f6;
 }
 
+/* --- Interactive Sorting UI Layer --- */
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background-color 0.15s ease;
+}
+
+.sortable-header:hover {
+    background-color: #475569;
+}
+
+.sortable-header.asc::after {
+    content: " ▲";
+    font-size: 0.7rem;
+    position: absolute;
+    right: 8px;
+}
+
+.sortable-header.desc::after {
+    content: " ▼";
+    font-size: 0.7rem;
+    position: absolute;
+    right: 8px;
+}
+
 /* ==========================================================================
    SUMMARY TABLE OVERRIDES (Direct Child Target to Isolate from Itineraries)
    ========================================================================== */
@@ -143,7 +169,7 @@ table tbody tr:hover {
 
 /* Prevent blue hover background and border from showing */
 #div_id_dynamic_data_single_search > table tbody tr:hover {
-    background-color: #ffffff !important;
+    background-color: transparent !important;
     border-left-color: transparent;
 }
 

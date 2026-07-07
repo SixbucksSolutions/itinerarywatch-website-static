@@ -195,7 +195,6 @@ async function getUserWatchDetails(searchId) {
         userSingleWatchData = await response.json();
         const summary = userSingleWatchData.summary;
 
-        // Activity display map updated with PORT_CRUISING
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
             "AT_SEA": "At Sea",
@@ -214,6 +213,7 @@ async function getUserWatchDetails(searchId) {
             hour = (parseInt(hour) % 12) || 12;
             return `${datePart} ${hour}:${min}${ampm} UTC`;
         };
+        
         const formatTimeOnly = (t) => {
             if (!t) return '';
             let [h, m] = t.split(':');
@@ -251,7 +251,6 @@ async function getUserWatchDetails(searchId) {
 
             sailings.forEach(sailing => {
                 const sDiv = document.createElement('div');
-                // Increased to 4rem for significantly more vertical whitespace between sailings
                 sDiv.style.marginBottom = "4rem";
                 sDiv.style.paddingLeft = "1rem";
                 sDiv.style.borderLeft = "4px solid #cbd5e1";
@@ -284,15 +283,24 @@ async function getUserWatchDetails(searchId) {
                 const table = document.createElement('table');
                 table.className = 'itinerary-details-table';
                 
-                // We use explicit classes here so CSS doesn't break when we span rows
-                table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
+                // Added the 7th Day of Week header column
+                table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Day of Week</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
                 
                 (sailing.day_details || []).forEach((day, dayIndex) => {
-                    // Create one entirely separate tbody for each DAY
                     const tbody = document.createElement('tbody');
                     const dayNum = dayIndex + 1;
                     const numActivities = day.activities ? day.activities.length : 0;
                     
+                    // Safely parse the YYYY-MM-DD string to avoid timezone shifting issues
+                    let dayOfWeekStr = "N/A";
+                    if (day.date) {
+                        const parts = day.date.split('-');
+                        if (parts.length === 3) {
+                            const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+                            dayOfWeekStr = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                        }
+                    }
+
                     if (numActivities > 0) {
                         day.activities.forEach((act, actIndex) => {
                             const tr = document.createElement('tr');
@@ -300,13 +308,12 @@ async function getUserWatchDetails(searchId) {
                             
                             let rowHtml = '';
                             
-                            // Only append the Day and Date columns on the FIRST activity of the day, with a rowspan
                             if (actIndex === 0) {
                                 rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell"><strong>${dayNum}</strong></td>`;
+                                rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${dayOfWeekStr}</td>`;
                                 rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${day.date}</td>`;
                             }
                             
-                            // Append the rest of the activity details
                             rowHtml += `<td class="align-center">${displayType}</td>`;
                             rowHtml += `<td class="align-left">${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td>`;
                             rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_start)}</td>`;
