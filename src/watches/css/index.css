@@ -137,28 +137,7 @@ table tbody tr:hover {
     background-color: #ffffff !important;
 }
 
-/* Sailing Summary Decoder Table */
-table.sailing-summary-table {
-    margin-left: 0;
-    margin-bottom: 0;
-}
-
-table.sailing-summary-table thead th {
-    background-color: #334155 !important;
-    color: #ffffff !important;
-    padding: 8px 40px;
-    text-align: center;
-}
-
-table.sailing-summary-table tbody td {
-    text-align: center;
-    background-color: #ffffff !important;
-    color: #000000;
-    padding: 8px 40px;
-    border-bottom: none;
-}
-
-/* Itinerary Details */
+/* Itinerary Details Container Overrides */
 #div_id_itineraries_container {
     margin-left: 5rem;
 }
@@ -170,36 +149,58 @@ table.sailing-summary-table tbody td {
     margin-bottom: 1.5rem;
 }
 
-#div_id_itineraries_container h5 {
-    font-size: 0.9rem;
+/* Fix for the misaligned Itinerary label */
+#div_id_itineraries_container .itinerary-label {
+    font-size: 1.05rem;
     font-weight: 700;
-    margin-top: 1rem;
+    margin-top: 1.5rem; /* Doubled whitespace above */
     margin-bottom: 0.25rem;
-    text-transform: uppercase;
-    color: #475569;
-}
-
-table.itinerary-details-table {
     margin-left: 0;
 }
 
-table.itinerary-details-table th,
-table.itinerary-details-table td {
-    padding: 8px 16px;
+/* Fix for the 5rem global table indent breaking the internal tables */
+#div_id_itineraries_container table.sailing-summary-table {
+    margin-left: 0 !important;
+    margin-bottom: 0;
 }
 
-table.itinerary-details-table thead th:nth-child(1),
-table.itinerary-details-table tbody td:nth-child(1),
-table.itinerary-details-table thead th:nth-child(2),
-table.itinerary-details-table tbody td:nth-child(2),
-table.itinerary-details-table thead th:nth-child(4),
-table.itinerary-details-table tbody td:nth-child(4),
-table.itinerary-details-table thead th:nth-child(5),
-table.itinerary-details-table tbody td:nth-child(5) {
+#div_id_itineraries_container table.itinerary-details-table {
+    margin-left: 0 !important;
+}
+
+#div_id_itineraries_container table.sailing-summary-table thead th {
+    background-color: #334155 !important;
+    color: #ffffff !important;
+    padding: 8px 60px;
     text-align: center;
 }
 
-table.itinerary-details-table thead th:nth-child(3),
-table.itinerary-details-table tbody td:nth-child(3) {
+#div_id_itineraries_container table.sailing-summary-table tbody td {
+    text-align: center;
+    background-color: #ffffff !important;
+    color: #000000;
+    padding: 8px 60px;
+    border-bottom: none;
+}
+
+#div_id_itineraries_container table.itinerary-details-table th,
+#div_id_itineraries_container table.itinerary-details-table td {
+    padding: 8px 16px;
+}
+
+/* Added container ID to override global specificities and guarantee centering works */
+#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(1),
+#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(1),
+#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(2),
+#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(2),
+#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(4),
+#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(4),
+#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(5),
+#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(5) {
+    text-align: center;
+}
+
+#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(3),
+#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(3) {
     text-align: left;
 }

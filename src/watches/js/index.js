@@ -195,12 +195,14 @@ async function getUserWatchDetails(searchId) {
         userSingleWatchData = await response.json();
         const summary = userSingleWatchData.summary;
 
+        // Activity display map updated with PORT_CRUISING
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
             "AT_SEA": "At Sea",
             "PORT_DOCKED": "Port (Docked)",
             "PORT_TENDERED": "Port (Tendering)",
-            "PORT_DEBARK": "Departure Day"
+            "PORT_DEBARK": "Departure Day",
+            "PORT_CRUISING": "Cruising"
         };
 
         const formatTime = (ts) => {
@@ -268,15 +270,13 @@ async function getUserWatchDetails(searchId) {
                     datesDisplay = `${idParts[3]} to ${idParts[4]}`;
                 }
 
-                // Explicit creation instead of innerHTML concatenation to keep DOM stable
                 const summaryTable = document.createElement('table');
                 summaryTable.className = 'sailing-summary-table';
                 summaryTable.innerHTML = `<thead><tr><th>SHIP</th><th>DATES</th></tr></thead><tbody><tr><td>${shipDisplay}</td><td>${datesDisplay}</td></tr></tbody>`;
                 sDiv.appendChild(summaryTable);
 
                 const itineraryLabel = document.createElement('p');
-                itineraryLabel.style.fontWeight = "bold";
-                itineraryLabel.style.marginBottom = "0.25rem";
+                itineraryLabel.className = 'itinerary-label';
                 itineraryLabel.textContent = "Itinerary:";
                 sDiv.appendChild(itineraryLabel);
 
