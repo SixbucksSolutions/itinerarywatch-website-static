@@ -99,7 +99,7 @@ table thead th {
 #div_id_dynamic_data_all_searches table thead th,
 #div_id_dynamic_data_all_searches table tbody td {
     padding-left: 40px;
-    padding-right: 40px;
+    padding-right: 64px; /* Expanded to give text breathing room from the 40px inset arrow */
 }
 
 /* Base table interactivity (Hover and Border) */
@@ -129,9 +129,7 @@ table tbody tr:hover {
     content: " ▲";
     font-size: 0.7rem;
     position: absolute;
-    /* Safely anchor the arrow inside the 40px padding zone */
-    right: 16px; 
-    /* Vertically center the arrow */
+    right: 40px; /* Symmetrical with the leftmost edge padding */
     top: 50%;
     transform: translateY(-50%);
 }
@@ -140,9 +138,7 @@ table tbody tr:hover {
     content: " ▼";
     font-size: 0.7rem;
     position: absolute;
-    /* Safely anchor the arrow inside the 40px padding zone */
-    right: 16px; 
-    /* Vertically center the arrow */
+    right: 40px; /* Symmetrical with the leftmost edge padding */
     top: 50%;
     transform: translateY(-50%);
 }
