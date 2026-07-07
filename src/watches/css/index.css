@@ -188,7 +188,7 @@ table tbody tr:hover {
 
 #div_id_itineraries_container table.sailing-summary-table tbody td {
     text-align: center;
-    background-color: #ffffff !important;
+    background-color: transparent !important;
     color: #000000;
     padding: 8px 24px; 
     border-bottom: none;
@@ -216,34 +216,26 @@ table tbody tr:hover {
     padding-right: 8px;
 }
 
-/* --- Grouped Hover & Zebra Stripes Logic --- */
+/* --- Grouped Hover Logic --- */
 
 /* 1. Eliminate the global alternating row colors inside this table */
 #div_id_itineraries_container table.itinerary-details-table tbody tr td {
     background-color: transparent !important; 
 }
 
-/* 2. Apply zebra striping to the entire DAY (TBODY) instead of individual rows */
-#div_id_itineraries_container table.itinerary-details-table tbody:nth-child(odd) {
-    background-color: #ffffff;
-}
-#div_id_itineraries_container table.itinerary-details-table tbody:nth-child(even) {
-    background-color: #e2e8f0;
-}
-
-/* 3. Strip away the global single-row hover borders, but KEEP the row background transition */
+/* 2. Strip away the global single-row hover borders, but KEEP the row background transition */
 #div_id_itineraries_container table.itinerary-details-table tbody tr {
     border-left: none; 
     transition: background-color 0.15s ease;
 }
 
-/* 4. Apply the gray background ONLY to the specifically hovered row (TR), overriding the global blue border */
+/* 3. Apply the gray background ONLY to the specifically hovered row (TR), overriding the global blue border */
 #div_id_itineraries_container table.itinerary-details-table tbody tr:hover {
     background-color: #f1f5f9 !important;
     border-left-color: transparent; 
 }
 
-/* 5. Apply the blue border dynamically to the entire DAY (TBODY) group */
+/* 4. Apply the blue border dynamically to the entire DAY (TBODY) group */
 #div_id_itineraries_container table.itinerary-details-table tbody {
     border-left: 4px solid transparent;
     transition: border-left-color 0.15s ease;
@@ -252,7 +244,7 @@ table tbody tr:hover {
     border-left-color: #3b82f6;
 }
 
-/* 6. Force the spanned Day/Date cells to always highlight when ANY row in their day is hovered */
+/* 5. Force the spanned Day/Date cells to always highlight when ANY row in their day is hovered */
 #div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
     background-color: #f1f5f9 !important;
     transition: background-color 0.15s ease;
