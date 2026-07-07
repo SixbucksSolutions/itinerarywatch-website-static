@@ -91,9 +91,9 @@ table thead th {
    BREADCRUMB NAVIGATION
    ========================================================================== */
 .breadcrumb-nav {
-    margin-left: 2.5rem; /* Aligns with Summary */
-    margin-top: 1rem;    /* Tight vertical gap locking it to user header visually */
-    margin-bottom: 3rem; /* Generous gap separating it from the tables below */
+    margin-left: 2.5rem; 
+    margin-top: 1rem;    
+    margin-bottom: 3rem; 
     font-size: 1.05rem;
     font-weight: 400;
     color: #64748b; 

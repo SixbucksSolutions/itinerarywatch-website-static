@@ -42,7 +42,12 @@
             </div>
 
             <div id="div_id_dynamic_data_single_search">
-                <h2>Watched cruise line search:</h2>
+                
+                <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+                    <a href="/watches" id="a_breadcrumb_watches">Watches</a> 
+                    <span class="breadcrumb-separator">›</span> 
+                    <span id="span_breadcrumb_uuid" class="breadcrumb-current"></span>
+                </nav>
 
                 <h3>Summary:</h3>
                 <table>
@@ -66,6 +71,10 @@
                         <tr>
                             <th scope="row">Search Last Run:</th>
                             <td id="td_id_summary_search_last_run"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Matching Itineraries:</th>
+                            <td id="td_id_summary_matching_itineraries"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -198,14 +198,14 @@ async function getUserWatchDetails(searchId) {
         const summary = userSingleWatchData.summary;
         const resultSets = userSingleWatchData.search_result_sets || {};
 
-        // Calculate total matching itineraries across the parsed JSON set
         let totalItineraries = 0;
         Object.values(resultSets).forEach(sailings => {
             totalItineraries += (sailings || []).length;
         });
 
-        // Populate Breadcrumb
-        document.getElementById('span_breadcrumb_uuid').textContent = searchId;
+        // Safely Populate Breadcrumb
+        const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
+        if (breadcrumbSpan) breadcrumbSpan.textContent = searchId;
 
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
@@ -234,22 +234,34 @@ async function getUserWatchDetails(searchId) {
             return `${h}:${m}${ampm}`;
         };
 
-        document.getElementById('td_id_summary_name').textContent = summary.name || "Unknown";
+        // Safely Populate Summary Data
+        const nameEl = document.getElementById('td_id_summary_name');
+        if (nameEl) nameEl.textContent = summary.name || "Unknown";
+
         const urlTd = document.getElementById('td_id_summary_url');
-        urlTd.innerHTML = '';
-        if (summary.url) {
-            const a = document.createElement('a');
-            a.href = summary.url;
-            a.textContent = summary.url;
-            a.target = "_blank";
-            a.rel = "noopener noreferrer";
-            urlTd.appendChild(a);
+        if (urlTd) {
+            urlTd.innerHTML = '';
+            if (summary.url) {
+                const a = document.createElement('a');
+                a.href = summary.url;
+                a.textContent = summary.url;
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                urlTd.appendChild(a);
+            }
         }
 
-        document.getElementById('td_id_summary_search_last_updated').textContent = formatTime(summary.last_updated_timestamp);
-        document.getElementById('td_id_summary_search_contents_last_changed').textContent = formatTime(summary.search_contents_last_changed_timestamp);
-        document.getElementById('td_id_summary_search_last_run').textContent = formatTime(summary.search_last_run_timestamp);
-        document.getElementById('td_id_summary_matching_itineraries').textContent = totalItineraries;
+        const updatedEl = document.getElementById('td_id_summary_search_last_updated');
+        if (updatedEl) updatedEl.textContent = formatTime(summary.last_updated_timestamp);
+
+        const changedEl = document.getElementById('td_id_summary_search_contents_last_changed');
+        if (changedEl) changedEl.textContent = formatTime(summary.search_contents_last_changed_timestamp);
+
+        const runEl = document.getElementById('td_id_summary_search_last_run');
+        if (runEl) runEl.textContent = formatTime(summary.search_last_run_timestamp);
+
+        const matchingEl = document.getElementById('td_id_summary_matching_itineraries');
+        if (matchingEl) matchingEl.textContent = totalItineraries;
 
         const singleSearchDiv = document.getElementById('div_id_dynamic_data_single_search');
         let cont = document.getElementById('div_id_itineraries_container');
@@ -340,7 +352,9 @@ async function getUserWatchDetails(searchId) {
                 cont.appendChild(sDiv);
             });
         });
-        singleSearchDiv.appendChild(cont);
+        if (singleSearchDiv) {
+            singleSearchDiv.appendChild(cont);
+        }
         renderUserSpecificDataIfReady();
     } catch (e) {
         displayFatalError(e.message);
