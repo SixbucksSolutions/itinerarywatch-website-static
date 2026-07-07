@@ -133,14 +133,10 @@ async function getUserWatches() {
         tbody.textContent = '';
         const fragment = document.createDocumentFragment();
 
-        // Reset the Breadcrumb nav for the dashboard view
         const separatorSpan = document.getElementById('span_breadcrumb_separator');
         if (separatorSpan) separatorSpan.style.display = 'none';
-        
         const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = '';
-
-        // Disable interactivity on the "Watches" link when already on the dashboard
         const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
         if (breadcrumbLink) breadcrumbLink.classList.remove('active-breadcrumb');
 
@@ -187,7 +183,6 @@ async function getUserWatches() {
 
             fragment.appendChild(tr);
         });
-
         tbody.appendChild(fragment);
 
         if (typeof resetTableSorting === 'function') {
@@ -220,14 +215,10 @@ async function getUserWatchDetails(searchId) {
             totalItineraries += (sailings || []).length;
         });
 
-        // Populate Breadcrumb logic for Single Watch Details
         const separatorSpan = document.getElementById('span_breadcrumb_separator');
         if (separatorSpan) separatorSpan.style.display = 'inline';
-        
         const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = searchId;
-
-        // Enable hover and click interactivity on the "Watches" link for the details view
         const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
         if (breadcrumbLink) breadcrumbLink.classList.add('active-breadcrumb');
 
@@ -258,7 +249,6 @@ async function getUserWatchDetails(searchId) {
             return `${h}:${m}${ampm}`;
         };
 
-        // Safely Populate Summary Data
         const nameEl = document.getElementById('td_id_summary_name');
         if (nameEl) nameEl.textContent = summary.name || "Unknown";
 
@@ -277,13 +267,10 @@ async function getUserWatchDetails(searchId) {
 
         const updatedEl = document.getElementById('td_id_summary_search_last_updated');
         if (updatedEl) updatedEl.textContent = formatTime(summary.last_updated_timestamp);
-
         const changedEl = document.getElementById('td_id_summary_search_contents_last_changed');
         if (changedEl) changedEl.textContent = formatTime(summary.search_contents_last_changed_timestamp);
-
         const runEl = document.getElementById('td_id_summary_search_last_run');
         if (runEl) runEl.textContent = formatTime(summary.search_last_run_timestamp);
-
         const matchingEl = document.getElementById('td_id_summary_matching_itineraries');
         if (matchingEl) matchingEl.textContent = totalItineraries;
 
@@ -331,7 +318,6 @@ async function getUserWatchDetails(searchId) {
 
                 const table = document.createElement('table');
                 table.className = 'itinerary-details-table';
-                
                 table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Day of Week</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
                 
                 (sailing.day_details || []).forEach((day, dayIndex) => {
@@ -388,23 +374,10 @@ async function getUserWatchDetails(searchId) {
 function main() {
     document.body.style.visibility = 'visible';
     pageStartTime = performance.now();
-    console.log("pageStartTime set in main");
-
-    const searchDivName = 'div_id_dynamic_data_single_search';
-    const searchDiv = document.getElementById(searchDivName);
-
-    if (!searchDiv) {
-        console.log(`Inside main, div for single search "${searchDivName}" not found in DOM`);
-    }
-
-    getUserInfo();
-    initializeTableSorter();
-
-    // Hook up the breadcrumb SPA navigation logic
+    
     const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
     if (breadcrumbLink) {
         breadcrumbLink.addEventListener('click', (event) => {
-            event.preventDefault();
             if (event.metaKey || event.ctrlKey) {
                 window.open('/watches', '_blank');
             } else {
@@ -418,28 +391,24 @@ function main() {
         });
     }
 
-    const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
+    getUserInfo();
+    initializeTableSorter();
 
+    const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
     if (initialSegments.length === 2 && initialSegments[0] === 'watches') {
-        const targetWatchId = initialSegments[1];
-        console.log(`Initial page load: deep-link detected for watch ID ${targetWatchId}`);
-        getUserWatchDetails(targetWatchId); 
+        getUserWatchDetails(initialSegments[1]); 
     } else {
-        console.log("Initial page load: default main dashboard view detected");
         getUserWatches();
     }
 
     window.addEventListener('popstate', (event) => {
-        console.log("User clicked back or forward; popstate event listener invoked");
         clearFatalErrorMessageIfShown();
-
         document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
         document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
         userWatchesData = null;
         userSingleWatchData = null;
 
         const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
-
         if (segments.length === 2 && segments[0] === 'watches') {
             getUserWatchDetails(segments[1]);
         } else {

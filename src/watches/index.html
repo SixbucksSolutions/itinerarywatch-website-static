@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ItineraryWatch - Watches</title>
 
-        <!-- Warm up network pipelines early for Google Fonts and your backend API -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="preconnect" href="https://api.itinerarywatch.com" crossorigin="use-credentials">
@@ -13,7 +12,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=block" rel="stylesheet" crossorigin="anonymous">
         <link rel="stylesheet" href="/watches/css/index.css">
 
-        <!-- Deferred scripts -->
         <script src="/watches/js/table_sorter.js" defer></script>
         <script src="/watches/js/api_user.js" defer></script>
         <script src="/watches/js/api_watches.js" defer></script>
@@ -25,9 +23,8 @@
         <div id="div_id_dynamic_data">
             <p><strong>User</strong>: <span class="span_class_user_email"></span></p>
 
-            <!-- Permanent Dynamic Breadcrumb Navigation Shell -->
             <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-                <a href="/watches" id="a_breadcrumb_watches">Watches</a> 
+                <span class="nav-link" id="a_breadcrumb_watches">Watches</span> 
                 <span id="span_breadcrumb_separator" class="breadcrumb-separator" style="display: none;">›</span> 
                 <span id="span_breadcrumb_uuid" class="breadcrumb-current"></span>
             </nav>

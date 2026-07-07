@@ -99,10 +99,8 @@ table thead th {
     color: #64748b; 
 }
 
-/* Default state on Dashboard: Looks like a title, ignores all mouse events */
-.breadcrumb-nav a {
+.breadcrumb-nav .nav-link {
     color: #000000; 
-    text-decoration: none;
     font-weight: 700;
     padding: 4px 8px; 
     margin-left: -8px; 
@@ -112,13 +110,12 @@ table thead th {
     pointer-events: none; 
 }
 
-/* Detail view state: Interactivity restored via JS class toggle */
-.breadcrumb-nav a.active-breadcrumb {
+.breadcrumb-nav .nav-link.active-breadcrumb {
     cursor: pointer;
-    pointer-events: auto;
+    pointer-events: auto; 
 }
 
-.breadcrumb-nav a.active-breadcrumb:hover {
+.breadcrumb-nav .nav-link.active-breadcrumb:hover {
     background-color: #e2e8f0; 
 }
 
@@ -141,14 +138,12 @@ table thead th {
     text-align: center;
 }
 
-/* Apply generous padding to ALL columns to use screen real estate and make room for sort arrows */
 #div_id_dynamic_data_all_searches table thead th,
 #div_id_dynamic_data_all_searches table tbody td {
     padding-left: 40px;
     padding-right: 64px; 
 }
 
-/* Base table interactivity (Hover and Border) */
 table tbody tr {
     cursor: pointer;
     border-left: 4px solid transparent;
@@ -159,7 +154,6 @@ table tbody tr:hover {
     border-left-color: #3b82f6;
 }
 
-/* --- Interactive Sorting UI Layer --- */
 .sortable-header {
     cursor: pointer;
     user-select: none;
@@ -190,7 +184,7 @@ table tbody tr:hover {
 }
 
 /* ==========================================================================
-   SUMMARY TABLE OVERRIDES (Direct Child Target to Isolate from Itineraries)
+   SUMMARY TABLE OVERRIDES
    ========================================================================== */
 #div_id_dynamic_data_single_search > table {
     margin-left: 5rem;
@@ -214,13 +208,11 @@ table tbody tr:hover {
     border-bottom: none;
 }
 
-/* Strip pointer cursor and left border completely */
 #div_id_dynamic_data_single_search > table tbody tr {
     cursor: auto;
     border-left: none; 
 }
 
-/* Prevent blue hover background and border from showing */
 #div_id_dynamic_data_single_search > table tbody tr:hover {
     background-color: transparent !important;
     border-left-color: transparent;
@@ -248,7 +240,6 @@ table tbody tr:hover {
     margin-left: 2.5rem; 
 }
 
-/* Fix for the 5rem global table indent breaking the internal tables */
 #div_id_itineraries_container table.sailing-summary-table {
     margin-left: 0 !important;
     margin-bottom: 0;
@@ -278,7 +269,6 @@ table tbody tr:hover {
     padding: 8px 16px;
 }
 
-/* --- Explicit utility classes injected by JS for rowspan immunity --- */
 #div_id_itineraries_container table.itinerary-details-table .align-center {
     text-align: center;
 }
@@ -295,15 +285,11 @@ table tbody tr:hover {
     padding-right: 8px;
 }
 
-/* --- Grouped Hover Logic --- */
-
-/* 1. Ensure cells are transparent by default (removes global zebra stripes without breaking hover priority) */
 #div_id_itineraries_container table.itinerary-details-table tbody tr td {
     background-color: transparent; 
     transition: background-color 0.15s ease;
 }
 
-/* 2. Strip away the global single-row hover borders */
 #div_id_itineraries_container table.itinerary-details-table tbody tr {
     border-left: none; 
 }
@@ -311,12 +297,10 @@ table tbody tr:hover {
     border-left-color: transparent; 
 }
 
-/* 3. Apply the gray background ONLY to the specifically hovered row's cells */
 #div_id_itineraries_container table.itinerary-details-table tbody tr:hover td {
     background-color: #f1f5f9 !important;
 }
 
-/* 4. Apply the blue border dynamically to the entire DAY (TBODY) group */
 #div_id_itineraries_container table.itinerary-details-table tbody {
     border-left: 4px solid transparent;
     transition: border-left-color 0.15s ease;
@@ -325,7 +309,6 @@ table tbody tr:hover {
     border-left-color: #3b82f6;
 }
 
-/* 5. Force the spanned Day/Date cells to always highlight when ANY row in their day is hovered */
 #div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
     background-color: #f1f5f9 !important;
 }
