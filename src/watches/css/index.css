@@ -58,6 +58,7 @@ h1 {
     margin-left: 5rem;
 }
 
+
 #div_id_itineraries_container {
     margin-left: 5rem;
 }
@@ -226,21 +227,22 @@ table tbody tr:hover {
     background-color: #334155;
     color: #ffffff;
     font-weight: 700;
-    font-size: 0.8rem; /* Matches main table's header font size */
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    padding: 10px 20px;
-    text-align: right; /* Right-aligns the header labels */
-    border-bottom: 1px solid #e2e8f0;
-    width: 280px; /* Gives the headers a consistent, neat width */
+    padding: 8px 12px; /* REDUCED: Tighter horizontal whitespace */
+    text-align: right;
+    border-bottom: none; /* REMOVED: No horizontal row borders */
+    width: 280px;
 }
 
 /* 1, 4: Left-align data columns and override the global nth-child center alignment */
 #div_id_dynamic_data_single_search table tbody td,
 #div_id_dynamic_data_single_search table tbody td:nth-child(n+2) {
     text-align: left;
-    font-size: 0.95rem; /* Matches main table's data font size */
-    padding: 10px 20px;
+    font-size: 0.95rem;
+    padding: 8px 12px; /* REDUCED: Tighter horizontal whitespace */
+    border-bottom: none; /* REMOVED: No horizontal row borders */
 }
 
 /* 5: Eliminate zebra striping for this specific table */
