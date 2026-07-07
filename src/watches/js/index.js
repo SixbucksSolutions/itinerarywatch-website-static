@@ -187,7 +187,11 @@ async function getUserWatches() {
 
             fragment.appendChild(tr);
         });
-        tbody.appendChild(fragment);
+
+        if (typeof resetTableSorting === 'function') {
+            resetTableSorting();
+        }
+
         renderUserSpecificDataIfReady();
     } catch (error) {
         displayFatalError(`Failed to render dashboard rows: ${error.message}`);
