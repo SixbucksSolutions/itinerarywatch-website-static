@@ -335,13 +335,143 @@ async function getUserWatchDetails(searchId) {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watch ${searchId} API data retrieved in ${duration} ms`);
 
-        console.log(JSON.stringify(userSingleWatchData, null, 2)); 
+        // --- 1. Populate Summary Data ---
+        const summary = userSingleWatchData.summary;
 
+        // Reusable formatter for "YYYY-MM-DD HH:MM UTC" to handle the incoming "+00:00" string
+        const formatTime = (ts) => {
+            if (!ts) return "N/A";
+            return ts.substring(0, 16).replace('T', ' ') + " UTC";
+        };
+
+        document.getElementById('td_id_summary_name').textContent = summary.name || "Unknown";
+
+        // Create a clickable anchor for the long search URL
+        const urlTd = document.getElementById('td_id_summary_url');
+        urlTd.innerHTML = ''; // Clear prior data
+        if (summary.url) {
+            const urlAnchor = document.createElement('a');
+            urlAnchor.href = summary.url;
+            urlAnchor.textContent = summary.url;
+            urlAnchor.target = "_blank";
+            urlAnchor.rel = "noopener noreferrer";
+            urlTd.appendChild(urlAnchor);
+        }
+
+        document.getElementById('td_id_summary_search_last_updated').textContent = formatTime(summary.last_updated_timestamp);
+        document.getElementById('td_id_summary_search_contents_last_changed').textContent = formatTime(summary.search_contents_last_changed_timestamp);
+        document.getElementById('td_id_summary_search_last_run').textContent = formatTime(summary.search_last_run_timestamp);
+
+        // --- 2. Populate Itineraries (Dynamic DOM Construction) ---
+        const singleSearchDiv = document.getElementById('div_id_dynamic_data_single_search');
+
+        // Nuke the old itineraries container if it exists (handles back/forward navigation state)
+        let itinerariesContainer = document.getElementById('div_id_itineraries_container');
+        if (itinerariesContainer) {
+            itinerariesContainer.remove();
+        }
+
+        // Create a fresh container
+        itinerariesContainer = document.createElement('div');
+        itinerariesContainer.id = 'div_id_itineraries_container';
+
+        const resultSets = userSingleWatchData.search_result_sets || {};
+
+        Object.entries(resultSets).forEach(([resultSetTime, sailings]) => {
+            // Header for the specific result set
+            const setHeader = document.createElement('h4');
+            setHeader.textContent = `Results from: ${resultSetTime.substring(0,16).replace('T', ' ')} UTC`;
+            setHeader.style.marginTop = "1.5rem";
+            itinerariesContainer.appendChild(setHeader);
+
+            if (!sailings || sailings.length === 0) {
+                const noResults = document.createElement('p');
+                noResults.textContent = "No sailings found in this result set.";
+                itinerariesContainer.appendChild(noResults);
+                return; // skip to next result set
+            }
+
+            sailings.forEach(sailing => {
+                // Wrapper for each individual sailing
+                const sailingDiv = document.createElement('div');
+                sailingDiv.style.marginBottom = "2rem";
+                sailingDiv.style.paddingLeft = "1rem";
+                sailingDiv.style.borderLeft = "4px solid #cbd5e1"; // Visual anchor grouping days together
+
+                const sailingTitle = document.createElement('p');
+                sailingTitle.innerHTML = `<strong>Sailing ID:</strong> ${sailing.id}`;
+                sailingDiv.appendChild(sailingTitle);
+
+                // Build a mini-table for the day-by-day activities
+                const table = document.createElement('table');
+                table.style.marginTop = "0.5rem";
+                table.style.marginLeft = "0"; // Overriding the global table margin in your CSS
+
+                const thead = document.createElement('thead');
+                thead.innerHTML = `
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Activity Type</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Time Start</th>
+                        <th scope="col">Time End</th>
+                    </tr>
+                `;
+                table.appendChild(thead);
+
+                const tbody = document.createElement('tbody');
+
+                (sailing.day_details || []).forEach(day => {
+                    (day.activities || []).forEach(activity => {
+                        const tr = document.createElement('tr');
+
+                        const tdDate = document.createElement('td');
+                        tdDate.textContent = day.date;
+
+                        const tdType = document.createElement('td');
+                        // Replace underscores with spaces for cleaner reading (e.g., PORT_EMBARK -> PORT EMBARK)
+                        tdType.textContent = (activity.type || '-').replace(/_/g, ' ');
+
+                        const tdLocation = document.createElement('td');
+                        let locString = '-';
+                        if (activity.location && activity.location.name) {
+                            locString = activity.location.name;
+                            if (activity.location.region) {
+                                locString += `, ${activity.location.region}`;
+                            }
+                        }
+                        tdLocation.textContent = locString;
+
+                        const tdStart = document.createElement('td');
+                        tdStart.textContent = activity.time_start || '-';
+
+                        const tdEnd = document.createElement('td');
+                        tdEnd.textContent = activity.time_end || '-';
+
+                        tr.appendChild(tdDate);
+                        tr.appendChild(tdType);
+                        tr.appendChild(tdLocation);
+                        tr.appendChild(tdStart);
+                        tr.appendChild(tdEnd);
+                        tbody.appendChild(tr);
+                    });
+                });
+
+                table.appendChild(tbody);
+                sailingDiv.appendChild(table);
+                itinerariesContainer.appendChild(sailingDiv);
+            });
+        });
+
+        // Attach the completely built container to the DOM in one go
+        singleSearchDiv.appendChild(itinerariesContainer);
+
+        // Render phase complete, unhide UI
         renderUserSpecificDataIfReady();
+
     } catch (error) {
         displayFatalError(`Error when fetching and processing detailed user watch data: ${error.message}`);
     }
-
 }
 
 function main() {
