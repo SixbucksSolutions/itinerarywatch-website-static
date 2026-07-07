@@ -87,14 +87,17 @@ table thead th {
     white-space: nowrap;
 }
 
-/* Dashboard Specifics */
-table thead th:nth-child(n+2),
-table tbody td:nth-child(n+2) {
+/* ==========================================================================
+   DASHBOARD TABLE SPECIFICS
+   ========================================================================== */
+#div_id_dynamic_data_all_searches table thead th:nth-child(n+2),
+#div_id_dynamic_data_all_searches table tbody td:nth-child(n+2) {
     text-align: center;
 }
 
-table thead th:nth-child(1),
-table tbody td:nth-child(1) {
+/* Apply generous padding to ALL columns to use screen real estate and make room for sort arrows */
+#div_id_dynamic_data_all_searches table thead th,
+#div_id_dynamic_data_all_searches table tbody td {
     padding-left: 40px;
     padding-right: 40px;
 }
@@ -126,14 +129,22 @@ table tbody tr:hover {
     content: " ▲";
     font-size: 0.7rem;
     position: absolute;
-    right: 8px;
+    /* Safely anchor the arrow inside the 40px padding zone */
+    right: 16px; 
+    /* Vertically center the arrow */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .sortable-header.desc::after {
     content: " ▼";
     font-size: 0.7rem;
     position: absolute;
-    right: 8px;
+    /* Safely anchor the arrow inside the 40px padding zone */
+    right: 16px; 
+    /* Vertically center the arrow */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* ==========================================================================
