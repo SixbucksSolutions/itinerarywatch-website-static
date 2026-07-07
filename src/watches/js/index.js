@@ -133,9 +133,8 @@ async function getUserWatches() {
         tbody.textContent = '';
         const fragment = document.createDocumentFragment();
 
-        // Reusable 12-hour formatter for dashboard timestamps
         const formatTime = (ts) => {
-            if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC"; // Safe fallback
+            if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC"; 
             const datePart = ts.substring(0, 10);
             const timePart = ts.substring(11, 16);
             if (!timePart.includes(':')) return `${datePart} ${timePart} UTC`;
@@ -171,7 +170,6 @@ async function getUserWatches() {
             const tdLine = document.createElement('td'); tdLine.textContent = cruiseLine; tr.appendChild(tdLine);
             const tdSailings = document.createElement('td'); tdSailings.textContent = watchData.matching_sailings_found; tr.appendChild(tdSailings);
             
-            // Format API timestamps utilizing our 12-hour formatTime helper
             const tdUpdated = document.createElement('td'); tdUpdated.textContent = formatTime(watchData.watch_last_updated_timestamp); tr.appendChild(tdUpdated);
             const tdResults = document.createElement('td'); tdResults.textContent = formatTime(watchData.search_contents_changed_timestamp); tr.appendChild(tdResults);
             const tdChecked = document.createElement('td'); tdChecked.textContent = formatTime(watchData.search_last_checked_timestamp); tr.appendChild(tdChecked);
@@ -198,6 +196,16 @@ async function getUserWatchDetails(searchId) {
 
         userSingleWatchData = await response.json();
         const summary = userSingleWatchData.summary;
+        const resultSets = userSingleWatchData.search_result_sets || {};
+
+        // Calculate total matching itineraries across the parsed JSON set
+        let totalItineraries = 0;
+        Object.values(resultSets).forEach(sailings => {
+            totalItineraries += (sailings || []).length;
+        });
+
+        // Populate Breadcrumb
+        document.getElementById('span_breadcrumb_uuid').textContent = searchId;
 
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
@@ -241,6 +249,7 @@ async function getUserWatchDetails(searchId) {
         document.getElementById('td_id_summary_search_last_updated').textContent = formatTime(summary.last_updated_timestamp);
         document.getElementById('td_id_summary_search_contents_last_changed').textContent = formatTime(summary.search_contents_last_changed_timestamp);
         document.getElementById('td_id_summary_search_last_run').textContent = formatTime(summary.search_last_run_timestamp);
+        document.getElementById('td_id_summary_matching_itineraries').textContent = totalItineraries;
 
         const singleSearchDiv = document.getElementById('div_id_dynamic_data_single_search');
         let cont = document.getElementById('div_id_itineraries_container');
@@ -248,7 +257,7 @@ async function getUserWatchDetails(searchId) {
         cont = document.createElement('div');
         cont.id = 'div_id_itineraries_container';
 
-        Object.entries(userSingleWatchData.search_result_sets || {}).forEach(([resultSetTime, sailings]) => {
+        Object.entries(resultSets).forEach(([resultSetTime, sailings]) => {
             const h4 = document.createElement('h4');
             h4.textContent = `Results from: ${formatTime(resultSetTime)}`;
             cont.appendChild(h4);
@@ -352,6 +361,24 @@ function main() {
 
     getUserInfo();
     initializeTableSorter();
+
+    // Hook up the breadcrumb SPA navigation logic
+    const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
+    if (breadcrumbLink) {
+        breadcrumbLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (event.metaKey || event.ctrlKey) {
+                window.open('/watches', '_blank');
+            } else {
+                history.pushState(null, '', '/watches');
+                document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
+                document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+                userWatchesData = null;
+                userSingleWatchData = null;
+                getUserWatches();
+            }
+        });
+    }
 
     const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
 

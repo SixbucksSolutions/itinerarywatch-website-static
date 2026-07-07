@@ -88,6 +88,42 @@ table thead th {
 }
 
 /* ==========================================================================
+   BREADCRUMB NAVIGATION
+   ========================================================================== */
+.breadcrumb-nav {
+    margin-left: 2.5rem; /* Aligns with Summary */
+    margin-top: 1rem;    /* Tight vertical gap locking it to user header visually */
+    margin-bottom: 3rem; /* Generous gap separating it from the tables below */
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: #64748b; 
+}
+
+.breadcrumb-nav a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.15s ease;
+    cursor: pointer;
+}
+
+.breadcrumb-nav a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: #94a3b8;
+}
+
+.breadcrumb-current {
+    font-family: monospace; 
+    font-size: 0.95em;
+    color: #475569;
+}
+
+/* ==========================================================================
    DASHBOARD TABLE SPECIFICS
    ========================================================================== */
 #div_id_dynamic_data_all_searches table thead th:nth-child(n+2),
@@ -99,7 +135,7 @@ table thead th {
 #div_id_dynamic_data_all_searches table thead th,
 #div_id_dynamic_data_all_searches table tbody td {
     padding-left: 40px;
-    padding-right: 64px; /* Expanded to give text breathing room from the 40px inset arrow */
+    padding-right: 64px; 
 }
 
 /* Base table interactivity (Hover and Border) */
@@ -129,7 +165,7 @@ table tbody tr:hover {
     content: " ▲";
     font-size: 0.7rem;
     position: absolute;
-    right: 40px; /* Symmetrical with the leftmost edge padding */
+    right: 40px; 
     top: 50%;
     transform: translateY(-50%);
 }
@@ -138,7 +174,7 @@ table tbody tr:hover {
     content: " ▼";
     font-size: 0.7rem;
     position: absolute;
-    right: 40px; /* Symmetrical with the leftmost edge padding */
+    right: 40px; 
     top: 50%;
     transform: translateY(-50%);
 }
