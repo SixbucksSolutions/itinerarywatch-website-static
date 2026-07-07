@@ -195,7 +195,6 @@ async function getUserWatchDetails(searchId) {
         userSingleWatchData = await response.json();
         const summary = userSingleWatchData.summary;
 
-        // Activity display map updated with PORT_CRUISING
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
             "AT_SEA": "At Sea",
@@ -251,7 +250,8 @@ async function getUserWatchDetails(searchId) {
 
             sailings.forEach(sailing => {
                 const sDiv = document.createElement('div');
-                sDiv.style.marginBottom = "2rem";
+                // Increased margin-bottom from 2rem to 4rem to separate sailings visually
+                sDiv.style.marginBottom = "4rem";
                 sDiv.style.paddingLeft = "1rem";
                 sDiv.style.borderLeft = "4px solid #cbd5e1";
 
@@ -282,14 +282,18 @@ async function getUserWatchDetails(searchId) {
 
                 const table = document.createElement('table');
                 table.className = 'itinerary-details-table';
-                table.innerHTML = `<thead><tr><th>Date</th><th>Activity Type</th><th>Location</th><th>Start</th><th>End</th></tr></thead><tbody></tbody>`;
+                // Added Day header column
+                table.innerHTML = `<thead><tr><th>Day</th><th>Date</th><th>Activity Type</th><th>Location</th><th>Start</th><th>End</th></tr></thead><tbody></tbody>`;
                 const tbody = table.querySelector('tbody');
 
-                (sailing.day_details || []).forEach(day => {
+                (sailing.day_details || []).forEach((day, dayIndex) => {
+                    // Day logic: index increments per date
+                    const dayNum = dayIndex + 1;
+                    
                     (day.activities || []).forEach(act => {
                         const tr = document.createElement('tr');
                         const displayType = activityMap[act.type] || act.type.replace(/_/g, ' ');
-                        tr.innerHTML = `<td>${day.date}</td><td>${displayType}</td><td>${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td><td>${formatTimeOnly(act.time_start)}</td><td>${formatTimeOnly(act.time_end)}</td>`;
+                        tr.innerHTML = `<td>${dayNum}</td><td>${day.date}</td><td>${displayType}</td><td>${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td><td>${formatTimeOnly(act.time_start)}</td><td>${formatTimeOnly(act.time_end)}</td>`;
                         tbody.appendChild(tr);
                     });
                 });
