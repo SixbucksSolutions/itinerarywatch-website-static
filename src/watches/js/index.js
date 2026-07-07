@@ -188,6 +188,8 @@ async function getUserWatches() {
             fragment.appendChild(tr);
         });
 
+        tbody.appendChild(fragment);
+
         if (typeof resetTableSorting === 'function') {
             resetTableSorting();
         }
