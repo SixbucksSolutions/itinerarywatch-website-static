@@ -92,9 +92,13 @@ async function getUserInfo() {
     const startTime = performance.now();
     try {
         const response = await fetch(apiEndpoint, {
-            method: 'GET',
-            credentials: 'include',
-            headers: { 'Accept': 'application/json' }
+            method      : 'GET',
+            credentials : 'include',
+            headers     : { 'Accept': 'application/json' },
+
+            // Explicitly tell the browser that honoring the Cache-Control HTTP header attached to the response is *encouraged*.
+            //      Let's cache it in the memory or disk store for improved UX due to lower latency.
+            cache       : 'default'
         });
 
         if (response.status === 401) { return null; }
@@ -224,7 +228,7 @@ async function getUserWatchDetails(searchId) {
             headers: { 'Accept': 'application/json' },
 
             // Explicitly tell the browser that honoring the Cache-Control HTTP header attached to the response is *encouraged*.
-            //      The backend only scrapes this data once a day -- let's cache it for imrpoved UX.
+            //      The backend only scrapes this data once a day -- let's cache it for improved UX due to lower latency UI.
             cache: 'default'
         });
         if (response.status === 401) return null;
