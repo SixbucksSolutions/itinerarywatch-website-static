@@ -195,7 +195,6 @@ async function getUserWatchDetails(searchId) {
         userSingleWatchData = await response.json();
         const summary = userSingleWatchData.summary;
 
-        // Activity display map
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
             "AT_SEA": "At Sea",
@@ -269,7 +268,11 @@ async function getUserWatchDetails(searchId) {
                     datesDisplay = `${idParts[3]} to ${idParts[4]}`;
                 }
 
-                sDiv.innerHTML += `<table class="sailing-summary-table"><thead><tr><th>SHIP</th><th>DATES</th></tr></thead><tbody><tr><td>${shipDisplay}</td><td>${datesDisplay}</td></tr></tbody></table>`;
+                // Explicit creation instead of innerHTML concatenation to keep DOM stable
+                const summaryTable = document.createElement('table');
+                summaryTable.className = 'sailing-summary-table';
+                summaryTable.innerHTML = `<thead><tr><th>SHIP</th><th>DATES</th></tr></thead><tbody><tr><td>${shipDisplay}</td><td>${datesDisplay}</td></tr></tbody>`;
+                sDiv.appendChild(summaryTable);
 
                 const itineraryLabel = document.createElement('p');
                 itineraryLabel.style.fontWeight = "bold";
@@ -302,10 +305,55 @@ async function getUserWatchDetails(searchId) {
 }
 
 function main() {
+    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready -- avoids
+    // "Flicker Of Unstylized Text" (FOUT) problem
     document.body.style.visibility = 'visible';
+
+    pageStartTime = performance.now();
+    console.log("pageStartTime set in main");
+
+    const searchDivName = 'div_id_dynamic_data_single_search';
+    const searchDiv = document.getElementById(searchDivName);
+
+    if (!searchDiv) {
+        console.log(`Inside main, div for single search "${searchDivName}" not found in DOM`);
+    }
+
+    // Always fetch user profile data for the header email display right away
     getUserInfo();
     initializeTableSorter();
-    getUserWatches();
+
+    // Clean, split, and array-filter the current path
+    const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
+
+    if (initialSegments.length === 2 && initialSegments[0] === 'watches') {
+        const targetWatchId = initialSegments[1];
+        console.log(`Initial page load: deep-link detected for watch ID ${targetWatchId}`);
+        getUserWatchDetails(targetWatchId); 
+    } else {
+        console.log("Initial page load: default main dashboard view detected");
+        getUserWatches();
+    }
+
+    // NAVIGATION INTERCEPTORS: Handle future browser Back/Forward clicks smoothly
+    window.addEventListener('popstate', (event) => {
+        console.log("User clicked back or forward; popstate event listener invoked");
+
+        clearFatalErrorMessageIfShown();
+
+        document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
+        document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+        userWatchesData = null;
+        userSingleWatchData = null;
+
+        const segments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
+
+        if (segments.length === 2 && segments[0] === 'watches') {
+            getUserWatchDetails(segments[1]);
+        } else {
+            getUserWatches();
+        }
+    });
 }
 
 main();
