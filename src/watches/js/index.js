@@ -48,11 +48,11 @@ function renderUserSpecificDataIfReady() {
 
     // If we have user info AND all the user's watches, show the full list
     if ( userWatchesData !== null ) {
-        console.log('renderUserSpecificDataIfReady calling renderAllUserWatches');
+        // console.log('renderUserSpecificDataIfReady calling renderAllUserWatches');
         renderAllUserWatches();
     } 
     else if ( userSingleWatchData !== null ) {
-        console.log('renderUserSpecificDataIfReady calling renderSingleUserWatchDetails');
+        // console.log('renderUserSpecificDataIfReady calling renderSingleUserWatchDetails');
         renderSingleUserWatchDetails();
     }
 }
@@ -335,7 +335,7 @@ async function getUserWatchDetails(searchId) {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User watch ${searchId} API data retrieved in ${duration} ms`);
 
-        // console.log(JSON.stringify(userSingleWatchData, null, 4)); 
+        console.log(JSON.stringify(userSingleWatchData)); 
 
         renderUserSpecificDataIfReady();
     } catch (error) {
