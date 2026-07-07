@@ -195,6 +195,7 @@ async function getUserWatchDetails(searchId) {
         userSingleWatchData = await response.json();
         const summary = userSingleWatchData.summary;
 
+        // Activity display map updated with PORT_CRUISING
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
             "AT_SEA": "At Sea",
@@ -250,7 +251,7 @@ async function getUserWatchDetails(searchId) {
 
             sailings.forEach(sailing => {
                 const sDiv = document.createElement('div');
-                // Increased margin-bottom from 2rem to 4rem to separate sailings visually
+                // Increased to 4rem for significantly more vertical whitespace between sailings
                 sDiv.style.marginBottom = "4rem";
                 sDiv.style.paddingLeft = "1rem";
                 sDiv.style.borderLeft = "4px solid #cbd5e1";
@@ -282,20 +283,40 @@ async function getUserWatchDetails(searchId) {
 
                 const table = document.createElement('table');
                 table.className = 'itinerary-details-table';
-                // Added Day header column
-                table.innerHTML = `<thead><tr><th>Day</th><th>Date</th><th>Activity Type</th><th>Location</th><th>Start</th><th>End</th></tr></thead><tbody></tbody>`;
-                const tbody = table.querySelector('tbody');
-
+                
+                // We use explicit classes here so CSS doesn't break when we span rows
+                table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
+                
                 (sailing.day_details || []).forEach((day, dayIndex) => {
-                    // Day logic: index increments per date
+                    // Create one entirely separate tbody for each DAY
+                    const tbody = document.createElement('tbody');
                     const dayNum = dayIndex + 1;
+                    const numActivities = day.activities ? day.activities.length : 0;
                     
-                    (day.activities || []).forEach(act => {
-                        const tr = document.createElement('tr');
-                        const displayType = activityMap[act.type] || act.type.replace(/_/g, ' ');
-                        tr.innerHTML = `<td>${dayNum}</td><td>${day.date}</td><td>${displayType}</td><td>${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td><td>${formatTimeOnly(act.time_start)}</td><td>${formatTimeOnly(act.time_end)}</td>`;
-                        tbody.appendChild(tr);
-                    });
+                    if (numActivities > 0) {
+                        day.activities.forEach((act, actIndex) => {
+                            const tr = document.createElement('tr');
+                            const displayType = activityMap[act.type] || act.type.replace(/_/g, ' ');
+                            
+                            let rowHtml = '';
+                            
+                            // Only append the Day and Date columns on the FIRST activity of the day, with a rowspan
+                            if (actIndex === 0) {
+                                rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell"><strong>${dayNum}</strong></td>`;
+                                rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${day.date}</td>`;
+                            }
+                            
+                            // Append the rest of the activity details
+                            rowHtml += `<td class="align-center">${displayType}</td>`;
+                            rowHtml += `<td class="align-left">${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td>`;
+                            rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_start)}</td>`;
+                            rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_end)}</td>`;
+                            
+                            tr.innerHTML = rowHtml;
+                            tbody.appendChild(tr);
+                        });
+                    }
+                    table.appendChild(tbody);
                 });
                 sDiv.appendChild(table);
                 cont.appendChild(sDiv);
@@ -309,10 +330,7 @@ async function getUserWatchDetails(searchId) {
 }
 
 function main() {
-    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready -- avoids
-    // "Flicker Of Unstylized Text" (FOUT) problem
     document.body.style.visibility = 'visible';
-
     pageStartTime = performance.now();
     console.log("pageStartTime set in main");
 
@@ -323,11 +341,9 @@ function main() {
         console.log(`Inside main, div for single search "${searchDivName}" not found in DOM`);
     }
 
-    // Always fetch user profile data for the header email display right away
     getUserInfo();
     initializeTableSorter();
 
-    // Clean, split, and array-filter the current path
     const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
 
     if (initialSegments.length === 2 && initialSegments[0] === 'watches') {
@@ -339,10 +355,8 @@ function main() {
         getUserWatches();
     }
 
-    // NAVIGATION INTERCEPTORS: Handle future browser Back/Forward clicks smoothly
     window.addEventListener('popstate', (event) => {
         console.log("User clicked back or forward; popstate event listener invoked");
-
         clearFatalErrorMessageIfShown();
 
         document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";

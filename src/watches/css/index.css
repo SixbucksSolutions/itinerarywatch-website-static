@@ -149,13 +149,12 @@ table tbody tr:hover {
     margin-bottom: 1.5rem;
 }
 
-/* Formats the Itinerary label dynamically generated in JS */
 #div_id_itineraries_container .itinerary-label {
     font-size: 1.05rem;
     font-weight: 700;
     margin-top: 1.5rem; 
     margin-bottom: 0.25rem;
-    margin-left: 2.5rem; /* Creates cascade effect visually joining the details table below */
+    margin-left: 0; /* Aligns perfectly with the summary table above it */
 }
 
 /* Fix for the 5rem global table indent breaking the internal tables */
@@ -165,7 +164,7 @@ table tbody tr:hover {
 }
 
 #div_id_itineraries_container table.itinerary-details-table {
-    margin-left: 2.5rem !important; /* Forces the detail table inward along with its label */
+    margin-left: 2.5rem !important; /* Forces the detail table inward to create a child-like stair step */
 }
 
 #div_id_itineraries_container table.sailing-summary-table thead th {
@@ -188,33 +187,53 @@ table tbody tr:hover {
     padding: 8px 16px;
 }
 
-/* Explicit targeting for alignment, now adjusted for 6 columns */
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(1),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(1),
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(2),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(2),
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(3),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(3),
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(5),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(5),
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(6),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(6) {
+/* --- Explicit utility classes injected by JS for rowspan immunity --- */
+#div_id_itineraries_container table.itinerary-details-table .align-center {
     text-align: center;
 }
-
-/* Column 4 (Location) strictly left-aligned */
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(4),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(4) {
+#div_id_itineraries_container table.itinerary-details-table .align-left {
     text-align: left;
 }
-
-/* Compress horizontal whitespace tightly around the two time columns */
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(5),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(5),
-#div_id_itineraries_container table.itinerary-details-table thead th:nth-child(6),
-#div_id_itineraries_container table.itinerary-details-table tbody td:nth-child(6) {
+#div_id_itineraries_container table.itinerary-details-table .align-top {
+    vertical-align: top;
+}
+#div_id_itineraries_container table.itinerary-details-table .tight-col {
     width: max-content;
     white-space: nowrap;
     padding-left: 8px;
     padding-right: 8px;
+}
+
+/* --- The Multi-Row Stretch Goal (Grouped Hover & Zebra Stripes) --- */
+
+/* 1. Eliminate the global alternating row colors inside this table */
+#div_id_itineraries_container table.itinerary-details-table tbody tr td {
+    background-color: transparent !important; 
+}
+
+/* 2. Apply zebra striping to the entire DAY (TBODY) instead of individual rows */
+#div_id_itineraries_container table.itinerary-details-table tbody:nth-child(odd) {
+    background-color: #ffffff;
+}
+#div_id_itineraries_container table.itinerary-details-table tbody:nth-child(even) {
+    background-color: #e2e8f0;
+}
+
+/* 3. Strip away the global single-row hover borders */
+#div_id_itineraries_container table.itinerary-details-table tbody tr {
+    border-left: none; 
+}
+#div_id_itineraries_container table.itinerary-details-table tbody tr:hover {
+    background-color: transparent !important;
+    border-left-color: transparent;
+}
+
+/* 4. Apply hover effect & borders dynamically to the entire DAY (TBODY) group */
+#div_id_itineraries_container table.itinerary-details-table tbody {
+    border-left: 4px solid transparent;
+    transition: background-color 0.15s ease, border-left-color 0.15s ease;
+}
+#div_id_itineraries_container table.itinerary-details-table tbody:hover {
+    background-color: #f1f5f9 !important;
+    border-left-color: #3b82f6;
 }
