@@ -265,6 +265,25 @@ table tbody tr:hover {
 }
 
 /* ==========================================================================
+   SAILING SUMMARY (DECODER) TABLE OVERRIDES
+   ========================================================================== */
+
+table.sailing-summary-table {
+    margin-bottom: 0.75rem; /* Breathing room before the itinerary table */
+}
+
+table.sailing-summary-table thead th {
+    text-align: center;
+}
+
+table.sailing-summary-table tbody td {
+    text-align: center;
+    background-color: #ffffff !important; 
+    color: #000000;
+    border-bottom: none; /* Keeps it a clean box */
+}
+
+/* ==========================================================================
    ITINERARY DETAIL TABLE OVERRIDES
    ========================================================================== */
 
@@ -282,35 +301,35 @@ table tbody tr:hover {
 
 /* Base Itinerary Table Reset: Wipe out the heavy fixed widths and 
    40px edge paddings inherited from the main dashboard table */
-#div_id_itineraries_container table th,
-#div_id_itineraries_container table td {
+table.itinerary-details-table th,
+table.itinerary-details-table td {
     width: auto; 
     padding: 8px 16px; 
 }
 
-/* Center align Columns 1, 2, 4, and 5 (Explicitly calling thead and tbody to guarantee override) */
-#div_id_itineraries_container table thead th:nth-child(1),
-#div_id_itineraries_container table tbody td:nth-child(1),
-#div_id_itineraries_container table thead th:nth-child(2),
-#div_id_itineraries_container table tbody td:nth-child(2),
-#div_id_itineraries_container table thead th:nth-child(4),
-#div_id_itineraries_container table tbody td:nth-child(4),
-#div_id_itineraries_container table thead th:nth-child(5),
-#div_id_itineraries_container table tbody td:nth-child(5) {
+/* Center align Columns 1, 2, 4, and 5 for the Itinerary Details Table */
+table.itinerary-details-table thead th:nth-child(1),
+table.itinerary-details-table tbody td:nth-child(1),
+table.itinerary-details-table thead th:nth-child(2),
+table.itinerary-details-table tbody td:nth-child(2),
+table.itinerary-details-table thead th:nth-child(4),
+table.itinerary-details-table tbody td:nth-child(4),
+table.itinerary-details-table thead th:nth-child(5),
+table.itinerary-details-table tbody td:nth-child(5) {
     text-align: center;
 }
 
 /* Left align "LOCATION" (Column 3) header and data */
-#div_id_itineraries_container table thead th:nth-child(3),
-#div_id_itineraries_container table tbody td:nth-child(3) {
+table.itinerary-details-table thead th:nth-child(3),
+table.itinerary-details-table tbody td:nth-child(3) {
     text-align: left;
 }
 
 /* Collapse horizontal whitespace tightly around the two time columns (4 & 5) */
-#div_id_itineraries_container table thead th:nth-child(4),
-#div_id_itineraries_container table tbody td:nth-child(4),
-#div_id_itineraries_container table thead th:nth-child(5),
-#div_id_itineraries_container table tbody td:nth-child(5) {
+table.itinerary-details-table thead th:nth-child(4),
+table.itinerary-details-table tbody td:nth-child(4),
+table.itinerary-details-table thead th:nth-child(5),
+table.itinerary-details-table tbody td:nth-child(5) {
     width: max-content;
     white-space: nowrap; 
     padding-left: 8px;   

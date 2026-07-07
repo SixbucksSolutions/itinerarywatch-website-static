@@ -421,17 +421,66 @@ async function getUserWatchDetails(searchId) {
                 sailingDiv.style.paddingLeft = "1rem";
                 sailingDiv.style.borderLeft = "4px solid #cbd5e1"; // Visual anchor grouping days together
 
-                const sailingTitle = document.createElement('p');
-                sailingTitle.innerHTML = `<strong>Sailing ID:</strong> ${sailing.id}`;
-                sailingDiv.appendChild(sailingTitle);
+                // --- NEW: Decode Sailing ID into Ship & Dates ---
+                const idParts = sailing.id.split('.');
+                let shipDisplay = sailing.id; // Fallback in case format is unexpected
+                let datesDisplay = "Unknown Dates";
+
+                if (idParts.length === 5 && idParts[0] === 'sailing') {
+                    const lineCode = idParts[1];
+                    const shipCode = idParts[2];
+                    const startDate = idParts[3];
+                    const endDate = idParts[4];
+
+                    let lineName = lineCode;
+                    let shipName = shipCode;
+
+                    if (lineCode === 'CEL') {
+                        lineName = 'Celebrity';
+                        const celShips = {
+                            'AP': 'Apex', 'AT': 'Ascent', 'BY': 'Beyond', 'CS': 'Constellation',
+                            'EC': 'Eclipse', 'EG': 'Edge', 'EQ': 'Equinox', 'FL': 'Flora',
+                            'IN': 'Infinity', 'ML': 'Millennium', 'RF': 'Reflection',
+                            'SL': 'Solstice', 'SI': 'Silhouette', 'SM': 'Summit',
+                            'XC': 'Excel', 'XP': 'Xpedition', 'XR': 'Xploration'
+                        };
+                        if (celShips[shipCode]) {
+                            shipName = celShips[shipCode];
+                        }
+                    }
+                    
+                    shipDisplay = `${lineName} ${shipName}`;
+                    datesDisplay = `${startDate} to ${endDate}`;
+                }
+
+                // Create the newly requested 2-row summary table for the sailing
+                const summaryTable = document.createElement('table');
+                summaryTable.className = 'sailing-summary-table';
+                summaryTable.style.marginLeft = '0'; // align flush with the left border
+                summaryTable.innerHTML = `
+                    <thead>
+                        <tr>
+                            <th scope="col">SHIP</th>
+                            <th scope="col">DATES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${shipDisplay}</td>
+                            <td>${datesDisplay}</td>
+                        </tr>
+                    </tbody>
+                `;
+                sailingDiv.appendChild(summaryTable);
+
 
                 // Build a mini-table for the day-by-day activities
                 const table = document.createElement('table');
+                table.className = 'itinerary-details-table';
                 table.style.marginTop = "0.5rem";
                 table.style.marginLeft = "0"; // Overriding the global table margin in your CSS
 
                 const thead = document.createElement('thead');
-                // Updated "TIME START" and "TIME END" strictly to "START" and "END"
                 thead.innerHTML = `
                     <tr>
                         <th scope="col">Date</th>
@@ -453,7 +502,7 @@ async function getUserWatchDetails(searchId) {
                         tdDate.textContent = day.date;
                         
                         const tdType = document.createElement('td');
-                        // Replace underscores with spaces for cleaner reading (e.g., PORT_EMBARK -> PORT EMBARK)
+                        // Replace underscores with spaces for cleaner reading
                         tdType.textContent = (activity.type || '').replace(/_/g, ' ');
 
                         const tdLocation = document.createElement('td');
@@ -466,7 +515,7 @@ async function getUserWatchDetails(searchId) {
                         }
                         tdLocation.textContent = locString;
 
-                        // Pushed through our new 12-hr formatting helper
+                        // Pushed through our 12-hr formatting helper
                         const tdStart = document.createElement('td');
                         tdStart.textContent = formatTimeOnly(activity.time_start);
 
@@ -500,9 +549,7 @@ async function getUserWatchDetails(searchId) {
 }
 
 function main() {
-    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready -- avoids
-    //      "Flicker Of Unstylized Text" (FOUT) problem that was visible when watching the h1 closely on
-    //      reloads
+    // Reveal the hidden page elements including the h1 now that fonts and scripts are ready
     document.body.style.visibility = 'visible';
 
     pageStartTime = performance.now();
