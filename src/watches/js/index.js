@@ -116,7 +116,18 @@ async function getUserInfo() {
 }
 
 async function getUserWatches() {
-    const apiEndpoint = 'https://api.itinerarywatch.com/api/v001/watches';
+
+    // Generate 122 bits of pure entropy, because why kill when you can OVERkill!
+    const cacheBuster = crypto.randomUUID();
+
+    // The network layer will look at this URL and weep. It has never seen it before,
+    // and it will never see it again.
+    //
+    // Note: the backend ignores the amusing query string parameter, it's simply to
+    //      well and truly fucl with any CDN or coffee shop proxy that tries to do something
+    //      that would piss me off
+    const apiEndpoint = `https://api.itinerarywatch.com/api/v001/watches?_eat_a_d__k_cdn_and_web_proxies=${cacheBuster}`;
+
     const startTime = performance.now();
     try {
         const response = await fetch(apiEndpoint, {
