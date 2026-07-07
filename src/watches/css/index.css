@@ -99,6 +99,7 @@ table tbody td:nth-child(1) {
     padding-right: 40px;
 }
 
+/* Base table interactivity (Hover and Border) */
 table tbody tr {
     cursor: pointer;
     border-left: 4px solid transparent;
@@ -109,12 +110,14 @@ table tbody tr:hover {
     border-left-color: #3b82f6;
 }
 
-/* Summary Table Overrides */
-#div_id_dynamic_data_single_search table {
+/* ==========================================================================
+   SUMMARY TABLE OVERRIDES (Direct Child Target to Isolate from Itineraries)
+   ========================================================================== */
+#div_id_dynamic_data_single_search > table {
     margin-left: 5rem;
 }
 
-#div_id_dynamic_data_single_search table tbody th {
+#div_id_dynamic_data_single_search > table tbody th {
     background-color: #334155;
     color: #ffffff;
     font-weight: 700;
@@ -125,19 +128,28 @@ table tbody tr:hover {
     border-bottom: none;
 }
 
-#div_id_dynamic_data_single_search table tbody td {
+#div_id_dynamic_data_single_search > table tbody td {
     text-align: left;
     font-size: 0.95rem;
     padding: 8px 12px;
     border-bottom: none;
 }
 
-#div_id_dynamic_data_single_search table tbody tr {
+/* Strip pointer cursor and left border completely */
+#div_id_dynamic_data_single_search > table tbody tr {
     cursor: auto;
-    background-color: #ffffff !important;
+    border-left: none; 
 }
 
-/* Itinerary Details Container Overrides */
+/* Prevent blue hover background and border from showing */
+#div_id_dynamic_data_single_search > table tbody tr:hover {
+    background-color: #ffffff !important;
+    border-left-color: transparent;
+}
+
+/* ==========================================================================
+   ITINERARY DETAILS CONTAINER OVERRIDES
+   ========================================================================== */
 #div_id_itineraries_container {
     margin-left: 5rem;
 }
@@ -204,7 +216,7 @@ table tbody tr:hover {
     padding-right: 8px;
 }
 
-/* --- The Multi-Row Stretch Goal (Grouped Hover & Zebra Stripes) --- */
+/* --- Grouped Hover & Zebra Stripes Logic --- */
 
 /* 1. Eliminate the global alternating row colors inside this table */
 #div_id_itineraries_container table.itinerary-details-table tbody tr td {
@@ -240,7 +252,7 @@ table tbody tr:hover {
     border-left-color: #3b82f6;
 }
 
-/* 6. Magic UI touch: force the spanned Day/Date cells to always highlight when ANY row in their day is hovered, completing the visual horizontal line */
+/* 6. Force the spanned Day/Date cells to always highlight when ANY row in their day is hovered */
 #div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
     background-color: #f1f5f9 !important;
     transition: background-color 0.15s ease;
