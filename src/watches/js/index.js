@@ -336,10 +336,35 @@ async function getUserWatchDetails(searchId) {
         // --- 1. Populate Summary Data ---
         const summary = userSingleWatchData.summary;
 
-        // Reusable formatter for "YYYY-MM-DD HH:MM UTC" to handle the incoming "+00:00" string 
+        // Reusable formatter for "YYYY-MM-DD h:mmpm UTC"
         const formatTime = (ts) => {
             if (!ts) return "N/A";
-            return ts.substring(0, 16).replace('T', ' ') + " UTC";
+            const datePart = ts.substring(0, 10);
+            const timePart = ts.substring(11, 16);
+            if (timePart.length !== 5 || !timePart.includes(':')) return ts; // safe fallback
+
+            let [hourStr, minuteStr] = timePart.split(':');
+            let hour = parseInt(hourStr, 10);
+            const ampm = hour >= 12 ? 'pm' : 'am';
+            hour = hour % 12;
+            hour = hour ? hour : 12; // 0 becomes 12
+
+            return `${datePart} ${hour}:${minuteStr}${ampm} UTC`;
+        };
+        
+        // Formatter for time-only strings like "16:00:00" -> "4:00pm"
+        const formatTimeOnly = (timeStr) => {
+            if (!timeStr) return '';
+            const parts = timeStr.split(':');
+            if (parts.length < 2) return timeStr; 
+            
+            let hour = parseInt(parts[0], 10);
+            const minuteStr = parts[1];
+            const ampm = hour >= 12 ? 'pm' : 'am';
+            hour = hour % 12;
+            hour = hour ? hour : 12; // 0 becomes 12
+            
+            return `${hour}:${minuteStr}${ampm}`;
         };
 
         document.getElementById('td_id_summary_name').textContent = summary.name || "Unknown";
@@ -376,9 +401,9 @@ async function getUserWatchDetails(searchId) {
         const resultSets = userSingleWatchData.search_result_sets || {};
 
         Object.entries(resultSets).forEach(([resultSetTime, sailings]) => {
-            // Header for the specific result set
+            // Header for the specific result set, now utilizing our 12hr formatter
             const setHeader = document.createElement('h4');
-            setHeader.textContent = `Results from: ${resultSetTime.substring(0,16).replace('T', ' ')} UTC`;
+            setHeader.textContent = `Results from: ${formatTime(resultSetTime)}`;
             setHeader.style.marginTop = "1.5rem";
             itinerariesContainer.appendChild(setHeader);
 
@@ -406,13 +431,14 @@ async function getUserWatchDetails(searchId) {
                 table.style.marginLeft = "0"; // Overriding the global table margin in your CSS
 
                 const thead = document.createElement('thead');
+                // Updated "TIME START" and "TIME END" strictly to "START" and "END"
                 thead.innerHTML = `
                     <tr>
                         <th scope="col">Date</th>
                         <th scope="col">Activity Type</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Time Start</th>
-                        <th scope="col">Time End</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
                     </tr>
                 `;
                 table.appendChild(thead);
@@ -440,11 +466,12 @@ async function getUserWatchDetails(searchId) {
                         }
                         tdLocation.textContent = locString;
 
+                        // Pushed through our new 12-hr formatting helper
                         const tdStart = document.createElement('td');
-                        tdStart.textContent = activity.time_start || '';
+                        tdStart.textContent = formatTimeOnly(activity.time_start);
 
                         const tdEnd = document.createElement('td');
-                        tdEnd.textContent = activity.time_end || '';
+                        tdEnd.textContent = formatTimeOnly(activity.time_end);
 
                         tr.appendChild(tdDate);
                         tr.appendChild(tdType);
