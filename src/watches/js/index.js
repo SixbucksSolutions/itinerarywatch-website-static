@@ -201,7 +201,11 @@ async function getUserWatchDetails(searchId) {
         const response = await fetch(apiEndpoint, {
             method: 'GET',
             credentials: 'include',
-            headers: { 'Accept': 'application/json' }
+            headers: { 'Accept': 'application/json' },
+
+            // Explicitly tell the browser that honoring the Cache-Control HTTP header attached to the response is *encouraged*.
+            //      The backend only scrapes this data once a day -- let's cache it for imrpoved UX.
+            cache: 'default'
         });
         if (response.status === 401) return null;
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
