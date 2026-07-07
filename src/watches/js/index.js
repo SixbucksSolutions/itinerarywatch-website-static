@@ -133,6 +133,12 @@ async function getUserWatches() {
         tbody.textContent = '';
         const fragment = document.createDocumentFragment();
 
+        // Reset the Breadcrumb nav for the dashboard view
+        const separatorSpan = document.getElementById('span_breadcrumb_separator');
+        if (separatorSpan) separatorSpan.style.display = 'none';
+        const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
+        if (breadcrumbSpan) breadcrumbSpan.textContent = '';
+
         const formatTime = (ts) => {
             if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC"; 
             const datePart = ts.substring(0, 10);
@@ -203,7 +209,9 @@ async function getUserWatchDetails(searchId) {
             totalItineraries += (sailings || []).length;
         });
 
-        // Safely Populate Breadcrumb
+        // Populate Breadcrumb logic for Single Watch Details
+        const separatorSpan = document.getElementById('span_breadcrumb_separator');
+        if (separatorSpan) separatorSpan.style.display = 'inline';
         const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = searchId;
 
