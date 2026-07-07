@@ -99,6 +99,7 @@ table thead th {
     color: #64748b; 
 }
 
+/* Default state on Dashboard: Looks like a title, ignores all mouse events */
 .breadcrumb-nav a {
     color: #000000; 
     text-decoration: none;
@@ -107,12 +108,18 @@ table thead th {
     margin-left: -8px; 
     border-radius: 4px; 
     transition: background-color 0.15s ease;
-    cursor: pointer;
+    cursor: default;
+    pointer-events: none; 
 }
 
-.breadcrumb-nav a:hover {
+/* Detail view state: Interactivity restored via JS class toggle */
+.breadcrumb-nav a.active-breadcrumb {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.breadcrumb-nav a.active-breadcrumb:hover {
     background-color: #e2e8f0; 
-    text-decoration: none;
 }
 
 .breadcrumb-separator {

@@ -136,8 +136,13 @@ async function getUserWatches() {
         // Reset the Breadcrumb nav for the dashboard view
         const separatorSpan = document.getElementById('span_breadcrumb_separator');
         if (separatorSpan) separatorSpan.style.display = 'none';
+        
         const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = '';
+
+        // Disable interactivity on the "Watches" link when already on the dashboard
+        const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
+        if (breadcrumbLink) breadcrumbLink.classList.remove('active-breadcrumb');
 
         const formatTime = (ts) => {
             if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC"; 
@@ -212,8 +217,13 @@ async function getUserWatchDetails(searchId) {
         // Populate Breadcrumb logic for Single Watch Details
         const separatorSpan = document.getElementById('span_breadcrumb_separator');
         if (separatorSpan) separatorSpan.style.display = 'inline';
+        
         const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = searchId;
+
+        // Enable hover and click interactivity on the "Watches" link for the details view
+        const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
+        if (breadcrumbLink) breadcrumbLink.classList.add('active-breadcrumb');
 
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
