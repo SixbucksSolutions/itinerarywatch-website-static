@@ -122,7 +122,16 @@ async function getUserWatches() {
         const response = await fetch(apiEndpoint, {
             method: 'GET',
             credentials: 'include',
-            headers: { 'Accept': 'application/json' }
+            headers: { 'Accept': 'application/json' },
+
+            // Explicitly mark the JSON returned as toxic radioactive to the cache. 
+            //      The backend attached all the HTTP headers possible to ensure the
+            //      response is marked by the server as DO NOT CACHE, but this is the 
+            //      other half, it tells the browser "hey in case you were tempted to
+            //      ignore all those "HERE BE DRAGONS" warnings about caching this
+            //      data that will be present in the response from the API endpoint,
+            //      as your customer I'm begging you please just don't, k????
+            cache: 'no-store'
         });
         if (response.status === 401) { return null; }
         if (!response.ok) { throw new Error(`HTTP error! Status: ${response.status}`); }
