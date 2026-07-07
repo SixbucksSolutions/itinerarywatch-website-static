@@ -146,7 +146,7 @@ table.sailing-summary-table {
 table.sailing-summary-table thead th {
     background-color: #334155 !important;
     color: #ffffff !important;
-    padding: 8px 120px; /* Increased separation */
+    padding: 8px 40px; /* 80px total separation */
     text-align: center;
 }
 
@@ -154,7 +154,7 @@ table.sailing-summary-table tbody td {
     text-align: center;
     background-color: #ffffff !important;
     color: #000000;
-    padding: 8px 120px; /* Increased separation */
+    padding: 8px 40px; /* 80px total separation */
     border-bottom: none;
 }
 
