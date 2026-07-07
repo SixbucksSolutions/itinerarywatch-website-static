@@ -143,11 +143,9 @@ table.sailing-summary-table {
     margin-bottom: 0;
 }
 
-table.sailing-summary-table th {
-    padding: 8px 80px; /* Increased horizontal padding for better separation */
-}
-
+table.sailing-summary-table th,
 table.sailing-summary-table td {
+    padding: 8px 90px; /* Increased padding on BOTH th and td for symmetrical spacing */
     text-align: center;
     background-color: #ffffff !important;
     border-bottom: none;
