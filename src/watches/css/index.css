@@ -215,3 +215,60 @@ table tbody tr:hover {
     background-color: #f1f5f9 !important;
     border-left-color: #3b82f6;
 }
+
+
+/* ==========================================================================
+   SINGLE SEARCH SUMMARY TABLE OVERRIDES
+   ========================================================================== */
+
+/* 1, 2, 3: Style the row headers (th) to match the main table's column headers, but right-aligned */
+#div_id_dynamic_data_single_search table tbody th {
+    background-color: #334155;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.8rem; /* Matches main table's header font size */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 20px;
+    text-align: right; /* Right-aligns the header labels */
+    border-bottom: 1px solid #e2e8f0;
+    width: 280px; /* Gives the headers a consistent, neat width */
+}
+
+/* 1, 4: Left-align data columns and override the global nth-child center alignment */
+#div_id_dynamic_data_single_search table tbody td,
+#div_id_dynamic_data_single_search table tbody td:nth-child(n+2) {
+    text-align: left;
+    font-size: 0.95rem; /* Matches main table's data font size */
+    padding: 10px 20px;
+}
+
+/* 5: Eliminate zebra striping for this specific table */
+#div_id_dynamic_data_single_search table tbody tr:nth-child(odd) td,
+#div_id_dynamic_data_single_search table tbody tr:nth-child(even) td {
+    background-color: #ffffff;
+}
+
+/* 5: Remove the pointer cursor and the blue left-border hover effect from the global rules */
+#div_id_dynamic_data_single_search table tbody tr {
+    cursor: auto;
+    border-left: none;
+}
+
+/* 5: Disable the row highlighting when hovering over the summary table */
+#div_id_dynamic_data_single_search table tbody tr:hover {
+    background-color: #ffffff !important;
+    border-left-color: transparent;
+}
+
+/* 6: Make the dynamically generated link look clickable and distinct */
+#td_id_summary_url a {
+    color: #2563eb; /* A nice standard hyperlink blue */
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+#td_id_summary_url a:hover {
+    text-decoration: underline;
+    color: #1d4ed8; /* Darkens slightly on hover */
+}
