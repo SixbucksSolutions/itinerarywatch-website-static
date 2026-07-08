@@ -255,6 +255,7 @@ async function getUserWatchDetails(searchId) {
             "AT_SEA"                    : "At Sea",
             "PORT_DOCKED"               : "Port (Docked)",
             "PORT_DOCKED_OVERNIGHT"     : "Port (Docked, Overnight)"
+            "PORT_TENDERED"             : "Port (Tendering)",
             "PORT_TENDERED_OVERNIGHT"   : "Port (Tendering, Overnight)",
             "PORT_DEBARK"               : "Departure Day",
             "PORT_CRUISING"             : "Cruising"
