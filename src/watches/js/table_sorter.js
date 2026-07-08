@@ -6,7 +6,8 @@
  * Attaches event listeners to table headers to provide ascending/descending sorting functionality.
  */
 function initializeTableSorter() {
-    const headers = document.querySelectorAll('th.sortable-header');
+    // UPDATED: 'sortable-header' changed to 'sort-hdr'
+    const headers = document.querySelectorAll('th.sort-hdr');
 
     headers.forEach((header, columnIndex) => {
         header.addEventListener('click', () => {
@@ -33,7 +34,7 @@ function initializeTableSorter() {
                 const cellA = rowA.children[columnIndex].textContent.trim();
                 const cellB = rowB.children[columnIndex].textContent.trim();
 
-                // Perform locale-aware natural alphanumeric comparison 
+                // Perform locale-aware natural alphanumeric comparison
                 return cellA.localeCompare(cellB, undefined, { numeric: true, sensitivity: 'base' }) * direction;
             });
 
@@ -55,7 +56,8 @@ function initializeTableSorter() {
  * This should be called when navigating back to the dashboard to avoid reverse-sort persistence.
  */
 function resetTableSorting() {
-    const headers = document.querySelectorAll('th.sortable-header');
+    // UPDATED: 'sortable-header' changed to 'sort-hdr'
+    const headers = document.querySelectorAll('th.sort-hdr');
     headers.forEach(header => {
         header.classList.remove('asc', 'desc');
     });
