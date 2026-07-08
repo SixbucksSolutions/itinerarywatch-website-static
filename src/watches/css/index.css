@@ -187,7 +187,7 @@ table tbody tr:hover {
    SUMMARY TABLE OVERRIDES
    ========================================================================== */
 #div_id_dynamic_data_single_search h3:last-of-type {
-    margin-top: 4rem;
+    margin-top: 2.5rem;
 }
 
 #div_id_dynamic_data_single_search > table {
