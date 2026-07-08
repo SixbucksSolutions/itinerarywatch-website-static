@@ -3,14 +3,14 @@ let userWatchesData = null;
 let userSingleWatchData = null;
 
 function displayFatalError(message) {
-    const mainApp = document.getElementById('div_id_dynamic_data');
+    const mainApp = document.getElementById('app-data');
     if (mainApp) {
         mainApp.style.display = 'none';
     }
-    let errorBanner = document.getElementById('div_id_error_banner');
+    let errorBanner = document.getElementById('err-banner');
     if (!errorBanner) {
         errorBanner = document.createElement('div');
-        errorBanner.id = 'div_id_error_banner';
+        errorBanner.id = 'err-banner';
         errorBanner.textContent = message || 'Something went wrong. Please refresh the page.';
         document.body.appendChild(errorBanner);
     } else {
@@ -19,7 +19,7 @@ function displayFatalError(message) {
 }
 
 function clearFatalErrorMessageIfShown() {
-    const errorBanner = document.getElementById("div_id_error_banner");
+    const errorBanner = document.getElementById("err-banner");
     if (errorBanner) {
         errorBanner.remove();
     }
@@ -37,8 +37,8 @@ function renderUserSpecificDataIfReady() {
 }
 
 function renderAllUserWatches() {
-    const userWatchesDiv = document.getElementById('div_id_dynamic_data_all_searches');
-    const dynamicDataDiv = document.getElementById('div_id_dynamic_data');
+    const userWatchesDiv = document.getElementById('all-searches');
+    const dynamicDataDiv = document.getElementById('app-data');
 
     if (userWatchesDiv && dynamicDataDiv) {
         userWatchesDiv.style.display = 'block';
@@ -48,14 +48,14 @@ function renderAllUserWatches() {
         return;
     }
 
-    const firstHeader = document.querySelector('th.sortable-header');
+    const firstHeader = document.querySelector('th.sort-hdr');
     if (firstHeader) {
         firstHeader.click();
     }
 }
 
 function renderSingleUserWatchDetails() {
-    const searchDivName = 'div_id_dynamic_data_single_search';
+    const searchDivName = 'single-search';
     const searchDiv = document.getElementById(searchDivName);
 
     if (!searchDiv) {
@@ -64,9 +64,9 @@ function renderSingleUserWatchDetails() {
 
     searchDiv.style.display = "block";
 
-    const allDynamicDataDiv = document.getElementById('div_id_dynamic_data');
+    const allDynamicDataDiv = document.getElementById('app-data');
     if (!allDynamicDataDiv) {
-        throw new Error("Div for dynamic data \"div_id_dynamic_data\" not found in DOM");
+        throw new Error("Div for dynamic data \"app-data\" not found in DOM");
     }
 
     if (allDynamicDataDiv.style.display !== 'block') {
@@ -96,7 +96,7 @@ async function getUserInfo() {
         const duration = Math.ceil(endTime - startTime);
         console.log(`User info retrieved from backend API (or browser cache) in ${duration} ms`);
 
-        const emailSpans = document.querySelectorAll('.span_class_user_email');
+        const emailSpans = document.querySelectorAll('.usr-email');
         if (emailSpans.length > 0) {
             emailSpans.forEach(span => { span.textContent = userInfo.email_address; });
         } else {
@@ -147,17 +147,17 @@ async function getUserWatches() {
         const duration = Math.ceil(endTime - startTime);
         console.log(`Full list of watched itineraries retrieved from backend API in ${duration} ms`);
 
-        const tbody = document.querySelector('#div_id_dynamic_data_all_searches table tbody');
+        const tbody = document.querySelector('#all-searches table tbody');
         if (!tbody) { return; }
         tbody.textContent = '';
         const fragment = document.createDocumentFragment();
 
-        const separatorSpan = document.getElementById('span_breadcrumb_separator');
+        const separatorSpan = document.getElementById('bc-sep');
         if (separatorSpan) separatorSpan.style.display = 'none';
-        const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
+        const breadcrumbSpan = document.getElementById('bc-uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = '';
-        const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
-        if (breadcrumbLink) breadcrumbLink.classList.remove('active-breadcrumb');
+        const breadcrumbLink = document.getElementById('bc-watches');
+        if (breadcrumbLink) breadcrumbLink.classList.remove('bc-active');
 
         const formatTime = (ts) => {
             if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC";
@@ -179,8 +179,8 @@ async function getUserWatches() {
                     window.open(`/watches/${watchId}`, '_blank');
                 } else {
                     history.pushState(null, '', `/watches/${watchId}`);
-                    document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
-                    document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+                    document.getElementById('all-searches').style.display = "none";
+                    document.getElementById('single-search').style.display = "none";
                     userWatchesData = null;
                     userSingleWatchData = null;
                     getUserWatchDetails(watchId);
@@ -243,12 +243,12 @@ async function getUserWatchDetails(searchId) {
             totalItineraries += (sailings || []).length;
         });
 
-        const separatorSpan = document.getElementById('span_breadcrumb_separator');
+        const separatorSpan = document.getElementById('bc-sep');
         if (separatorSpan) separatorSpan.style.display = 'inline';
-        const breadcrumbSpan = document.getElementById('span_breadcrumb_uuid');
+        const breadcrumbSpan = document.getElementById('bc-uuid');
         if (breadcrumbSpan) breadcrumbSpan.textContent = searchId;
-        const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
-        if (breadcrumbLink) breadcrumbLink.classList.add('active-breadcrumb');
+        const breadcrumbLink = document.getElementById('bc-watches');
+        if (breadcrumbLink) breadcrumbLink.classList.add('bc-active');
 
         const activityMap = {
             "PORT_EMBARK": "Boarding Day",
@@ -277,10 +277,10 @@ async function getUserWatchDetails(searchId) {
             return `${h}:${m}${ampm}`;
         };
 
-        const nameEl = document.getElementById('td_id_summary_name');
+        const nameEl = document.getElementById('sum-name');
         if (nameEl) nameEl.textContent = summary.name || "Unknown";
 
-        const cruiseLineEl = document.getElementById('td_id_summary_cruise_line');
+        const cruiseLineEl = document.getElementById('sum-line');
         if (cruiseLineEl) {
             let cruiseLine = "Unknown";
             if (summary.url) {
@@ -297,7 +297,7 @@ async function getUserWatchDetails(searchId) {
             cruiseLineEl.textContent = cruiseLine;
         }
 
-        const urlTd = document.getElementById('td_id_summary_url');
+        const urlTd = document.getElementById('sum-url');
         if (urlTd) {
             urlTd.innerHTML = '';
             if (summary.url) {
@@ -310,20 +310,20 @@ async function getUserWatchDetails(searchId) {
             }
         }
 
-        const updatedEl = document.getElementById('td_id_summary_search_last_updated');
+        const updatedEl = document.getElementById('sum-upd');
         if (updatedEl) updatedEl.textContent = formatTime(summary.last_updated_timestamp);
-        const changedEl = document.getElementById('td_id_summary_search_contents_last_changed');
+        const changedEl = document.getElementById('sum-chg');
         if (changedEl) changedEl.textContent = formatTime(summary.search_contents_last_changed_timestamp);
-        const runEl = document.getElementById('td_id_summary_search_last_run');
+        const runEl = document.getElementById('sum-run');
         if (runEl) runEl.textContent = formatTime(summary.search_last_run_timestamp);
-        const matchingEl = document.getElementById('td_id_summary_matching_itineraries');
+        const matchingEl = document.getElementById('sum-match');
         if (matchingEl) matchingEl.textContent = totalItineraries;
 
-        const singleSearchDiv = document.getElementById('div_id_dynamic_data_single_search');
-        let cont = document.getElementById('div_id_itineraries_container');
+        const singleSearchDiv = document.getElementById('single-search');
+        let cont = document.getElementById('itin-cont');
         if (cont) cont.remove();
         cont = document.createElement('div');
-        cont.id = 'div_id_itineraries_container';
+        cont.id = 'itin-cont';
 
         Object.entries(resultSets).forEach(([resultSetTime, sailings]) => {
             const h4 = document.createElement('h4');
@@ -352,18 +352,18 @@ async function getUserWatchDetails(searchId) {
                 }
 
                 const summaryTable = document.createElement('table');
-                summaryTable.className = 'sailing-summary-table';
+                summaryTable.className = 'sail-sum-tbl';
                 summaryTable.innerHTML = `<thead><tr><th>SHIP</th><th>DATES</th></tr></thead><tbody><tr><td>${shipDisplay}</td><td>${datesDisplay}</td></tr></tbody>`;
                 sDiv.appendChild(summaryTable);
 
                 const itineraryLabel = document.createElement('p');
-                itineraryLabel.className = 'itinerary-label';
+                itineraryLabel.className = 'itin-lbl';
                 itineraryLabel.textContent = "Itinerary:";
                 sDiv.appendChild(itineraryLabel);
 
                 const table = document.createElement('table');
-                table.className = 'itinerary-details-table';
-                table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Day of Week</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
+                table.className = 'itin-det-tbl';
+                table.innerHTML = `<thead><tr><th class="a-ctr">Day</th><th class="a-ctr">Day of Week</th><th class="a-ctr">Date</th><th class="a-ctr">Activity Type</th><th class="a-lft">Location</th><th class="a-ctr t-col">Start</th><th class="a-ctr t-col">End</th></tr></thead>`;
 
                 (sailing.day_details || []).forEach((day, dayIndex) => {
                     const tbody = document.createElement('tbody');
@@ -387,15 +387,15 @@ async function getUserWatchDetails(searchId) {
                             let rowHtml = '';
 
                             if (actIndex === 0) {
-                                rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell"><strong>${dayNum}</strong></td>`;
-                                rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${dayOfWeekStr}</td>`;
-                                rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${day.date}</td>`;
+                                rowHtml += `<td rowspan="${numActivities}" class="a-ctr a-top m-cell"><strong>${dayNum}</strong></td>`;
+                                rowHtml += `<td rowspan="${numActivities}" class="a-ctr a-top m-cell">${dayOfWeekStr}</td>`;
+                                rowHtml += `<td rowspan="${numActivities}" class="a-ctr a-top m-cell">${day.date}</td>`;
                             }
 
-                            rowHtml += `<td class="align-center">${displayType}</td>`;
-                            rowHtml += `<td class="align-left">${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td>`;
-                            rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_start)}</td>`;
-                            rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_end)}</td>`;
+                            rowHtml += `<td class="a-ctr">${displayType}</td>`;
+                            rowHtml += `<td class="a-lft">${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td>`;
+                            rowHtml += `<td class="a-ctr t-col">${formatTimeOnly(act.time_start)}</td>`;
+                            rowHtml += `<td class="a-ctr t-col">${formatTimeOnly(act.time_end)}</td>`;
 
                             tr.innerHTML = rowHtml;
                             tbody.appendChild(tr);
@@ -419,15 +419,15 @@ async function getUserWatchDetails(searchId) {
 function main() {
     document.body.style.visibility = 'visible';
 
-    const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
+    const breadcrumbLink = document.getElementById('bc-watches');
     if (breadcrumbLink) {
         breadcrumbLink.addEventListener('click', (event) => {
             if (event.metaKey || event.ctrlKey) {
                 window.open('/watches', '_blank');
             } else {
                 history.pushState(null, '', '/watches');
-                document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
-                document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+                document.getElementById('all-searches').style.display = "none";
+                document.getElementById('single-search').style.display = "none";
                 userWatchesData = null;
                 userSingleWatchData = null;
                 getUserWatches();
@@ -447,8 +447,8 @@ function main() {
 
     window.addEventListener('popstate', (event) => {
         clearFatalErrorMessageIfShown();
-        document.getElementById('div_id_dynamic_data_all_searches').style.display = "none";
-        document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
+        document.getElementById('all-searches').style.display = "none";
+        document.getElementById('single-search').style.display = "none";
         userWatchesData = null;
         userSingleWatchData = null;
 

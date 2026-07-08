@@ -20,25 +20,25 @@
     <body>
         <h1>ItineraryWatch</h1>
 
-        <div id="div_id_dynamic_data">
-            <p><strong>User</strong>: <span class="span_class_user_email"></span></p>
+        <div id="app-data">
+            <p><strong>User</strong>: <span class="usr-email"></span></p>
 
-            <nav aria-label="Breadcrumb" class="breadcrumb-nav">
-                <span class="nav-link" id="a_breadcrumb_watches">Watches</span>
-                <span id="span_breadcrumb_separator" class="breadcrumb-separator" style="display: none;">›</span>
-                <span id="span_breadcrumb_uuid" class="breadcrumb-current"></span>
+            <nav aria-label="Breadcrumb" class="bc-nav">
+                <span class="bc-link" id="bc-watches">Watches</span>
+                <span id="bc-sep" class="bc-sep-icon" style="display: none;">›</span>
+                <span id="bc-uuid" class="bc-curr"></span>
             </nav>
 
-            <div id="div_id_dynamic_data_all_searches">
+            <div id="all-searches">
                 <table>
                     <thead>
                         <tr>
-                            <th scope="col" class="sortable-header">Search Name</th>
-                            <th scope="col" class="sortable-header">Cruise Line</th>
-                            <th scope="col" class="sortable-header">Sailings</th>
-                            <th scope="col" class="sortable-header">Search Last Updated</th>
-                            <th scope="col" class="sortable-header">Search Results Last Updated</th>
-                            <th scope="col" class="sortable-header">Search Last Checked</th>
+                            <th scope="col" class="sort-hdr">Search Name</th>
+                            <th scope="col" class="sort-hdr">Cruise Line</th>
+                            <th scope="col" class="sort-hdr">Sailings</th>
+                            <th scope="col" class="sort-hdr">Search Last Updated</th>
+                            <th scope="col" class="sort-hdr">Search Results Last Updated</th>
+                            <th scope="col" class="sort-hdr">Search Last Checked</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,37 +46,37 @@
                 </table>
             </div>
 
-            <div id="div_id_dynamic_data_single_search">
+            <div id="single-search">
                 <h3>Summary:</h3>
                 <table>
                     <tbody>
                         <tr>
                             <th scope="row">Search Name:</th>
-                            <td id="td_id_summary_name"></td>
+                            <td id="sum-name"></td>
                         </tr>
                         <tr>
                             <th scope="row">Cruise Line:</th>
-                            <td id="td_id_summary_cruise_line"></td>
+                            <td id="sum-line"></td>
                         </tr>
                         <tr>
                             <th scope="row">Search URL:</th>
-                            <td id="td_id_summary_url"></td>
+                            <td id="sum-url"></td>
                         </tr>
                         <tr>
                             <th scope="row">Search Last Updated:</th>
-                            <td id="td_id_summary_search_last_updated"></td>
+                            <td id="sum-upd"></td>
                         </tr>
                         <tr>
                             <th scope="row">Search Contents Last Changed:</th>
-                            <td id="td_id_summary_search_contents_last_changed"></td>
+                            <td id="sum-chg"></td>
                         </tr>
                         <tr>
                             <th scope="row">Search Last Run:</th>
-                            <td id="td_id_summary_search_last_run"></td>
+                            <td id="sum-run"></td>
                         </tr>
                         <tr>
                             <th scope="row">Matching Itineraries:</th>
-                            <td id="td_id_summary_matching_itineraries"></td>
+                            <td id="sum-match"></td>
                         </tr>
                     </tbody>
                 </table>
