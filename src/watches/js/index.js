@@ -130,9 +130,9 @@ async function getUserWatches() {
             credentials: 'include',
             headers: { 'Accept': 'application/json' },
 
-            // Explicitly mark the JSON returned as toxic radioactive to the cache. 
+            // Explicitly mark the JSON returned as toxic radioactive to the cache.
             //      The backend attached all the HTTP headers possible to ensure the
-            //      response is marked by the server as DO NOT CACHE, but this is the 
+            //      response is marked by the server as DO NOT CACHE, but this is the
             //      other half, it tells the browser "hey in case you were tempted to
             //      ignore all those "HERE BE DRAGONS" warnings about caching this
             //      data that will be present in the response from the API endpoint,
@@ -160,7 +160,7 @@ async function getUserWatches() {
         if (breadcrumbLink) breadcrumbLink.classList.remove('active-breadcrumb');
 
         const formatTime = (ts) => {
-            if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC"; 
+            if (!ts || ts.length < 16) return "0000-00-00 12:00am UTC";
             const datePart = ts.substring(0, 10);
             const timePart = ts.substring(11, 16);
             if (!timePart.includes(':')) return `${datePart} ${timePart} UTC`;
@@ -194,7 +194,7 @@ async function getUserWatches() {
             const tdName = document.createElement('td'); tdName.textContent = watchData.watch_name; tr.appendChild(tdName);
             const tdLine = document.createElement('td'); tdLine.textContent = cruiseLine; tr.appendChild(tdLine);
             const tdSailings = document.createElement('td'); tdSailings.textContent = watchData.matching_sailings_found; tr.appendChild(tdSailings);
-            
+
             const tdUpdated = document.createElement('td'); tdUpdated.textContent = formatTime(watchData.watch_last_updated_timestamp); tr.appendChild(tdUpdated);
             const tdResults = document.createElement('td'); tdResults.textContent = formatTime(watchData.search_contents_changed_timestamp); tr.appendChild(tdResults);
             const tdChecked = document.createElement('td'); tdChecked.textContent = formatTime(watchData.search_last_checked_timestamp); tr.appendChild(tdChecked);
@@ -268,7 +268,7 @@ async function getUserWatchDetails(searchId) {
             hour = (parseInt(hour) % 12) || 12;
             return `${datePart} ${hour}:${min}${ampm} UTC`;
         };
-        
+
         const formatTimeOnly = (t) => {
             if (!t) return '';
             let [h, m] = t.split(':');
@@ -279,6 +279,23 @@ async function getUserWatchDetails(searchId) {
 
         const nameEl = document.getElementById('td_id_summary_name');
         if (nameEl) nameEl.textContent = summary.name || "Unknown";
+
+        const cruiseLineEl = document.getElementById('td_id_summary_cruise_line');
+        if (cruiseLineEl) {
+            let cruiseLine = "Unknown";
+            if (summary.url) {
+                try {
+                    const parsedUrl = new URL(summary.url);
+                    const netloc = parsedUrl.hostname;
+                    if (netloc.includes("celebritycruises.com")) cruiseLine = "Celebrity";
+                    else if (netloc.includes("ncl.com")) cruiseLine = "Norwegian";
+                    else cruiseLine = netloc;
+                } catch (e) {
+                    console.warn("Could not parse URL for cruise line extraction", e);
+                }
+            }
+            cruiseLineEl.textContent = cruiseLine;
+        }
 
         const urlTd = document.getElementById('td_id_summary_url');
         if (urlTd) {
@@ -347,12 +364,12 @@ async function getUserWatchDetails(searchId) {
                 const table = document.createElement('table');
                 table.className = 'itinerary-details-table';
                 table.innerHTML = `<thead><tr><th class="align-center">Day</th><th class="align-center">Day of Week</th><th class="align-center">Date</th><th class="align-center">Activity Type</th><th class="align-left">Location</th><th class="align-center tight-col">Start</th><th class="align-center tight-col">End</th></tr></thead>`;
-                
+
                 (sailing.day_details || []).forEach((day, dayIndex) => {
                     const tbody = document.createElement('tbody');
                     const dayNum = dayIndex + 1;
                     const numActivities = day.activities ? day.activities.length : 0;
-                    
+
                     let dayOfWeekStr = "N/A";
                     if (day.date) {
                         const parts = day.date.split('-');
@@ -366,20 +383,20 @@ async function getUserWatchDetails(searchId) {
                         day.activities.forEach((act, actIndex) => {
                             const tr = document.createElement('tr');
                             const displayType = activityMap[act.type] || act.type.replace(/_/g, ' ');
-                            
+
                             let rowHtml = '';
-                            
+
                             if (actIndex === 0) {
                                 rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell"><strong>${dayNum}</strong></td>`;
                                 rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${dayOfWeekStr}</td>`;
                                 rowHtml += `<td rowspan="${numActivities}" class="align-center align-top merged-cell">${day.date}</td>`;
                             }
-                            
+
                             rowHtml += `<td class="align-center">${displayType}</td>`;
                             rowHtml += `<td class="align-left">${act.location?.name || ''}${act.location?.region ? ', ' + act.location.region : ''}</td>`;
                             rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_start)}</td>`;
                             rowHtml += `<td class="align-center tight-col">${formatTimeOnly(act.time_end)}</td>`;
-                            
+
                             tr.innerHTML = rowHtml;
                             tbody.appendChild(tr);
                         });
@@ -401,7 +418,7 @@ async function getUserWatchDetails(searchId) {
 
 function main() {
     document.body.style.visibility = 'visible';
-    
+
     const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
     if (breadcrumbLink) {
         breadcrumbLink.addEventListener('click', (event) => {
@@ -423,7 +440,7 @@ function main() {
 
     const initialSegments = window.location.pathname.replace(/\/$/, '').split('/').filter(s => s.length > 0);
     if (initialSegments.length === 2 && initialSegments[0] === 'watches') {
-        getUserWatchDetails(initialSegments[1]); 
+        getUserWatchDetails(initialSegments[1]);
     } else {
         getUserWatches();
     }
