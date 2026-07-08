@@ -233,7 +233,8 @@ table tbody tr:hover {
 }
 
 #div_id_itineraries_container h4:first-child {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 #div_id_itineraries_container .itinerary-label {
