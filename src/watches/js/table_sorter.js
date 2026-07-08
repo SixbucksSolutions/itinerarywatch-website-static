@@ -59,5 +59,4 @@ function resetTableSorting() {
     headers.forEach(header => {
         header.classList.remove('asc', 'desc');
     });
-    console.log("Table sorting state reset to neutral.");
 }
