@@ -94,7 +94,7 @@ async function getUserInfo() {
         userInfo = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-        console.log(`User info retrieved from backend API in ${duration} ms`);
+        console.log(`User info retrieved from backend API (or browser cache) in ${duration} ms`);
 
         const emailSpans = document.querySelectorAll('.span_class_user_email');
         if (emailSpans.length > 0) {
@@ -145,7 +145,7 @@ async function getUserWatches() {
         userWatchesData = await response.json();
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-        console.log(`Full list of watched itineraries retrieved from backend API (or browser cache) in ${duration} ms`);
+        console.log(`Full list of watched itineraries retrieved from backend API in ${duration} ms`);
 
         const tbody = document.querySelector('#div_id_dynamic_data_all_searches table tbody');
         if (!tbody) { return; }
@@ -233,7 +233,7 @@ async function getUserWatchDetails(searchId) {
 
         const endTime = performance.now();
         const duration = Math.ceil(endTime - startTime);
-        console.log(`User search detailed retrieved from API in ${duration} ms`);
+        console.log(`User search details retrieved from API (or browser cache) in ${duration} ms`);
 
         const summary = userSingleWatchData.summary;
         const resultSets = userSingleWatchData.search_result_sets || {};
