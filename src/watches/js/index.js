@@ -1,4 +1,3 @@
-let pageStartTime = null;
 let userInfo = null;
 let userWatchesData = null;
 let userSingleWatchData = null;
@@ -38,12 +37,6 @@ function renderUserSpecificDataIfReady() {
 }
 
 function renderAllUserWatches() {
-    if (pageStartTime !== null) {
-        const hiddenDataRenderTime = performance.now();
-        const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-        console.log(`Making dynamic content visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
-    }
-
     const userWatchesDiv = document.getElementById('div_id_dynamic_data_all_searches');
     const dynamicDataDiv = document.getElementById('div_id_dynamic_data');
 
@@ -62,12 +55,6 @@ function renderAllUserWatches() {
 }
 
 function renderSingleUserWatchDetails() {
-    if (pageStartTime !== null) {
-        const hiddenDataRenderTime = performance.now();
-        const hiddenDataRenderDuration = Math.ceil(hiddenDataRenderTime - pageStartTime);
-        console.log(`Making dynamic content for single watch visible ${hiddenDataRenderDuration} ms after API queries sent in parallel`);
-    }
-
     const searchDivName = 'div_id_dynamic_data_single_search';
     const searchDiv = document.getElementById(searchDivName);
 
@@ -105,6 +92,10 @@ async function getUserInfo() {
         if (!response.ok) { throw new Error(`HTTP error! Status: ${response.status}`); }
 
         userInfo = await response.json();
+        const endTime = performance.now();
+        const duration = Math.ceil(end-Time - startTime);
+        console.log(`User info retrieved from backend API in ${duration} ms`);
+
         const emailSpans = document.querySelectorAll('.span_class_user_email');
         if (emailSpans.length > 0) {
             emailSpans.forEach(span => { span.textContent = userInfo.email_address; });
@@ -152,6 +143,10 @@ async function getUserWatches() {
         if (!response.ok) { throw new Error(`HTTP error! Status: ${response.status}`); }
 
         userWatchesData = await response.json();
+        const endTime = performance.now();
+        const duration = Math.ceil(end-Time - startTime);
+        console.log(`Full list of watched itineraries retrieved from backend API (or browser cache) in ${duration} ms`);
+
         const tbody = document.querySelector('#div_id_dynamic_data_all_searches table tbody');
         if (!tbody) { return; }
         tbody.textContent = '';
@@ -188,7 +183,6 @@ async function getUserWatches() {
                     document.getElementById('div_id_dynamic_data_single_search').style.display = "none";
                     userWatchesData = null;
                     userSingleWatchData = null;
-                    pageStartTime = null;
                     getUserWatchDetails(watchId);
                 }
             });
@@ -221,6 +215,7 @@ async function getUserWatches() {
 
 async function getUserWatchDetails(searchId) {
     const apiEndpoint = `https://api.itinerarywatch.com/api/v001/watch/${searchId}?search_result_timestamp=latest`;
+    const startTime = performance.now();
     try {
         const response = await fetch(apiEndpoint, {
             method: 'GET',
@@ -235,6 +230,11 @@ async function getUserWatchDetails(searchId) {
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
         userSingleWatchData = await response.json();
+
+        const endTime = performance.now();
+        const duration = Math.ceil(end-Time - startTime);
+        console.log(`User search detailed retrieved from API in ${duration} ms`);
+
         const summary = userSingleWatchData.summary;
         const resultSets = userSingleWatchData.search_result_sets || {};
 
@@ -401,7 +401,6 @@ async function getUserWatchDetails(searchId) {
 
 function main() {
     document.body.style.visibility = 'visible';
-    pageStartTime = performance.now();
     
     const breadcrumbLink = document.getElementById('a_breadcrumb_watches');
     if (breadcrumbLink) {
