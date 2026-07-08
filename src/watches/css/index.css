@@ -1,3 +1,6 @@
+/* ==========================================================================
+   GLOBAL & TYPOGRAPHY
+   ========================================================================== */
 body {
     visibility: hidden;
     font-family: 'Inter', sans-serif;
@@ -10,16 +13,44 @@ body {
     align-content: start;
 }
 
-h1 {
+/* Unified Bold Text */
+h1, h2, h3, h4,
+#div_id_error_banner,
+table thead th,
+#div_id_dynamic_data_single_search > table tbody th,
+.breadcrumb-nav .nav-link,
+.itinerary-label {
     font-weight: 700;
-    font-size: 2rem;
-    line-height: 1;
-    margin-top: 0;
-    margin-bottom: 1.25rem;
 }
 
+/* Unified Typography Scaling */
+h1 { font-size: 2rem; line-height: 1; }
+h2 { font-size: 1.15rem; }
+h3, h4, p, .itinerary-label, .breadcrumb-nav { font-size: 1.05rem; }
+table td { font-size: 0.95rem; }
+.breadcrumb-current { font-family: monospace; font-size: 0.95em; color: #475569; }
+
+/* ==========================================================================
+   GLOBAL LAYOUT & MARGINS
+   ========================================================================== */
+/* The Standard 2.5rem Indent */
+#div_id_dynamic_data,
+#div_id_dynamic_data_all_searches,
+#div_id_dynamic_data_single_search,
+h3, table, .breadcrumb-nav, .itinerary-label {
+    margin-left: 2.5rem;
+}
+
+/* Zeroed Top Margins */
+h1, p, #div_id_itineraries_container h4 { margin-top: 0; }
+
+/* Specific Vertical Spacing */
+h1 { margin-bottom: 1.25rem; }
+h2 { margin-top: 1.5rem; margin-bottom: 0.5rem; }
+h3 { margin-top: 1.25rem; margin-bottom: 0.75rem; }
+p { margin-bottom: 0.75rem; }
+
 #div_id_error_banner {
-    font-weight: 700;
     font-size: 1.5rem;
     line-height: 1.4;
     letter-spacing: -0.02em;
@@ -36,76 +67,86 @@ h1 {
 #div_id_dynamic_data_all_searches,
 #div_id_dynamic_data_single_search {
     display: none;
-    margin-left: 2.5rem;
 }
 
-p {
-    font-weight: 400;
-    font-size: 1.05rem;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-}
-
-h2 {
-    font-weight: 700;
-    font-size: 1.15rem;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-h3 {
-    font-weight: 700;
-    font-size: 1.05rem;
-    margin-top: 1.25rem;
-    margin-bottom: 0.75rem;
-    margin-left: 2.5rem;
-}
-
+/* ==========================================================================
+   SHARED TABLE COMPONENT ARCHITECTURE
+   ========================================================================== */
 table {
     width: max-content;
     max-width: calc(100% - 2.5rem);
     border-collapse: collapse;
     background-color: transparent;
     margin-top: 1rem;
-    margin-left: 2.5rem;
 }
 
 table td {
     padding: 8px 10px;
-    font-weight: 400;
-    font-size: 0.95rem;
     border-bottom: 1px solid #e2e8f0;
 }
 
-table thead th {
-    background-color: #334155;
-    color: #ffffff;
-    font-weight: 700;
-    padding: 8px 10px;
+/* Shared Dark Headers */
+table thead th,
+#div_id_dynamic_data_single_search > table tbody th,
+#div_id_itineraries_container table.sailing-summary-table thead th {
+    background-color: #334155 !important;
+    color: #ffffff !important;
     font-size: 0.8rem;
     text-transform: uppercase;
-    white-space: nowrap;
+    padding: 8px 10px;
+}
+table thead th { white-space: nowrap; }
+
+/* Grouped Alignments */
+.align-center,
+#div_id_dynamic_data_all_searches table thead th:nth-child(n+2),
+#div_id_dynamic_data_all_searches table tbody td:nth-child(n+2),
+#div_id_itineraries_container table.sailing-summary-table thead th,
+#div_id_itineraries_container table.sailing-summary-table tbody td {
+    text-align: center;
+}
+.align-left { text-align: left; }
+.align-top { vertical-align: top; }
+
+/* Unified Blue Hover States */
+table tbody tr:hover,
+#div_id_itineraries_container table.itinerary-details-table tbody tr:hover td,
+#div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
+    background-color: #f1f5f9 !important;
+}
+table tbody tr:hover,
+#div_id_itineraries_container table.itinerary-details-table tbody:hover {
+    border-left-color: #3b82f6;
+}
+
+/* Disable Pointer & Backgrounds on Static Data Rows */
+#div_id_dynamic_data_single_search > table tbody tr,
+#div_id_itineraries_container table.itinerary-details-table tbody tr,
+#div_id_itineraries_container table.sailing-summary-table tbody tr {
+    cursor: auto;
+    border-left: none;
+}
+#div_id_dynamic_data_single_search > table tbody tr:hover,
+#div_id_itineraries_container table.itinerary-details-table tbody tr:hover,
+#div_id_itineraries_container table.sailing-summary-table tbody tr:hover {
+    background-color: transparent !important;
+    border-left-color: transparent;
 }
 
 /* ==========================================================================
    BREADCRUMB NAVIGATION
    ========================================================================== */
 .breadcrumb-nav {
-    margin-left: 2.5rem;
     margin-top: 1rem;
     margin-bottom: 1.75rem;
-    font-size: 1.05rem;
-    font-weight: 400;
     color: #64748b;
 }
 
 .breadcrumb-nav .nav-link {
     color: #000000;
-    font-weight: 700;
     padding: 4px 8px;
     margin-left: -8px;
     border-radius: 4px;
-    transition: background-color 0.15s ease;
     cursor: default;
     pointer-events: none;
 }
@@ -115,133 +156,78 @@ table thead th {
     pointer-events: auto;
 }
 
-.breadcrumb-nav .nav-link.active-breadcrumb:hover {
-    background-color: #e2e8f0;
-}
-
-.breadcrumb-separator {
-    margin: 0 0.5rem;
-    color: #94a3b8;
-}
-
-.breadcrumb-current {
-    font-family: monospace;
-    font-size: 0.95em;
-    color: #475569;
-}
+.breadcrumb-nav .nav-link.active-breadcrumb:hover { background-color: #e2e8f0; }
+.breadcrumb-separator { margin: 0 0.5rem; color: #94a3b8; }
 
 /* ==========================================================================
    DASHBOARD TABLE SPECIFICS
    ========================================================================== */
-#div_id_dynamic_data_all_searches table thead th:nth-child(n+2),
-#div_id_dynamic_data_all_searches table tbody td:nth-child(n+2) {
-    text-align: center;
-}
-
 #div_id_dynamic_data_all_searches table thead th,
 #div_id_dynamic_data_all_searches table tbody td {
     padding-left: 40px;
     padding-right: 64px;
 }
 
-table tbody tr {
-    cursor: pointer;
+table tbody tr,
+#div_id_itineraries_container table.itinerary-details-table tbody {
     border-left: 4px solid transparent;
 }
+table tbody tr { cursor: pointer; }
 
-table tbody tr:hover {
-    background-color: #f1f5f9 !important;
-    border-left-color: #3b82f6;
-}
-
+/* Sortable Headers Pseudo-Elements Merged */
 .sortable-header {
     cursor: pointer;
     user-select: none;
     position: relative;
+}
+.sortable-header:hover { background-color: #475569; }
+
+.sortable-header.asc::after,
+.sortable-header.desc::after {
+    font-size: 0.7rem;
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.sortable-header.asc::after { content: " ▲"; }
+.sortable-header.desc::after { content: " ▼"; }
+
+/* Grouped Transition Logics */
+.breadcrumb-nav .nav-link,
+.sortable-header,
+#div_id_itineraries_container table.itinerary-details-table tbody tr td {
     transition: background-color 0.15s ease;
 }
-
-.sortable-header:hover {
-    background-color: #475569;
-}
-
-.sortable-header.asc::after {
-    content: " ▲";
-    font-size: 0.7rem;
-    position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.sortable-header.desc::after {
-    content: " ▼";
-    font-size: 0.7rem;
-    position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
+#div_id_itineraries_container table.itinerary-details-table tbody {
+    transition: border-left-color 0.15s ease;
 }
 
 /* ==========================================================================
-   SUMMARY TABLE OVERRIDES
+   SUMMARY & ITINERARY DETAILS CONTAINER OVERRIDES
    ========================================================================== */
-#div_id_dynamic_data_single_search h3:last-of-type {
-    margin-top: 2.5rem;
-}
+#div_id_dynamic_data_single_search h3:last-of-type { margin-top: 2.5rem; }
+#div_id_itineraries_container h4 { margin-bottom: 3rem; }
 
-#div_id_dynamic_data_single_search > table {
+#div_id_dynamic_data_single_search > table,
+#div_id_itineraries_container {
     margin-left: 5rem;
 }
 
 #div_id_dynamic_data_single_search > table tbody th {
-    background-color: #334155;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.8rem;
-    text-transform: uppercase;
     padding: 8px 12px;
     text-align: right;
     border-bottom: none;
 }
 
 #div_id_dynamic_data_single_search > table tbody td {
-    text-align: left;
-    font-size: 0.95rem;
     padding: 8px 12px;
     border-bottom: none;
 }
 
-#div_id_dynamic_data_single_search > table tbody tr {
-    cursor: auto;
-    border-left: none;
-}
-
-#div_id_dynamic_data_single_search > table tbody tr:hover {
-    background-color: transparent !important;
-    border-left-color: transparent;
-}
-
-/* ==========================================================================
-   ITINERARY DETAILS CONTAINER OVERRIDES
-   ========================================================================== */
-#div_id_itineraries_container {
-    margin-left: 5rem;
-}
-
-#div_id_itineraries_container h4 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 3rem;
-}
-
 #div_id_itineraries_container .itinerary-label {
-    font-size: 1.05rem;
-    font-weight: 700;
     margin-top: 1.5rem;
     margin-bottom: 0.25rem;
-    margin-left: 2.5rem;
 }
 
 #div_id_itineraries_container table.sailing-summary-table {
@@ -253,18 +239,12 @@ table tbody tr:hover {
     margin-left: 2.5rem !important;
 }
 
-#div_id_itineraries_container table.sailing-summary-table thead th {
-    background-color: #334155 !important;
-    color: #ffffff !important;
-    padding: 8px 24px;
-    text-align: center;
-}
-
+#div_id_itineraries_container table.sailing-summary-table thead th,
 #div_id_itineraries_container table.sailing-summary-table tbody td {
-    text-align: center;
-    background-color: transparent !important;
-    color: #000000;
     padding: 8px 24px;
+}
+#div_id_itineraries_container table.sailing-summary-table tbody td {
+    color: #000000;
     border-bottom: none;
 }
 
@@ -273,57 +253,13 @@ table tbody tr:hover {
     padding: 8px 16px;
 }
 
-#div_id_itineraries_container table.itinerary-details-table .align-center {
-    text-align: center;
+#div_id_itineraries_container table.itinerary-details-table tbody tr td {
+    background-color: transparent;
 }
-#div_id_itineraries_container table.itinerary-details-table .align-left {
-    text-align: left;
-}
-#div_id_itineraries_container table.itinerary-details-table .align-top {
-    vertical-align: top;
-}
-#div_id_itineraries_container table.itinerary-details-table .tight-col {
+
+.tight-col {
     width: max-content;
     white-space: nowrap;
     padding-left: 8px;
     padding-right: 8px;
-}
-
-#div_id_itineraries_container table.itinerary-details-table tbody tr td {
-    background-color: transparent;
-    transition: background-color 0.15s ease;
-}
-
-#div_id_itineraries_container table.itinerary-details-table tbody tr {
-    border-left: none;
-}
-#div_id_itineraries_container table.itinerary-details-table tbody tr:hover {
-    border-left-color: transparent;
-}
-
-#div_id_itineraries_container table.itinerary-details-table tbody tr:hover td {
-    background-color: #f1f5f9 !important;
-}
-
-#div_id_itineraries_container table.itinerary-details-table tbody {
-    border-left: 4px solid transparent;
-    transition: border-left-color 0.15s ease;
-}
-#div_id_itineraries_container table.itinerary-details-table tbody:hover {
-    border-left-color: #3b82f6;
-}
-
-#div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
-    background-color: #f1f5f9 !important;
-}
-
-/* NEW OVERRIDES FOR SAILING SUMMARY TABLE */
-#div_id_itineraries_container table.sailing-summary-table tbody tr {
-    cursor: auto;
-    border-left: none;
-}
-
-#div_id_itineraries_container table.sailing-summary-table tbody tr:hover {
-    background-color: transparent !important;
-    border-left-color: transparent;
 }
