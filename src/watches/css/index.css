@@ -186,6 +186,10 @@ table tbody tr:hover {
 /* ==========================================================================
    SUMMARY TABLE OVERRIDES
    ========================================================================== */
+#div_id_dynamic_data_single_search h3:last-of-type {
+    margin-top: 4rem;
+}
+
 #div_id_dynamic_data_single_search > table {
     margin-left: 5rem;
 }
