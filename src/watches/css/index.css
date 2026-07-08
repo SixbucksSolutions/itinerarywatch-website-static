@@ -91,32 +91,32 @@ table thead th {
    BREADCRUMB NAVIGATION
    ========================================================================== */
 .breadcrumb-nav {
-    margin-left: 2.5rem; 
-    margin-top: 1.5rem;    
-    margin-bottom: 1rem; 
+    margin-left: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
     font-size: 1.05rem;
     font-weight: 400;
-    color: #64748b; 
+    color: #64748b;
 }
 
 .breadcrumb-nav .nav-link {
-    color: #000000; 
+    color: #000000;
     font-weight: 700;
-    padding: 4px 8px; 
-    margin-left: -8px; 
-    border-radius: 4px; 
+    padding: 4px 8px;
+    margin-left: -8px;
+    border-radius: 4px;
     transition: background-color 0.15s ease;
     cursor: default;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 .breadcrumb-nav .nav-link.active-breadcrumb {
     cursor: pointer;
-    pointer-events: auto; 
+    pointer-events: auto;
 }
 
 .breadcrumb-nav .nav-link.active-breadcrumb:hover {
-    background-color: #e2e8f0; 
+    background-color: #e2e8f0;
 }
 
 .breadcrumb-separator {
@@ -125,7 +125,7 @@ table thead th {
 }
 
 .breadcrumb-current {
-    font-family: monospace; 
+    font-family: monospace;
     font-size: 0.95em;
     color: #475569;
 }
@@ -141,7 +141,7 @@ table thead th {
 #div_id_dynamic_data_all_searches table thead th,
 #div_id_dynamic_data_all_searches table tbody td {
     padding-left: 40px;
-    padding-right: 64px; 
+    padding-right: 64px;
 }
 
 table tbody tr {
@@ -169,7 +169,7 @@ table tbody tr:hover {
     content: " ▲";
     font-size: 0.7rem;
     position: absolute;
-    right: 40px; 
+    right: 40px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -178,7 +178,7 @@ table tbody tr:hover {
     content: " ▼";
     font-size: 0.7rem;
     position: absolute;
-    right: 40px; 
+    right: 40px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -210,7 +210,7 @@ table tbody tr:hover {
 
 #div_id_dynamic_data_single_search > table tbody tr {
     cursor: auto;
-    border-left: none; 
+    border-left: none;
 }
 
 #div_id_dynamic_data_single_search > table tbody tr:hover {
@@ -235,9 +235,9 @@ table tbody tr:hover {
 #div_id_itineraries_container .itinerary-label {
     font-size: 1.05rem;
     font-weight: 700;
-    margin-top: 1.5rem; 
+    margin-top: 1.5rem;
     margin-bottom: 0.25rem;
-    margin-left: 2.5rem; 
+    margin-left: 2.5rem;
 }
 
 #div_id_itineraries_container table.sailing-summary-table {
@@ -246,13 +246,13 @@ table tbody tr:hover {
 }
 
 #div_id_itineraries_container table.itinerary-details-table {
-    margin-left: 2.5rem !important; 
+    margin-left: 2.5rem !important;
 }
 
 #div_id_itineraries_container table.sailing-summary-table thead th {
     background-color: #334155 !important;
     color: #ffffff !important;
-    padding: 8px 24px; 
+    padding: 8px 24px;
     text-align: center;
 }
 
@@ -260,7 +260,7 @@ table tbody tr:hover {
     text-align: center;
     background-color: transparent !important;
     color: #000000;
-    padding: 8px 24px; 
+    padding: 8px 24px;
     border-bottom: none;
 }
 
@@ -286,15 +286,15 @@ table tbody tr:hover {
 }
 
 #div_id_itineraries_container table.itinerary-details-table tbody tr td {
-    background-color: transparent; 
+    background-color: transparent;
     transition: background-color 0.15s ease;
 }
 
 #div_id_itineraries_container table.itinerary-details-table tbody tr {
-    border-left: none; 
+    border-left: none;
 }
 #div_id_itineraries_container table.itinerary-details-table tbody tr:hover {
-    border-left-color: transparent; 
+    border-left-color: transparent;
 }
 
 #div_id_itineraries_container table.itinerary-details-table tbody tr:hover td {
@@ -311,4 +311,15 @@ table tbody tr:hover {
 
 #div_id_itineraries_container table.itinerary-details-table tbody:hover tr:first-child td.merged-cell {
     background-color: #f1f5f9 !important;
+}
+
+/* NEW OVERRIDES FOR SAILING SUMMARY TABLE */
+#div_id_itineraries_container table.sailing-summary-table tbody tr {
+    cursor: auto;
+    border-left: none;
+}
+
+#div_id_itineraries_container table.sailing-summary-table tbody tr:hover {
+    background-color: transparent !important;
+    border-left-color: transparent;
 }
