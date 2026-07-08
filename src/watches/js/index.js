@@ -341,11 +341,22 @@ async function getUserWatchDetails(searchId) {
                 if (idParts.length >= 5) {
                     const lineName = idParts[1] === 'CEL' ? 'Celebrity' : idParts[1];
                     const ships = {
-                        'AP': 'Apex', 'AT': 'Ascent', 'BY': 'Beyond', 'CS': 'Constellation',
-                        'EC': 'Eclipse', 'EG': 'Edge', 'EQ': 'Equinox', 'FL': 'Flora',
-                        'IN': 'Infinity', 'ML': 'Millennium', 'RF': 'Reflection',
-                        'SL': 'Solstice', 'SI': 'Silhouette', 'SM': 'Summit',
-                        'XC': 'Excel', 'XP': 'Xpedition', 'XR': 'Xploration'
+                        'AT': 'Ascent', 
+                        'AX': 'Apex',
+                        'BY': 'Beyond', 
+                        'CS': 'Constellation',
+                        'EC': 'Eclipse', 
+                        'EG': 'Edge', 
+                        'EQ': 'Equinox', 
+                        'FL': 'Flora',
+                        'IN': 'Infinity', 
+                        'ML': 'Millennium', 
+                        'RF': 'Reflection',
+                        'SL': 'Solstice', 
+                        'SI': 'Silhouette', 
+                        'SM': 'Summit',
+                        'XC': 'Xcel', 
+                        'XI': 'Xcite'
                     };
                     shipDisplay = `${lineName} ${ships[idParts[2]] || idParts[2]}`;
                     datesDisplay = `${idParts[3]} to ${idParts[4]}`;
