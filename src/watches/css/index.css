@@ -228,11 +228,6 @@ table tbody tr:hover {
 #div_id_itineraries_container h4 {
     font-size: 1.05rem;
     font-weight: 700;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-#div_id_itineraries_container h4:first-child {
     margin-top: 0;
     margin-bottom: 3rem;
 }
