@@ -106,7 +106,7 @@ async function getUserInfo() {
 
         renderUserSpecificDataIfReady();
     } catch (error) {
-        displayFatalError(`Failed to retrieve profile: ${error.message}`);
+        displayFatalError(`Failed to retrieve userinfo: ${error.message}`);
     }
 }
 
