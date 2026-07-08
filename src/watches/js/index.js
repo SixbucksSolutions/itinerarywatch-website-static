@@ -332,7 +332,7 @@ async function getUserWatchDetails(searchId) {
 
             sailings.forEach(sailing => {
                 const sDiv = document.createElement('div');
-                sDiv.style.marginBottom = "4rem";
+                sDiv.style.marginBottom = "3rem";
                 sDiv.style.paddingLeft = "1rem";
                 sDiv.style.borderLeft = "4px solid #cbd5e1";
 
