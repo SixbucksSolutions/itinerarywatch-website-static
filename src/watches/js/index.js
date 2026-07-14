@@ -340,27 +340,40 @@ async function getUserWatchDetails(searchId) {
 
                 const idParts = sailing.id.split('.');
                 let shipDisplay = "Unknown Ship", datesDisplay = "Unknown Dates";
+                
                 if (idParts.length >= 5) {
-                    const lineName = idParts[1] === 'CEL' ? 'Celebrity' : idParts[1];
-                    const ships = {
-                        'AT': 'Ascent', 
-                        'AX': 'Apex',
-                        'BY': 'Beyond', 
-                        'CS': 'Constellation',
-                        'EC': 'Eclipse', 
-                        'EG': 'Edge', 
-                        'EQ': 'Equinox', 
-                        'FL': 'Flora',
-                        'IN': 'Infinity', 
-                        'ML': 'Millennium', 
-                        'RF': 'Reflection',
-                        'SL': 'Solstice', 
-                        'SI': 'Silhouette', 
-                        'SM': 'Summit',
-                        'XC': 'Xcel', 
-                        'XI': 'Xcite'
+                    const lineCode = idParts[1];
+                    const shipCode = idParts[2];
+                    
+                    const cruiseLines = {
+                        'CEL': {
+                            name: 'Celebrity',
+                            ships: {
+                                'AT': 'Ascent', 'AX': 'Apex', 'BY': 'Beyond', 'CS': 'Constellation',
+                                'EC': 'Eclipse', 'EG': 'Edge', 'EQ': 'Equinox', 'FL': 'Flora',
+                                'IN': 'Infinity', 'ML': 'Millennium', 'RF': 'Reflection', 
+                                'SL': 'Solstice', 'SI': 'Silhouette', 'SM': 'Summit', 
+                                'XC': 'Xcel', 'XI': 'Xcite'
+                            }
+                        },
+                        'NCL': {
+                            name: 'Norwegian',
+                            ships: {
+                                'AQ': 'Aqua', 'BL': 'Bliss', 'BR': 'Breakaway', 'DA': 'Dawn',
+                                'EN': 'Encore', 'EP': 'Epic', 'ES': 'Escape', 'GM': 'Gem',
+                                'GT': 'Getaway', 'JD': 'Jade', 'JW': 'Jewel', 'JY': 'Joy',
+                                'LU': 'Luna', 'PE': 'Pearl', 'PA': 'Pride of America', 'PR': 'Prima',
+                                'SK': 'Sky', 'SP': 'Spirit', 'ST': 'Star', 'SU': 'Sun', 'VI': 'Viva',
+                                'AU': 'Aura', 'P4': 'TBA Prima Plus'
+                            }
+                        }
                     };
-                    shipDisplay = `${lineName} ${ships[idParts[2]] || idParts[2]}`;
+
+                    const lineData = cruiseLines[lineCode];
+                    const lineName = lineData ? lineData.name : lineCode;
+                    const shipName = (lineData && lineData.ships[shipCode]) ? lineData.ships[shipCode] : shipCode;
+
+                    shipDisplay = `${lineName} ${shipName}`;
                     datesDisplay = `${idParts[3]} to ${idParts[4]}`;
                 }
 
