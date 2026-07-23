@@ -246,7 +246,7 @@ async function getUserWatchDetails(searchId) {
         const separatorSpan = document.getElementById('bc-sep');
         if (separatorSpan) separatorSpan.style.display = 'inline';
         const breadcrumbSpan = document.getElementById('bc-uuid');
-        if (breadcrumbSpan) breadcrumbSpan.textContent = searchId;
+        if (breadcrumbSpan) breadcrumbSpan.textContent = summary.name || searchId;;
         const breadcrumbLink = document.getElementById('bc-watches');
         if (breadcrumbLink) breadcrumbLink.classList.add('bc-active');
 
